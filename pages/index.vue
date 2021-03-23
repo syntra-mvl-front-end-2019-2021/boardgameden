@@ -1,5 +1,7 @@
 <template>
-  <div class="container"></div>
+  <div class="container">
+    <h1>Home Page</h1>
+  </div>
 </template>
 
 <script>
@@ -8,4 +10,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.container {
+  h1 {
+    color: $blue;
+  }
+}
+</style>
