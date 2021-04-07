@@ -1,14 +1,15 @@
 <template>
   <div>
-    <img src="" alt="" />
+    <!-- https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540147295104 -->
+    <img :src="url" alt="" />
     <p>{{ category }}</p>
     <p>Rating</p>
     <p>Username</p>
     <p>Location</p>
-    <button>PLAY</button>
-    <div>
-      <button>SWAP!</button>
-      <button>BUY!</button>
+    <button class="play-btn">PLAY</button>
+    <div class="collection-btns">
+      <button class="swap-btn">SWAP!</button>
+      <button class="buy-btn">BUY!</button>
     </div>
   </div>
 </template>
@@ -18,6 +19,10 @@ export default {
   name: 'GameComp',
   props: {
     category: {
+      type: Array,
+      required: true,
+    },
+    url: {
       type: String,
       required: true,
     },
@@ -32,4 +37,22 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.play-btn {
+  width: 100%;
+  margin-bottom: 1rem;
+  height: 3rem;
+}
+
+.swap-btn,
+.buy-btn {
+  width: calc((100% - 1rem) / 2);
+  height: 3rem;
+}
+
+.collection-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+</style>
