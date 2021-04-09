@@ -42,9 +42,9 @@ export default {
       })
       .catch(() => {})
   },
-  methods: {
-    getCategory() {},
-  },
+  // methods: {
+  //   getCategory() {},
+  // },
 }
 </script>
 
