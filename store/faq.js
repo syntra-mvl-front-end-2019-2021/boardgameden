@@ -1,3 +1,1 @@
-export const actions = {
-  createQuestion(context, body) {},
-}
+export const actions = {}

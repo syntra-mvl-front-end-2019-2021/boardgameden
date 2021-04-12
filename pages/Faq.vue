@@ -1,6 +1,9 @@
 <template>
   <div>
     <NuxtLink to="/Questionpage">Ask a question</NuxtLink>
+    <div>
+    <h1>New question</h1>
+  </div>
     <h1>popular</h1>
     <div class="fq-question__wrapper">
       <question
@@ -8,7 +11,7 @@
         :key="text.id"
         :question="text.question"
         :answer="text.answer"
-      />    
+      />
     </div>
   </div>
 </template>
