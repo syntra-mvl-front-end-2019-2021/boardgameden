@@ -1,8 +1,13 @@
 <template>
   <header>
-    <Nav />
-    <button v-if="isLoggedIn" @click="logout">Logout</button>
-    <button v-else @click="redirect">Login</button>
+    <div class="inner_header">
+      <Nav />
+      <div class="login">
+        <a v-if="isLoggedIn" @click="logout">Logout</a>
+        <a v-else @click="redirect">Login</a>
+        <a>Register</a>
+      </div>
+    </div>
   </header>
 </template>
 
@@ -32,11 +37,21 @@ export default {
 
 <style lang="scss" scoped>
 @import '~/assets/styles/imports/mixins';
-
 header {
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  z-index: 10000;
+}
+.inner_header {
   @include flexCenter;
   justify-content: space-between;
-  position: absolute;
-  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  .login {
+    a {
+      color: #3a3939;
+    }
+  }
 }
 </style>

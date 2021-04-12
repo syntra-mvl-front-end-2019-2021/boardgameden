@@ -21,8 +21,8 @@ export default {
 nav {
   @include flexCenter;
   justify-content: space-evenly;
-  width: 500px;
-  height: 50px;
+  width: 450px;
+  height: 100px;
 
   a {
     color: #ea5d2f;
