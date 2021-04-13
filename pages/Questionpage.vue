@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>My question</h1>
-    <form @submit.prevent="login">
+    <form @submit.prevent="createQuestion">
       <div>
         <label>
           First Name*
@@ -21,11 +21,15 @@
         </label>
       </div>
       <div>
-        Your question*
-        <textarea v-model="textarea" placeholder=""></textarea>
+        reponse*
+        <textarea v-model="answer" placeholder=""></textarea>
       </div>
       <div>
-        <button typenn="submit">Submit</button>
+        Your question*
+        <textarea v-model="question" placeholder=""></textarea>
+      </div>
+      <div>
+        <button type="submit">Submit</button>
       </div>
     </form>
   </div>
@@ -38,8 +42,25 @@ export default {
       firstname: '',
       lastename: '',
       email: '',
-      textarea: '',
+      question: '',
+      answer: '',
     }
+  },
+  computed: {
+    questionBody() {
+      return JSON.stringify({
+        firstname: this.firstname,
+        lastename: this.lastename,
+        email: this.email,
+        question: this.question,
+        answer: this.answer,
+      })
+    },
+  },
+  methods: {
+    createQuestion() {
+      this.$store.dispatch('faq/createQuestion', this.questionBody)
+    },
   },
 }
 </script>

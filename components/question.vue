@@ -1,9 +1,10 @@
 <template>
   <div class="question-content__item">
-    <h2>{{ question }}</h2>
-    <p>
-      {{ answer }}
-    </p>
+    <h1>{{ id }}</h1>
+    <p>{{ firstname }}</p>
+    <p>{{ lastname }}</p>
+    <p>{{ question }}</p>
+    <p>{{ answer }}</p>
   </div>
 </template>
 <script>
@@ -19,6 +20,14 @@ export default {
       required: true,
     },
     answer: {
+      type: String,
+      required: true,
+    },
+    lastname: {
+      type: String,
+      required: true,
+    },
+    firstname: {
       type: String,
       required: true,
     },
