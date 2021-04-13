@@ -41,17 +41,17 @@ export default {
       textarea: '',
     }
   },
-computed: {
-   questionBody() {
+  computed: {
+    questionBody() {
       return JSON.stringify({
         firstname: this.firstname,
-         lastename: this.lastename,
+        lastename: this.lastename,
         email: this.email,
-       textarea: this.textarea,
+        textarea: this.textarea,
       })
     },
   },
-    methods: {
+  methods: {
     createQuestion() {
       this.$store.dispatch('faq/createQuestion', this.questionBody)
     },

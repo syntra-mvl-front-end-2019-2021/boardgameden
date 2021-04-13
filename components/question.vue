@@ -1,5 +1,6 @@
 <template>
   <div class="question-content__item">
+    <h1>{{ id }}</h1>
     <h2>{{ question }}</h2>
     <p>
       {{ answer }}
