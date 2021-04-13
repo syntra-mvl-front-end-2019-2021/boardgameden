@@ -21,8 +21,12 @@
         </label>
       </div>
       <div>
+        reponse*
+        <textarea v-model="answer" placeholder=""></textarea>
+      </div>
+      <div>
         Your question*
-        <textarea v-model="textarea" placeholder=""></textarea>
+        <textarea v-model="question" placeholder=""></textarea>
       </div>
       <div>
         <button type="submit">Submit</button>
@@ -38,7 +42,8 @@ export default {
       firstname: '',
       lastename: '',
       email: '',
-      textarea: '',
+      question: '',
+      answer: '',
     }
   },
   computed: {
@@ -47,7 +52,8 @@ export default {
         firstname: this.firstname,
         lastename: this.lastename,
         email: this.email,
-        textarea: this.textarea,
+        question: this.question,
+        answer: this.answer,
       })
     },
   },
