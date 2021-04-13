@@ -1,8 +1,10 @@
 <template>
-  <Hero />
-  <div class="container">
-    <NuxtLink to="/Faq">Faq page</NuxtLink>
-    <h1>Home</h1>
+  <div>
+    <Hero />
+    <div class="container">
+      <NuxtLink to="/Faq">Faq page</NuxtLink>
+      <h1>Home</h1>
+    </div>
   </div>
 </template>
 
