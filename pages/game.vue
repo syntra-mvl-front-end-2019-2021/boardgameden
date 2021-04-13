@@ -1,7 +1,15 @@
 <template>
   <div class="game-page">
     <h1>Game Page</h1>
-    <div v-for="game in games" :key="game.id" class="game">
+    <!-- <div v-for="game in games" :key="game.id" class="game">
+      <h2>{{ game.name }}</h2>
+      <p>{{ game.description_preview }}</p>
+      <p>Players {{ game.min_players }} - {{ game.max_players }}</p>
+      <p>Playtime {{ game.min_playtime }} - {{ game.max_playtime }} min</p>
+      <p>{{ game.id }}</p>
+      <GameComp :url="game.image_url" :category="game.categories" />
+    </div> -->
+    <div d:key="game.id" class="game">
       <h2>{{ game.name }}</h2>
       <p>{{ game.description_preview }}</p>
       <p>Players {{ game.min_players }} - {{ game.max_players }}</p>
@@ -20,7 +28,9 @@ export default {
   data() {
     return {
       baseURL: 'https://api.boardgameatlas.com/api/',
-      games: [],
+      // games: [],
+      game: {},
+      // categories: this.game.categories,
     }
   },
   created() {
@@ -38,13 +48,18 @@ export default {
       })
       .then((result) => {
         console.log(result)
-        this.games = result.games
+        // this.games = result.games
+        this.game = result.games[0]
+        console.log(result.games)
+        console.log(this.game.categories)
       })
       .catch(() => {})
   },
-  // methods: {
-  //   getCategory() {},
-  // },
+  methods: {
+    // getCategory() {
+    //   if(this.categories.id === )
+    // },
+  },
 }
 </script>
 
