@@ -4,6 +4,8 @@
     <ul v-if="userData">
       <li>email: {{ userData.email }}</li>
     </ul>
+
+    <Collection />
   </div>
 </template>
 
