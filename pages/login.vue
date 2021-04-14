@@ -136,7 +136,7 @@ export default {
     position: absolute;
 
     top: -20rem;
-    right: -5rem;
+    right: 15rem;
     width: 500px;
     height: 500px;
     transform: rotate(-135deg);
