@@ -20,6 +20,7 @@ export default {
 
 <style lang="scss">
 .container {
+  height: 2000px; //testHeight
   h1 {
     color: $blue;
   }

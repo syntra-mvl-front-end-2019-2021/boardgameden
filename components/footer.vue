@@ -9,9 +9,9 @@
       <a href="">Houserules</a>
     </div>
     <div class="icons">
-      <div class="icon">F</div>
-      <div class="icon">I</div>
-      <div class="icon">T</div>
+      <div class="icon"></div>
+      <div class="icon"></div>
+      <div class="icon"></div>
     </div>
     <div class="logo">
       <img src="~/assets/images/name.png" alt="" />
@@ -32,7 +32,7 @@ footer {
   @include flexCenter;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 400px;
+  height: 300px;
   width: 100%;
   background: linear-gradient(#ffffff, rgba(129, 203, 235, 0.767) 100%);
   position: relative;
