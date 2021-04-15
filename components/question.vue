@@ -1,10 +1,9 @@
 <template>
   <div class="question-content__item">
-    <h1>{{ id }}</h1>
     <p>{{ firstname }}</p>
     <p>{{ lastname }}</p>
-    <p>{{ question }}</p>
-    <p>{{ answer }}</p>
+    <p>question: {{ question }}</p>
+    <p>answer: {{ answer }}</p>
   </div>
 </template>
 <script>

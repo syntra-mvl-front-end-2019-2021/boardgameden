@@ -23,7 +23,8 @@ export const actions = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODUxNDE0MywiZXhwIjoxNjE4NTE1MDQzfQ.xBKOR7ILQMjfKPhci_C7erRhU9ePl4op5wvkfgyT1F4',
       },
     })
       .then((response) => {
@@ -45,7 +46,7 @@ export const actions = {
       headers: {
         'Content-Type': 'application/json',
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODMzNzQzMywiZXhwIjoxNjE4MzM4MzMzfQ.dbHwtgunQnODHawVMtxSOuxkOKv5XBEewz72O2jMmus',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODUxNDE0MywiZXhwIjoxNjE4NTE1MDQzfQ.xBKOR7ILQMjfKPhci_C7erRhU9ePl4op5wvkfgyT1F4',
       },
       body,
     })

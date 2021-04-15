@@ -21,12 +21,12 @@
         </label>
       </div>
       <div>
-        reponse*
-        <textarea v-model="answer" placeholder=""></textarea>
-      </div>
-      <div>
         Your question*
         <textarea v-model="question" placeholder=""></textarea>
+      </div>
+      <div>
+        answer*
+        <textarea v-model="answer" placeholder=""></textarea>
       </div>
       <div>
         <button type="submit">Submit</button>
