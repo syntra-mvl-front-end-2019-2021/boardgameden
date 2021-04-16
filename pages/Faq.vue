@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLink to="/Questionpage">Ask a question</NuxtLink>
+     <NuxtLink to="/Questionpage">Ask a question</NuxtLink>
     <h1>New question</h1>
     <div class="fq-question__wrapper">
       <question
