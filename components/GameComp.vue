@@ -1,16 +1,9 @@
 <template>
-  <div>
+  <div class="game-comp">
     <!-- https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540147295104 -->
-    <img :src="url" alt="" />
-    <p>{{ category }}</p>
-    <p>Rating</p>
-    <p>Username</p>
-    <p>Location</p>
-    <button class="play-btn">PLAY</button>
-    <div class="collection-btns">
-      <button class="swap-btn">SWAP!</button>
-      <button class="buy-btn">BUY!</button>
-    </div>
+    <img class="game-img" :src="url" alt="" />
+    <h3 class="game-title">{{ title }}</h3>
+    <p class="game-description">{{ description }}</p>
   </div>
 </template>
 
@@ -18,11 +11,15 @@
 export default {
   name: 'GameComp',
   props: {
-    category: {
-      type: Array,
+    url: {
+      type: String,
       required: true,
     },
-    url: {
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
       type: String,
       required: true,
     },
@@ -41,22 +38,21 @@ export default {
 }
 </script>
 
-<style scoped>
-.play-btn {
-  width: 100%;
-  margin-bottom: 1rem;
-  height: 3rem;
-}
+<style lang="scss">
+.game-comp {
+  width: 15rem;
+  height: 20rem;
+  overflow: hidden;
+  .game-img {
+    height: 10rem;
+  }
 
-.swap-btn,
-.buy-btn {
-  width: calc((100% - 1rem) / 2);
-  height: 3rem;
-}
+  .game-title {
+    font-size: 0.8rem;
+  }
 
-.collection-btns {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  .game-description {
+    font-size: 0.6rem;
+  }
 }
 </style>
