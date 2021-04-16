@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div class="container">
     <Hero />
-    <div class="container">
-      <NuxtLink to="/Faq">Faq page</NuxtLink>
-      <h1>Home</h1>
-    </div>
+
+    <NuxtLink to="/Faq">Faq page</NuxtLink>
+    <h1>Home</h1>
   </div>
 </template>
 
