@@ -24,6 +24,7 @@
     </svg>
     <div class="logo">
       <img src="~/assets/images/logo.png" alt="" />
+      <img src="~/assets/images/name.png" alt="" />
     </div>
   </div>
 </template>
@@ -49,8 +50,10 @@ export default {
   position: relative;
   .logo {
     @include flexCenter;
-
+    flex-direction: column;
+    justify-content: space-around;
     width: 500px;
+    height: 80%;
   }
   .bigBlueBackground {
     position: absolute;
@@ -70,13 +73,15 @@ export default {
     position: absolute;
 
     top: -20rem;
-    right: -5rem;
+    right: 10rem;
     width: 500px;
     height: 500px;
     transform: rotate(-135deg);
 
     .orange {
       fill: #ea5b30be;
+      position: absolute;
+      right: -10rem;
     }
   }
 }
