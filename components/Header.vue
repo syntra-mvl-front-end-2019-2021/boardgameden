@@ -46,8 +46,9 @@ header {
 .inner_header {
   @include flexCenter;
   justify-content: space-between;
-  max-width: 1200px;
   margin: auto;
+  max-width: 1200px;
+
   .login {
     a {
       color: #3a3939;

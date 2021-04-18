@@ -27,16 +27,25 @@
       <form @submit.prevent="login">
         <div>
           <label>
-            <p>E-mail</p>
+            <div class="round-input-decorator">
+              <div class="round-input-border-left"></div>
+              <span class="round-input-label-text">E-Mail</span>
+              <div class="round-input-border-right"></div>
+            </div>
             <input v-model="email" type="text" value="email" />
           </label>
         </div>
         <div>
           <label>
-            <p>Wachtwoord</p>
+            <div class="round-input-decorator">
+              <div class="round-input-border-left"></div>
+              <span class="round-input-label-text">Wachtwoord</span>
+              <div class="round-input-border-right"></div>
+            </div>
             <input v-model="password" type="password" value="password" />
           </label>
         </div>
+        <div class="choice"></div>
         <div>
           <button type="submit">Login</button>
         </div>
@@ -72,7 +81,6 @@ export default {
 
 <style scoped lang="scss">
 @import '~/assets/styles/imports/mixins';
-
 .loginPage {
   @include flexCenter();
   width: 100%;
@@ -90,32 +98,76 @@ export default {
       height: 250px;
       @include flexCenter();
       flex-direction: column;
-
       justify-content: space-around;
       label {
         @include flexCenter();
+        display: inline-block;
+        position: relative;
+        margin: 10px 0;
         flex-direction: column;
         width: 100%;
         color: rgba(129, 203, 235);
+        .round-input-decorator {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-flow: row nowrap;
+        }
+
+        .round-input-label-text {
+          font-size: 0.8em;
+          color: rgb(98, 196, 238);
+          padding: 0 4px;
+          transform: translate(0, -8px);
+          white-space: nowrap;
+        }
+
+        .round-input-border-left {
+          flex: 0 0 10px;
+          box-sizing: border-box;
+          height: 100%;
+          border-radius: 10px 0 0 10px;
+          border: 1px solid #ea5d30;
+          border-right: none;
+        }
+        .round-input-border-right {
+          flex: 1 0 50px;
+          border-radius: 0 10px 10px 0;
+          border: 1px solid #ea5d30;
+          border-left: none;
+        }
 
         input {
-          width: 250px;
           height: 30px;
           padding: 6px 8px;
-          border: 2px solid #ea5d30;
-          border-radius: 8px;
-        }
-        p {
-          margin-right: auto;
-          margin-bottom: 0.5rem;
+          position: relative;
+          font-size: 1em;
+          padding: 13px 20px 13px 15px;
+          min-width: 250px;
+          border: none;
+          background: none;
+          border-radius: 10px;
+          border-bottom: 1px solid #ea5d30;
+          outline: none;
+          &:focus {
+            box-shadow: 1px 1px 3px 0 #ea5f3094;
+          }
         }
       }
     }
     button {
-      background: none;
-      border: 3px rgba(129, 203, 235) solid;
-      border-radius: 8px;
+      background: rgba(129, 203, 235);
       padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      cursor: pointer;
+      &:focus {
+        box-shadow: 1px 1px 3px 0 rgba(129, 203, 235);
+      }
     }
   }
   .bigBlueBackground {
@@ -125,7 +177,6 @@ export default {
     left: -5rem;
     top: -25rem;
     transform: rotate(135deg);
-
     .blue {
       fill: rgba(129, 203, 235);
       width: 500px;
@@ -134,13 +185,11 @@ export default {
   }
   .bigOrangeBackground {
     position: absolute;
-
     top: -20rem;
     right: 15rem;
     width: 500px;
     height: 500px;
     transform: rotate(-135deg);
-
     .orange {
       fill: #ea5b30be;
     }
