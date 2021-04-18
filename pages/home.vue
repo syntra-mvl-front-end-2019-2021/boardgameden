@@ -1,23 +1,6 @@
 <template>
   <div class="home-page">
-    <h1>Home Page</h1>
-    <section class="s-search">
-      <form>
-        <label for="search"></label>
-        <input id="search" type="text" placeholder="Search.." name="search" />
-
-        <label for="city"></label>
-        <input id="city" type="text" placeholder="City" name="city" />
-
-        <label for="radius"></label>
-        <input id="radius" type="text" placeholder="Radius" name="radius" />
-
-        <button type="submit">Fetch</button>
-      </form>
-
-      <button>Game BOARD DEN</button>
-    </section>
-
+    <HomePageSearch />
     <section class="s-month-game">
       <h2>Game of the month!</h2>
       <div class="month-game">
@@ -71,9 +54,11 @@
 
 <script>
 import GameComp from '../components/GameComp.vue'
+import HomePageSearch from '../components/HomePageSearch.vue'
+
 export default {
   name: 'GamePage',
-  components: { GameComp },
+  components: { GameComp, HomePageSearch },
   data() {
     return {
       baseURL: 'https://api.boardgameatlas.com/api/',

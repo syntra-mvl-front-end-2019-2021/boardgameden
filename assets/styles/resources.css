@@ -1,0 +1,51 @@
+/* ---- colors ---- */
+/* ---- font weights ---- */
+/* ---- screen sizes ---- */
+/* ---- colors ---- */
+/* ---- font weights ---- */
+/* ---- screen sizes ---- */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap");
+body {
+  font-family: Poppins;
+}
+
+body h1 {
+  font-size: 46px;
+  color: #549797;
+}
+
+body h1 span {
+  color: #EA5C30;
+  font-weight: 300;
+}
+
+body h2 {
+  font-size: 46px;
+  color: #EA5C30;
+}
+
+body h3 {
+  font-size: 38px;
+  color: #3D3D3D;
+}
+
+body h3 span {
+  color: #EA5C30;
+}
+
+body h4 {
+  font-size: 24px;
+}
+
+body p {
+  color: #3D3D3D;
+  font-size: 20px;
+  font-weight: 200;
+}
+
+body .button-link {
+  border: 1px #EA5C30 solid;
+  color: #EA5C30;
+  padding: 1em 1.5em;
+}
+/*# sourceMappingURL=resources.css.map */

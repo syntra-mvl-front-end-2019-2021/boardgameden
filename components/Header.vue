@@ -2,6 +2,7 @@
   <header>
     <div class="inner_header">
       <Nav />
+
       <div class="login">
         <a v-if="isLoggedIn" @click="logout">Logout</a>
         <a v-else @click="redirect">Login</a>
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-import Nav from '~/components/Hero.vue'
+import Nav from '~/components/Nav.vue'
 
 export default {
   name: 'Header',

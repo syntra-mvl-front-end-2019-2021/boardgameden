@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    <Hero />
-
     <NuxtLink to="/Faq">Faq page</NuxtLink>
     <NuxtLink to="/houseRules">House Rules</NuxtLink>
 
@@ -10,13 +8,8 @@
 </template>
 
 <script>
-import Hero from '~/components/Hero.vue'
-
 export default {
   name: 'HomePage',
-  components: {
-    Hero,
-  },
 }
 </script>
 
