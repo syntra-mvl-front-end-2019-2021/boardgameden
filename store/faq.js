@@ -15,7 +15,7 @@ export const mutations = {
     state.questionAnswers = questionsAnswersResponse
   },
   logout(state) {
-    questionAnswers = ''
+    state.questionAnswers = ''
   },
 }
 
