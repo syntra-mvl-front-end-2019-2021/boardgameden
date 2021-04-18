@@ -1,13 +1,13 @@
 <template>
   <div class="home-page">
     <HomePageSearch />
-    <section class="s-month-game">
-      <h2>Game of the month!</h2>
-      <div class="month-game">
-        <div class="month-game__img"></div>
-        <div class="month-game__details"></div>
+    <div class="players">
+      <div class="players_text">
+        <h1>There are <span>#</span>in <span>City</span></h1>
       </div>
-    </section>
+      <button class="players_join">Join them!</button>
+    </div>
+    <GameOfTheMonth />
 
     <section class="s-newest-swaps">
       <h2>Newest SWAPS</h2>
@@ -55,10 +55,11 @@
 <script>
 import GameComp from '../components/GameComp.vue'
 import HomePageSearch from '../components/HomePageSearch.vue'
+import GameOfTheMonth from '../components/GameOfTheMonth.vue'
 
 export default {
   name: 'GamePage',
-  components: { GameComp, HomePageSearch },
+  components: { GameComp, HomePageSearch, GameOfTheMonth },
   data() {
     return {
       baseURL: 'https://api.boardgameatlas.com/api/',
@@ -94,29 +95,24 @@ export default {
 </script>
 
 <style lang="scss">
-.home-page {
-  h1 {
-    margin-bottom: 2rem;
-  }
+@import '~/assets/styles/imports/mixins';
 
-  section {
-    width: 80%;
+.players {
+  @include flexCenter();
+  flex-direction: column;
+  height: 250px;
+  width: 100%;
+  &_text {
     margin: auto;
-    margin-bottom: 3rem;
   }
-
-  .s-month-game {
-    .month-game {
-      width: 30rem;
-      height: 20rem;
-      margin: auto;
-      border: solid 1px gray;
-    }
-  }
-
-  .swaps,
-  .sells {
-    display: flex;
+  &_join {
+    width: 150px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #ea5c30;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ea5c30;
   }
 }
 </style>
