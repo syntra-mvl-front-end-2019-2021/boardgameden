@@ -14,10 +14,7 @@ export const mutations = {
   setQuestionAnswers(state, questionsAnswersResponse) {
     state.questionAnswers = questionsAnswersResponse
   },
-  logout(state) {
-    state.questionAnswers = ''
-  },
-}
+},
 
 export const actions = {
   getQuestions(context, body) {
@@ -27,7 +24,7 @@ export const actions = {
       headers: {
         'Content-Type': 'application/json',
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODUxNDE0MywiZXhwIjoxNjE4NTE1MDQzfQ.xBKOR7ILQMjfKPhci_C7erRhU9ePl4op5wvkfgyT1F4',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODgwNjYyNCwiZXhwIjoxNjE4ODA3NTI0fQ.vYKGMEjxQ9_Ek3sqQXfOJGZRoERbB3p19ofwg9WS0hs',
       },
     })
       .then((response) => {
@@ -49,7 +46,7 @@ export const actions = {
       headers: {
         'Content-Type': 'application/json',
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODUxNDE0MywiZXhwIjoxNjE4NTE1MDQzfQ.xBKOR7ILQMjfKPhci_C7erRhU9ePl4op5wvkfgyT1F4',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODgwNjYyNCwiZXhwIjoxNjE4ODA3NTI0fQ.vYKGMEjxQ9_Ek3sqQXfOJGZRoERbB3p19ofwg9WS0hs',
       },
       body,
     })

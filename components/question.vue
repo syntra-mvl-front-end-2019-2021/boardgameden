@@ -3,7 +3,7 @@
     <p>{{ firstname }}</p>
     <p>{{ lastname }}</p>
     <p>question: {{ question }}</p>
-    <p>answer: {{ answer }}</p>
+    <p v-if="answer">answer: {{ answer }}</p>
   </div>
 </template>
 <script>
