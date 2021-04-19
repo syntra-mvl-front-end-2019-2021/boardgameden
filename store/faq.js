@@ -8,7 +8,7 @@ export const getters = {
   getQuestionAnswers(state) {
     return state.questionAnswers
   },
-},
+}
 export const mutations = {
   setQuestionAnswers(state, questionsAnswersResponse) {
     state.questionAnswers = questionsAnswersResponse
