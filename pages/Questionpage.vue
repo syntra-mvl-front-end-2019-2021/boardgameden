@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>My question</h1>
-    <form @submit.prevent="createQuestion">
+    <form @submit.prevent="createQuestion" @submit="resetForm">
       <div>
         <label>
           First Name*
@@ -26,7 +26,7 @@
       </div>
       <div>
         answer*
-        <textarea v-model="answer" placeholder=""></textarea>
+        <textarea v-if="answer" v-model="answer" placeholder=""></textarea>
       </div>
       <div>
         <button type="submit">Submit</button>
@@ -60,6 +60,9 @@ export default {
   methods: {
     createQuestion() {
       this.$store.dispatch('faq/createQuestion', this.questionBody)
+    },
+    resetForm(event) {
+      event.target.reset()
     },
   },
 }
