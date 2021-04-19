@@ -24,7 +24,7 @@ export const actions = {
       headers: {
         'Content-Type': 'application/json',
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODgwNjYyNCwiZXhwIjoxNjE4ODA3NTI0fQ.vYKGMEjxQ9_Ek3sqQXfOJGZRoERbB3p19ofwg9WS0hs',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODg0Nzg3OSwiZXhwIjoxNjE4ODQ4Nzc5fQ.JBgUW-42KCDu8rQOl9BANxNRm234K6PG6Y1zosHZWkU',
       },
     })
       .then((response) => {
@@ -46,7 +46,7 @@ export const actions = {
       headers: {
         'Content-Type': 'application/json',
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODgwNjYyNCwiZXhwIjoxNjE4ODA3NTI0fQ.vYKGMEjxQ9_Ek3sqQXfOJGZRoERbB3p19ofwg9WS0hs',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODg0Nzg3OSwiZXhwIjoxNjE4ODQ4Nzc5fQ.JBgUW-42KCDu8rQOl9BANxNRm234K6PG6Y1zosHZWkU',
       },
       body,
     })
