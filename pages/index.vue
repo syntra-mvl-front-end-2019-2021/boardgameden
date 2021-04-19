@@ -1,11 +1,12 @@
 <template>
-  <div class="container">
+  <div>
     <Hero />
+    <section class="container">
+      <NuxtLink to="/Faq">Faq page</NuxtLink>
+      <NuxtLink to="/houseRules">House Rules</NuxtLink>
 
-    <NuxtLink to="/Faq">Faq page</NuxtLink>
-    <NuxtLink to="/houseRules">House Rules</NuxtLink>
-
-    <h1>Home</h1>
+      <h1>Home</h1>
+    </section>
   </div>
 </template>
 
@@ -22,7 +23,6 @@ export default {
 
 <style lang="scss">
 .container {
-  height: 2000px; //testHeight
   h1 {
     color: $blue;
   }

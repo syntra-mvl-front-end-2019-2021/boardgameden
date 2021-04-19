@@ -1,79 +1,86 @@
 <template>
   <div class="home-page">
-    <h1>Home Page</h1>
-    <section class="s-search">
-      <form>
-        <label for="search"></label>
-        <input id="search" type="text" placeholder="Search.." name="search" />
+    <Hero />
+    <section class="container">
+      <h2>Home Page</h2>
+      <section class="s-search">
+        <form>
+          <label for="search"></label>
+          <input id="search" type="text" placeholder="Search.." name="search" />
 
-        <label for="city"></label>
-        <input id="city" type="text" placeholder="City" name="city" />
+          <label for="city"></label>
+          <input id="city" type="text" placeholder="City" name="city" />
 
-        <label for="radius"></label>
-        <input id="radius" type="text" placeholder="Radius" name="radius" />
+          <label for="radius"></label>
+          <input id="radius" type="text" placeholder="Radius" name="radius" />
 
-        <button type="submit">Fetch</button>
-      </form>
+          <button type="submit">Fetch</button>
+        </form>
 
-      <button>Game BOARD DEN</button>
-    </section>
+        <button>Game BOARD DEN</button>
+      </section>
 
-    <section class="s-month-game">
-      <h2>Game of the month!</h2>
-      <div class="month-game">
-        <div class="month-game__img"></div>
-        <div class="month-game__details"></div>
-      </div>
-    </section>
+      <section class="s-month-game">
+        <h3>Game of the month!</h3>
+        <div class="month-game">
+          <div class="month-game__img"></div>
+          <div class="month-game__details"></div>
+        </div>
+      </section>
 
-    <section class="s-newest-swaps">
-      <h2>Newest SWAPS</h2>
-      <div class="swaps">
-        <GameComp
-          :url="game.image_url"
-          :title="game.name"
-          :description="game.description_preview"
-        />
-        <GameComp
-          :url="game.image_url"
-          :title="game.name"
-          :description="game.description_preview"
-        />
-        <GameComp
-          :url="game.image_url"
-          :title="game.name"
-          :description="game.description_preview"
-        />
-      </div>
-    </section>
-    <section class="s-newest-sells">
-      <h2>Newest SELLS</h2>
-      <div class="sells">
-        <GameComp
-          :url="game.image_url"
-          :title="game.name"
-          :description="game.description_preview"
-        />
-        <GameComp
-          :url="game.image_url"
-          :title="game.name"
-          :description="game.description_preview"
-        />
-        <GameComp
-          :url="game.image_url"
-          :title="game.name"
-          :description="game.description_preview"
-        />
-      </div>
+      <section class="s-newest-swaps">
+        <h3>Newest SWAPS</h3>
+        <div class="swaps">
+          <GameComp
+            :url="game.image_url"
+            :title="game.name"
+            :description="game.description_preview"
+          />
+          <GameComp
+            :url="game.image_url"
+            :title="game.name"
+            :description="game.description_preview"
+          />
+          <GameComp
+            :url="game.image_url"
+            :title="game.name"
+            :description="game.description_preview"
+          />
+        </div>
+      </section>
+      <section class="s-newest-sells">
+        <h3>Newest SELLS</h3>
+        <div class="sells">
+          <GameComp
+            :url="game.image_url"
+            :title="game.name"
+            :description="game.description_preview"
+          />
+          <GameComp
+            :url="game.image_url"
+            :title="game.name"
+            :description="game.description_preview"
+          />
+          <GameComp
+            :url="game.image_url"
+            :title="game.name"
+            :description="game.description_preview"
+          />
+        </div>
+      </section>
     </section>
   </div>
 </template>
 
 <script>
 import GameComp from '../components/GameComp.vue'
+import Hero from '~/components/Hero.vue'
 export default {
   name: 'GamePage',
-  components: { GameComp },
+  components: {
+    GameComp,
+    Hero,
+  },
   data() {
     return {
       baseURL: 'https://api.boardgameatlas.com/api/',
@@ -118,6 +125,21 @@ export default {
     width: 80%;
     margin: auto;
     margin-bottom: 3rem;
+  }
+
+  .s-search {
+    form {
+      padding: 1em;
+      border-radius: 10px;
+      display: flex;
+      width: 100%;
+      background-color: $orange;
+      label,
+      input,
+      button {
+        flex: 1;
+      }
+    }
   }
 
   .s-month-game {

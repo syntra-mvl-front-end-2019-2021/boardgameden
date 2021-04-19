@@ -2,30 +2,30 @@
 
 body {
   // background-color: $green;
-  font-family: 'bahnschrift'
+  font-family: 'bahnschrift';
+  section{
+    padding: 2em 0;
+  }
+  .container{
+    width: 1200px;
+    margin: auto;
+    
+    @media screen and (max-width: $xl){
+      width: $large;
+    }
+    @media screen and (max-width: $large){
+      width: $medium;
+    }
+    @media screen and (max-width: $medium){
+      width: $small;
+    }
+    @media screen and (max-width: $small){
+      width: 90%;
+    }
+  }
 }
 
 a{
   cursor: pointer;
   text-decoration: none;
-  section{
-    padding: 2em 0;
-    .container{
-      width: 1200px;
-      margin: auto;
-      
-      @media screen and (max-width: $xl){
-        width: $large;
-      }
-      @media screen and (max-width: $large){
-        width: $medium;
-      }
-      @media screen and (max-width: $medium){
-        width: $small;
-      }
-      @media screen and (max-width: $small){
-        width: 90%;
-      }
-    }
-  }
 }
