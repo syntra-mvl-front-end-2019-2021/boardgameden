@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="c-nav">
     <a href="">Home</a>
     <a href="">Shop</a>
     <a href="">PLAY!</a>
@@ -16,8 +16,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/styles/imports/mixins';
-
 nav {
   @include flexCenter;
   justify-content: space-evenly;
