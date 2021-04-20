@@ -32,6 +32,9 @@ export default {
     questions() {
       return this.$store.getters['faq/getQuestionAnswers']
     },
+    isLoggedIn() {
+      return this.$store.getters['faq/isLoggedIn']
+    },
   },
   created() {
     this.$store.dispatch('faq/getQuestions', {})

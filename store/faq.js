@@ -1,6 +1,7 @@
 export const state = function () {
   return {
     questionAnswers: [],
+    token: '',
   }
 }
 
@@ -8,11 +9,17 @@ export const getters = {
   getQuestionAnswers(state) {
     return state.questionAnswers
   },
+  isLoggedIn(state) {
+    return state.token.length > 0
+  },
 }
-
 export const mutations = {
   setQuestionAnswers(state, questionsAnswersResponse) {
     state.questionAnswers = questionsAnswersResponse
+  },
+
+  setToken(state, token) {
+    state.token = token
   },
 }
 
@@ -23,8 +30,7 @@ export const actions = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODgwNjYyNCwiZXhwIjoxNjE4ODA3NTI0fQ.vYKGMEjxQ9_Ek3sqQXfOJGZRoERbB3p19ofwg9WS0hs',
+        Authorization: 'Bearer' + state.token,
       },
     })
       .then((response) => {
@@ -46,7 +52,7 @@ export const actions = {
       headers: {
         'Content-Type': 'application/json',
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODgwNjYyNCwiZXhwIjoxNjE4ODA3NTI0fQ.vYKGMEjxQ9_Ek3sqQXfOJGZRoERbB3p19ofwg9WS0hs',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODg2MDk0MSwiZXhwIjoxNjE4ODYxODQxfQ.RUrsn9AUeSHIAL35djXMeTBWa4LKEePspapW62EdjHU',
       },
       body,
     })
@@ -57,6 +63,7 @@ export const actions = {
         return response.json()
       })
       .then((body) => {
+        context.commit('setToken', body.data.access_token)
         console.log(body)
       })
       .catch((err) => {
