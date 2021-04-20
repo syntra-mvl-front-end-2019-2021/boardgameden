@@ -24,8 +24,7 @@ export const mutations = {
 }
 
 export const actions = {
-  getQuestions(context, body) {
-    console.log('Getting questions')
+  getQuestions(context) {
     fetch('http://206.81.26.160/items/faqs', {
       method: 'GET',
       headers: {
@@ -44,6 +43,9 @@ export const actions = {
         context.commit('setQuestionAnswers', body.data)
       })
       .catch((err) => {
+
+        // TODO: error handling
+
         console.error(err)
       })
   },
@@ -67,6 +69,7 @@ export const actions = {
         console.log(body)
       })
       .catch((err) => {
+ registratieform
         console.error(err)
       })
   },

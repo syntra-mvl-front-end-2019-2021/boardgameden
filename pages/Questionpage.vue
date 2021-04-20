@@ -25,10 +25,6 @@
         <textarea v-model="question" placeholder=""></textarea>
       </div>
       <div>
-        answer*
-        <textarea v-if="answer" v-model="answer" placeholder=""></textarea>
-      </div>
-      <div>
         <button type="submit">Submit</button>
       </div>
     </form>
@@ -43,23 +39,39 @@ export default {
       lastename: '',
       email: '',
       question: '',
-      answer: '',
     }
   },
   computed: {
     questionBody() {
       return JSON.stringify({
-        firstname: this.firstname,
-        lastename: this.lastename,
+        first_name: this.firstname,
+        last_name: this.lastename,
         email: this.email,
         question: this.question,
-        answer: this.answer,
       })
     },
   },
   methods: {
     createQuestion() {
-      this.$store.dispatch('faq/createQuestion', this.questionBody)
+      fetch('http://206.81.26.160/items/contact_form_item', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: this.questionBody,
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('could not create question')
+          }
+          return response.json()
+        })
+        .then((body) => {
+          console.log(body)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     },
     resetForm(event) {
       event.target.reset()
