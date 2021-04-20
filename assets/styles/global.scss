@@ -1,5 +1,31 @@
-@import 'imports/variables';
+@import 'resources';
 
 body {
-  background-color: $green;
+  // background-color: $green;
+  font-family: 'bahnschrift';
+  section{
+    padding: 2em 0;
+  }
+  .container{
+    width: 1200px;
+    margin: auto;
+    
+    @media screen and (max-width: $xl){
+      width: $large;
+    }
+    @media screen and (max-width: $large){
+      width: $medium;
+    }
+    @media screen and (max-width: $medium){
+      width: $small;
+    }
+    @media screen and (max-width: $small){
+      width: 90%;
+    }
+  }
+}
+
+a{
+  cursor: pointer;
+  text-decoration: none;
 }

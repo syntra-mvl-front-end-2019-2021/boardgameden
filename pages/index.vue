@@ -1,12 +1,23 @@
 <template>
-  <div class="container">
-    <h1>Home</h1>
+  <div>
+    <Hero />
+    <section class="container">
+      <NuxtLink to="/Faq">Faq page</NuxtLink>
+      <NuxtLink to="/houseRules">House Rules</NuxtLink>
+
+      <h1>Home</h1>
+    </section>
   </div>
 </template>
 
 <script>
+import Hero from '~/components/Hero.vue'
+
 export default {
   name: 'HomePage',
+  components: {
+    Hero,
+  },
 }
 </script>
 
