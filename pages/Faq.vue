@@ -26,7 +26,7 @@ export default {
     questions() {
       return this.$store.getters['faq/getQuestionAnswers']
     },
-     isLoggedIn() {
+    isLoggedIn() {
       return this.$store.getters['faq/isLoggedIn']
     },
   },
