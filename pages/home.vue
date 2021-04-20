@@ -1,6 +1,5 @@
 <template>
   <div class="home-page">
-    <Hero />
     <section class="container">
       <h2>Home Page</h2>
       <section class="s-search">
@@ -73,13 +72,11 @@
 </template>
 
 <script>
-import GameComp from '../components/GameComp.vue'
-import Hero from '~/components/Hero.vue'
+import GameComp from '~/components/GameComp.vue'
 export default {
   name: 'GamePage',
   components: {
     GameComp,
-    Hero,
   },
   data() {
     return {

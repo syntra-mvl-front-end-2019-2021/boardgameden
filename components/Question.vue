@@ -39,7 +39,7 @@ export default {
     line-height: 30px;
   }
   h2 {
-    padding: 20px 0px 30px 0px;
+    padding: 20px 0 30px 0;
   }
 }
 </style>
