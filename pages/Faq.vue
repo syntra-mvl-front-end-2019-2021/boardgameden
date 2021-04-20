@@ -8,12 +8,12 @@
       <div class="fq-question__wrapper">
         <Question
           v-for="text in questions"
+          :id="text.id"
           :key="text.id"
           :question="text.question"
           :answer="text.answer"
           :lastname="text.lastname"
           :firstname="text.firstname"
-          :id="text.id"
         />
       </div>
       <h3>popular</h3>
