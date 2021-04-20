@@ -17,6 +17,7 @@ export const mutations = {
   setQuestionAnswers(state, questionsAnswersResponse) {
     state.questionAnswers = questionsAnswersResponse
   },
+
   setToken(state, token) {
     state.token = token
   },
