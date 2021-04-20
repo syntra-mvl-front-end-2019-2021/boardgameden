@@ -56,6 +56,9 @@ export default {
         answer: this.answer,
       })
     },
+     isLoggedIn() {
+      return this.$store.getters['faq/isLoggedIn']
+    },
   },
   methods: {
     createQuestion() {
