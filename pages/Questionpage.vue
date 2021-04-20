@@ -17,7 +17,7 @@
       <div>
         <label>
           E-mailadres*
-          <input v-model="email" type="email" />
+          <input v-model="email" type="text" />
         </label>
       </div>
       <div>

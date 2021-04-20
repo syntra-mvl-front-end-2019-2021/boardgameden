@@ -40,6 +40,7 @@ export const actions = {
         return response.json()
       })
       .then((body) => {
+        context.commit('setToken', body.data.access_token)
         context.commit('setQuestionAnswers', body.data)
       })
       .catch((err) => {
@@ -51,8 +52,7 @@ export const actions = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA0MzQzNjNmLTBkZWQtNGFmMi05Y2JiLTk2NDJlODFjZDcxYSIsImlhdCI6MTYxODg2MDk0MSwiZXhwIjoxNjE4ODYxODQxfQ.RUrsn9AUeSHIAL35djXMeTBWa4LKEePspapW62EdjHU',
+        Authorization: 'Bearer' + state.token,
       },
       body,
     })
