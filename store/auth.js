@@ -21,10 +21,6 @@ export const mutations = {
   setToken(state, token) {
     state.token = token
   },
-  logout(state) {
-    state.token = ''
-    state.loginState = defaultFetchingState()
-  },
   setLoginState(state, loginState) {
     state.loginState = loginState
   },
