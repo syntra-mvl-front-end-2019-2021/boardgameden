@@ -6,13 +6,14 @@
       <NuxtLink to="/Questionpage">Ask a question</NuxtLink>
       <h3>New question</h3>
       <div class="fq-question__wrapper">
-        <question
+        <Question
           v-for="text in questions"
           :key="text.id"
           :question="text.question"
           :answer="text.answer"
           :lastname="text.lastname"
           :firstname="text.firstname"
+          :id="text.id"
         />
       </div>
       <h3>popular</h3>
@@ -20,7 +21,7 @@
   </div>
 </template>
 <script>
-import question from '@/components/question'
+import question from '~/components/Question'
 import Hero from '~/components/Hero.vue'
 export default {
   name: 'Faq',
