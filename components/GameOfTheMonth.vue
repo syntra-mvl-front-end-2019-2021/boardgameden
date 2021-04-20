@@ -7,7 +7,9 @@
         <span class="round-input-label-text"><h3>Brass: Birmingham</h3></span>
         <div class="round-input-border-right"></div>
       </div>
-      <div class="month-game__img"></div>
+      <div class="month-game__img">
+        <img src="~/assets/images/BrassBIDlx_Boxfront_Orig.jpg" alt="" />
+      </div>
       <div class="month-game__details">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac eros
@@ -40,9 +42,12 @@ export default {
   justify-content: space-around;
 
   .month-game__img {
-    height: 200px;
+    height: 300px;
     width: 300px;
-    background: turquoise;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .month-game {
     width: 60%;
@@ -69,7 +74,7 @@ export default {
       transform: translate(0, -30px);
       white-space: nowrap;
       h3 {
-        color: rgb(98, 196, 238);
+        color: #3d3d3d;
       }
     }
 
