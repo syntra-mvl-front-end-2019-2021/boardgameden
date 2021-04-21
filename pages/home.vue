@@ -6,19 +6,14 @@
         <form>
           <label for="search"></label>
           <input id="search" type="text" placeholder="Search.." name="search" />
-
           <label for="city"></label>
           <input id="city" type="text" placeholder="City" name="city" />
-
           <label for="radius"></label>
           <input id="radius" type="text" placeholder="Radius" name="radius" />
-
           <button type="submit">Fetch</button>
         </form>
-
         <button>Game BOARD DEN</button>
       </section>
-
       <section class="s-month-game">
         <h3>Game of the month!</h3>
         <div class="month-game">
@@ -26,7 +21,6 @@
           <div class="month-game__details"></div>
         </div>
       </section>
-
       <section class="s-newest-swaps">
         <h3>Newest SWAPS</h3>
         <div class="swaps">
