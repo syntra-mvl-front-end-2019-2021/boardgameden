@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="login">
+    <form @submit.prevent>
       <div>
         <label for="username">username</label>
         <input v-model="username" name="username" placeholder="username" />
@@ -41,5 +41,15 @@
 <script>
 export default {
   name: 'Registerform',
+  data() {
+    return {
+      username: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      age: '',
+      email: '',
+    }
+  },
 }
 </script>
