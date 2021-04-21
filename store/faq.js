@@ -49,7 +49,7 @@ export const actions = {
       })
   },
   createQuestion(context, body) {
-    fetch('http://206.81.26.160/items/faqs', {
+    fetch('http://206.81.26.160/items/contact_form_item', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
