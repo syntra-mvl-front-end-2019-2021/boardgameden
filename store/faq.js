@@ -43,7 +43,6 @@ export const actions = {
         context.commit('setQuestionAnswers', body.data)
       })
       .catch((err) => {
-
         // TODO: error handling
 
         console.error(err)
@@ -69,7 +68,7 @@ export const actions = {
         console.log(body)
       })
       .catch((err) => {
- registratieform
+        registratieform
         console.error(err)
       })
   },
