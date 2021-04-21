@@ -40,15 +40,15 @@ export default {
 @import '~/assets/styles/imports/mixins';
 header {
   width: 100%;
-  height: 200px;
-  position: absolute;
+  position: fixed;
   z-index: 10000;
+  padding: 4rem 10rem;
+  border-bottom: black 1px solid;
 }
 .inner_header {
   @include flexCenter;
   justify-content: space-between;
-  margin: auto;
-  max-width: 1200px;
+  width: 100%;
 
   .login {
     a {
