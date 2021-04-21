@@ -8,23 +8,31 @@
       <button class="players_join">Join them!</button>
     </div>
     <GameOfTheMonth />
-    <section class="s-newest-swaps">
+    <section class="c-collection">
       <h2>Collection</h2>
-      <div class="c-slides">
-        <button
-          class="c-slides__btn c-slides__btn--left"
-          @click="clickLeft"
-        ></button>
-        <div ref="slider" class="c-slides__container" @scroll="sliderScroll">
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-        </div>
+      <div class="c-collection__slides">
+        <div
+          ref="slider"
+          class="c-collection__slides--gameComponents"
+          @scroll="sliderScroll"
+        >
+          <button
+            class="c-collection__slides__btn c-collection__slides__btn--left"
+            @click="clickLeft"
+          ></button>
 
-        <button
-          class="c-slides__btn c-slides__btn--right"
-          @click="clickRight"
-        ></button>
+          <GameComp :url="game.image_url" :title="game.name" />
+          <GameComp :url="game.image_url" :title="game.name" />
+          <GameComp :url="game.image_url" :title="game.name" />
+          <GameComp :url="game.image_url" :title="game.name" />
+          <GameComp :url="game.image_url" :title="game.name" />
+          <GameComp :url="game.image_url" :title="game.name" />
+
+          <button
+            class="c-collection__slides__btn c-collection__slides__btn--right"
+            @click="clickRight"
+          ></button>
+        </div>
       </div>
     </section>
   </div>
@@ -61,11 +69,8 @@ export default {
         return response.json()
       })
       .then((result) => {
-        console.log(result)
         // this.games = result.games
         this.game = result.games[0]
-        console.log(result.games)
-        console.log(this.game.categories)
       })
       .catch(() => {})
   },
@@ -99,7 +104,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/imports/mixins';
 .players {
   @include flexCenter();
   flex-direction: column;
@@ -118,30 +122,31 @@ export default {
     color: #ea5c30;
   }
 }
-.s-newest-swaps {
-  width: 100%;
+.c-collection {
+  width: 90%;
   @include flexCenter();
   flex-direction: column;
   justify-content: space-around;
   padding: 6rem 0;
   height: 750px;
+  margin: auto;
 
-  .c-slides {
+  &__slides {
     position: relative;
     width: 100%;
-    // overflow-x: hidden;
+    @include flexCenter();
     margin: 2rem 0 2rem;
 
-    &__container {
+    &--gameComponents {
       display: grid;
-      grid-template-columns: repeat(6, calc((100% - 3rem) / 3));
-      grid-column-gap: 1.5rem;
-      // overflow-x: scroll;
+      grid-template-columns: repeat(6, calc((100% - 3rem) / 4));
+      grid-column-gap: 2rem;
+      overflow-x: scroll;
       width: 70%;
-      // scroll-snap-type: x mandatory;
-      // overflow: -moz-scrollbars-none;
-      // -ms-overflow-style: none;
-      // scrollbar-color: transparent transparent;
+      scroll-snap-type: x mandatory;
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none;
+      scrollbar-color: transparent transparent;
       margin: auto;
 
       &::-webkit-scrollbar {
@@ -150,7 +155,7 @@ export default {
       }
     }
 
-    .c-slides__btn {
+    &__btn {
       width: 48px;
       height: 48px;
       color: #ea5c30;
@@ -160,7 +165,7 @@ export default {
       cursor: pointer;
       border-top: none;
       border-right: none;
-      background-color: white;
+      background-color: transparent;
 
       &--right {
         border-bottom: 6px solid;
