@@ -3,39 +3,43 @@
     <form @submit.prevent="login">
       <div>
         <label for="username">username</label>
-        <input name="username" v-model="username" placeholder="username">
+        <input v-model="username" name="username" placeholder="username" />
       </div>
       <div>
         <label for="password">password</label>
-        <input name="password" v-model="password" placeholder="password" type="password">
+        <input
+          v-model="password"
+          name="password"
+          placeholder="password"
+          type="password"
+        />
       </div>
       <div>
         <label for="firstName">first name</label>
-        <input name="firstName" v-model="firstName" placeholder="first name">
+        <input v-model="firstName" name="firstName" placeholder="first name" />
       </div>
       <div>
         <label for="lastName">last name</label>
-        <input name="lastName" v-model="lastName" placeholder="last name">
+        <input v-model="lastName" name="lastName" placeholder="last name" />
       </div>
       <div>
         <label for="age">age</label>
-        <input name="age" v-model="age" placeholder="age" type="number">
+        <input v-model="age" name="age" placeholder="age" type="number" />
       </div>
       <div>
         <label for="email">email</label>
-        <input name="email" v-model="age" placeholder="email" type="email">
+        <input v-model="age" name="email" placeholder="email" type="email" />
       </div>
       <div>
         <label for="address">address</label>
-        <input name="address" v-model="address" placeholder="address">
+        <input v-model="address" name="address" placeholder="address" />
       </div>
-      <input type="submit" value="register">
+      <input type="submit" value="register" />
     </form>
   </div>
 </template>
 <script>
 export default {
-  name:'registerform',
+  name: 'Registerform',
 }
 </script>
-
