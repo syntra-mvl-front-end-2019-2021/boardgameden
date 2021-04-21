@@ -50,7 +50,7 @@ export default {
         question: this.question,
       })
     },
-     isLoggedIn() {
+    isLoggedIn() {
       return this.$store.getters['faq/isLoggedIn']
     },
   },

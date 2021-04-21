@@ -37,7 +37,7 @@
 import Hero from '~/components/Hero.vue'
 
 export default {
-  name: 'houseRules',
+  name: 'HouseRules',
   components: {
     Hero,
   },
