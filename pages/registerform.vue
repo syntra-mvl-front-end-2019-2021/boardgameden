@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <form @submit.prevent="login">
       <div>
         <label for="username">username</label>
