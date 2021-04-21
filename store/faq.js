@@ -39,10 +39,37 @@ export const actions = {
         return response.json()
       })
       .then((body) => {
+        context.commit('setToken', body.data.access_token)
         context.commit('setQuestionAnswers', body.data)
       })
       .catch((err) => {
+
         // TODO: error handling
+
+        console.error(err)
+      })
+  },
+  createQuestion(context, body) {
+    fetch('http://206.81.26.160/items/faqs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer' + state.token,
+      },
+      body,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('could not create question')
+        }
+        return response.json()
+      })
+      .then((body) => {
+        context.commit('setToken', body.data.access_token)
+        console.log(body)
+      })
+      .catch((err) => {
+ registratieform
         console.error(err)
       })
   },
