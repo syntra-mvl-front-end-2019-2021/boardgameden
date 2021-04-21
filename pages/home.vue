@@ -11,28 +11,26 @@
     <section class="c-collection">
       <h2>Collection</h2>
       <div class="c-collection__slides">
+        <button
+          class="c-collection__slides__btn c-collection__slides__btn--left"
+          @click="clickLeft"
+        ></button>
         <div
           ref="slider"
           class="c-collection__slides--gameComponents"
           @scroll="sliderScroll"
         >
-          <button
-            class="c-collection__slides__btn c-collection__slides__btn--left"
-            @click="clickLeft"
-          ></button>
-
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
-
-          <button
-            class="c-collection__slides__btn c-collection__slides__btn--right"
-            @click="clickRight"
-          ></button>
         </div>
+        <button
+          class="c-collection__slides__btn c-collection__slides__btn--right"
+          @click="clickRight"
+        ></button>
       </div>
     </section>
   </div>
