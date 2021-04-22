@@ -31,16 +31,9 @@
         <h3>Newest SWAPS</h3>
         <div class="swaps">
           <GameComp
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          />
-          <GameComp
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          />
-          <GameComp
+            v-for="game in games"
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
@@ -49,23 +42,7 @@
       </section>
       <section class="s-newest-sells">
         <h3>Newest SELLS</h3>
-        <div class="sells">
-          <GameComp
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          />
-          <GameComp
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          />
-          <GameComp
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          />
-        </div>
+        <div class="sells"></div>
       </section>
     </section>
   </div>
@@ -74,15 +51,15 @@
 <script>
 import GameComp from '~/components/GameComp.vue'
 export default {
-  name: 'index',
+  name: 'Index',
   components: {
     GameComp,
   },
   data() {
     return {
       baseURL: 'https://api.boardgameatlas.com/api/',
-      // games: [],
-      game: {},
+      games: [],
+      // game: {},
       // categories: this.game.categories,
     }
   },
@@ -100,15 +77,21 @@ export default {
         return response.json()
       })
       .then((result) => {
-        console.log(result)
-        // this.games = result.games
-        this.game = result.games[0]
-        console.log(result.games)
-        console.log(this.game.categories)
+        // console.log(result)
+        this.games = result.games
+        // this.game = result.games[0]
+        // console.log(result.games)
+        // console.log(this.game.categories)
       })
       .catch(() => {})
   },
-  methods: {},
+  methods: {
+    getGameId() {
+      // this.$refs.game.key = this.gameId
+      // console.log(this.gameId)
+      console.log('hallo')
+    },
+  },
 }
 </script>
 

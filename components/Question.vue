@@ -1,7 +1,5 @@
 <template>
   <div class="question-content__item">
-    <p>{{ firstname }}</p>
-    <p>{{ lastname }}</p>
     <p>question: {{ question }}</p>
     <p v-if="answer">answer: {{ answer }}</p>
   </div>
@@ -19,14 +17,6 @@ export default {
       required: true,
     },
     answer: {
-      type: String,
-      required: true,
-    },
-    lastname: {
-      type: String,
-      required: true,
-    },
-    firstname: {
       type: String,
       required: true,
     },
