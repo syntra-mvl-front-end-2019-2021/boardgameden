@@ -45,12 +45,43 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/style-resources'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth-next'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   styleResources: {
     // your settings here
     scss: ['./assets/styles/resources.scss'],
+  },
+
+  axios: {
+    baseUrl: 'http://206.81.26.160',
+  },
+
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/profile',
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'data.access_token',
+          // required: true,
+          // type: 'Bearer'
+        },
+        user: {
+          property: 'data',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/auth/login', method: 'post' },
+          logout: false,
+          user: { url: '/users/me?fields=*.*.*', method: 'get' },
+        },
+      },
+    },
   },
 }
