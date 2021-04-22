@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Hero />
     <section class="container">
       <h2>FAQ</h2>
       <NuxtLink to="/Questionpage">Ask a question</NuxtLink>
@@ -22,12 +21,10 @@
 </template>
 <script>
 import question from '~/components/Question'
-import Hero from '~/components/Hero.vue'
 export default {
   name: 'Faq',
   components: {
     question,
-    Hero,
   },
   computed: {
     questions() {
