@@ -48,9 +48,9 @@ export default {
       .then((result) => {
         console.log(result)
         // this.games = result.games
-        this.game = result.games[0]
-        console.log(result.games)
-        console.log(this.game.categories)
+        // this.game = result.games[0]
+        // console.log(result.games)
+        // console.log(this.game.categories)
       })
       .catch(() => {})
   },
