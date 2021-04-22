@@ -9,11 +9,7 @@
 <script>
 export default {
   name: 'ProfilePage',
-  computed: {
-    auth() {
-      return this.$auth
-    },
-  },
+  middleware: ['auth'],
 }
 </script>
 
