@@ -6,19 +6,14 @@
         <form>
           <label for="search"></label>
           <input id="search" type="text" placeholder="Search.." name="search" />
-
           <label for="city"></label>
           <input id="city" type="text" placeholder="City" name="city" />
-
           <label for="radius"></label>
           <input id="radius" type="text" placeholder="Radius" name="radius" />
-
           <button type="submit">Fetch</button>
         </form>
-
         <button>Game BOARD DEN</button>
       </section>
-
       <section class="s-month-game">
         <h3>Game of the month!</h3>
         <div class="month-game">
@@ -26,21 +21,26 @@
           <div class="month-game__details"></div>
         </div>
       </section>
-
       <section class="s-newest-swaps">
         <h3>Newest SWAPS</h3>
         <div class="swaps">
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
           />
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
           />
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
@@ -51,16 +51,22 @@
         <h3>Newest SELLS</h3>
         <div class="sells">
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
           />
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
           />
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
@@ -100,11 +106,11 @@ export default {
         return response.json()
       })
       .then((result) => {
-        console.log(result)
+        // console.log(result)
         // this.games = result.games
-        this.game = result.games[0]
-        console.log(result.games)
-        console.log(this.game.categories)
+        // this.game = result.games[0]
+        // console.log(result.games)
+        // console.log(this.game.categories)
       })
       .catch(() => {})
   },

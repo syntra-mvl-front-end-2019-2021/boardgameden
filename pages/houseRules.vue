@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Hero />
     <section class="container">
       <h2>House Rules</h2>
       <div>
@@ -34,13 +33,8 @@
   </div>
 </template>
 <script>
-import Hero from '~/components/Hero.vue'
-
 export default {
   name: 'HouseRules',
-  components: {
-    Hero,
-  },
 }
 </script>
 <style lang="scss">

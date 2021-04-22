@@ -1,9 +1,8 @@
 <template>
   <div>
-    <Hero />
     <section class="container">
       <h2>FAQ</h2>
-      <NuxtLink to="/Questionpage">Ask a question</NuxtLink>
+      <NuxtLink to="/contact">Ask a question</NuxtLink>
       <h3>New question</h3>
       <div class="fq-question__wrapper">
         <Question
@@ -12,8 +11,11 @@
           :key="text.id"
           :question="text.question"
           :answer="text.answer"
+<<<<<<< HEAD
           :lastname="text.lastname"
           :firstname="text.firstname"
+=======
+>>>>>>> 426771090ee2e3c700d5b8ea3d05690ec489b817
         />
       </div>
       <h3>popular</h3>
@@ -22,12 +24,10 @@
 </template>
 <script>
 import question from '~/components/Question'
-import Hero from '~/components/Hero.vue'
 export default {
   name: 'Faq',
   components: {
     question,
-    Hero,
   },
   computed: {
     questions() {

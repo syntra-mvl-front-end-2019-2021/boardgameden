@@ -19,21 +19,6 @@ export default {
     Header,
     Footer,
   },
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters['auth/isLoggedIn']
-    },
-  },
-  watch: {
-    isLoggedIn(newValue) {
-      if (newValue) {
-        this.$router.push('/profile')
-        return
-      }
-
-      this.$router.push('/login')
-    },
-  },
 }
 </script>
 

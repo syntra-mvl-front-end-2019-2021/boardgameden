@@ -28,6 +28,7 @@
         <button type="submit">Submit</button>
       </div>
     </form>
+    <h2>Contact</h2>
   </div>
 </template>
 <script>
@@ -56,21 +57,16 @@ export default {
   },
   methods: {
     createQuestion() {
-      fetch('http://206.81.26.160/items/contact_form_item', {
+      this.$axios('/items/contact_form_item', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: this.questionBody,
+        data: this.questionBody,
       })
         .then((response) => {
-          if (!response.ok) {
-            throw new Error('could not create question')
-          }
-          return response.json()
-        })
-        .then((body) => {
-          console.log(body)
+          // TODO: notify user
+          console.log(response.data)
         })
         .catch((err) => {
           console.error(err)
@@ -82,4 +78,5 @@ export default {
   },
 }
 </script>
+
 <style scoped></style>

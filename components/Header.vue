@@ -21,12 +21,12 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      return this.$store.getters['auth/isLoggedIn']
+      return this.$auth.loggedIn
     },
   },
   methods: {
     logout() {
-      this.$store.commit('auth/logout')
+      this.$auth.logout()
     },
     redirect() {
       this.$router.push('/login')
@@ -36,7 +36,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/styles/imports/mixins';
 header {
   width: 100%;
   height: 200px;

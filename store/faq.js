@@ -25,7 +25,7 @@ export const mutations = {
 
 export const actions = {
   getQuestions(context) {
-    fetch('http://206.81.26.160/items/faqs', {
+    this.$axios('/items/faqs', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -33,14 +33,8 @@ export const actions = {
       },
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error('could not get questions')
-        }
-        return response.json()
-      })
-      .then((body) => {
-        context.commit('setToken', body.data.access_token)
-        context.commit('setQuestionAnswers', body.data)
+        console.log(response)
+        context.commit('setQuestionAnswers', response.data.data)
       })
       .catch((err) => {
         // TODO: error handling
@@ -48,6 +42,7 @@ export const actions = {
         console.error(err)
       })
   },
+<<<<<<< HEAD
   createQuestion(context, body) {
     fetch('http://206.81.26.160/items/faqs', {
       method: 'POST',
@@ -72,4 +67,6 @@ export const actions = {
         console.error(err)
       })
   },
+=======
+>>>>>>> 426771090ee2e3c700d5b8ea3d05690ec489b817
 }
