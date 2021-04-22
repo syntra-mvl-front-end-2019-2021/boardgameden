@@ -1,10 +1,10 @@
 <template>
   <nav class="c-nav">
-    <a href="">Home</a>
-    <a href="">Shop</a>
-    <a href="">PLAY!</a>
+    <NuxtLink to="/">Home</NuxtLink>
+    <NuxtLink to="/shop">Shop</NuxtLink>
+    <NuxtLink to="/gameDen">PLAY!</NuxtLink>
     <NuxtLink to="/Faq">FAQ</NuxtLink>
-    <a href="">Contact</a>
+    <NuxtLink to="/contact">Contact</NuxtLink>
   </nav>
 </template>
 
