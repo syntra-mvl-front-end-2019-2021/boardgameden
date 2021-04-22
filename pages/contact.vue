@@ -28,6 +28,8 @@
         <button type="submit">Submit</button>
       </div>
     </form>
+    <h2>Contact</h2>
+
   </div>
 </template>
 <script>
@@ -80,3 +82,9 @@ export default {
 }
 </script>
 <style scoped></style>
+
+  name: 'contact',
+}
+</script>
+<style></style>
+
