@@ -25,16 +25,22 @@
         <h3>Newest SWAPS</h3>
         <div class="swaps">
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
           />
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
           />
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
@@ -45,16 +51,22 @@
         <h3>Newest SELLS</h3>
         <div class="sells">
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
           />
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
           />
           <GameComp
+            :id="game.id"
+            :key="game.id"
             :url="game.image_url"
             :title="game.name"
             :description="game.description_preview"
@@ -94,11 +106,11 @@ export default {
         return response.json()
       })
       .then((result) => {
-        console.log(result)
+        // console.log(result)
         // this.games = result.games
-        this.game = result.games[0]
-        console.log(result.games)
-        console.log(this.game.categories)
+        // this.game = result.games[0]
+        // console.log(result.games)
+        // console.log(this.game.categories)
       })
       .catch(() => {})
   },
