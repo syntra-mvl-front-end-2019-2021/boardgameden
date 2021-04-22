@@ -69,12 +69,9 @@ export default {
       local: {
         token: {
           property: 'data.access_token',
-          // required: true,
-          // type: 'Bearer'
         },
         user: {
           property: 'data',
-          // autoFetch: true
         },
         endpoints: {
           login: { url: '/auth/login', method: 'post' },

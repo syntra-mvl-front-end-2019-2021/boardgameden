@@ -11,8 +11,6 @@
           :key="text.id"
           :question="text.question"
           :answer="text.answer"
-          :lastname="text.lastname"
-          :firstname="text.firstname"
         />
       </div>
       <h3>popular</h3>

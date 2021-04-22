@@ -25,7 +25,7 @@ export const mutations = {
 
 export const actions = {
   getQuestions(context) {
-    fetch('http://206.81.26.160/items/faqs', {
+    this.$axios('/items/faqs', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -33,42 +33,12 @@ export const actions = {
       },
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error('could not get questions')
-        }
-        return response.json()
-      })
-      .then((body) => {
-        context.commit('setToken', body.data.access_token)
-        context.commit('setQuestionAnswers', body.data)
+        console.log(response)
+        context.commit('setQuestionAnswers', response.data.data)
       })
       .catch((err) => {
         // TODO: error handling
 
-        console.error(err)
-      })
-  },
-  createQuestion(context, body) {
-    fetch('http://206.81.26.160/items/contact_form_item', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer' + state.token,
-      },
-      body,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('could not create question')
-        }
-        return response.json()
-      })
-      .then((body) => {
-        context.commit('setToken', body.data.access_token)
-        console.log(body)
-      })
-      .catch((err) => {
-        registratieform
         console.error(err)
       })
   },
