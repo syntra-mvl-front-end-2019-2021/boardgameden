@@ -38,47 +38,11 @@
             :title="game.name"
             :description="game.description_preview"
           />
-          <!-- <GameComp
-            :id="game.id"
-            :key="game.id"
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          />
-          <GameComp
-            :id="game.id"
-            :key="game.id"
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          /> -->
         </div>
       </section>
       <section class="s-newest-sells">
         <h3>Newest SELLS</h3>
-        <div class="sells">
-          <!-- <GameComp
-            :id="game.id"
-            :key="game.id"
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          />
-          <GameComp
-            :id="game.id"
-            :key="game.id"
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          />
-          <GameComp
-            :id="game.id"
-            :key="game.id"
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          /> -->
-        </div>
+        <div class="sells"></div>
       </section>
     </section>
   </div>
