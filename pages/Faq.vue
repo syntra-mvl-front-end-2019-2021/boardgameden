@@ -2,17 +2,17 @@
   <div>
     <section class="container">
       <h2>FAQ</h2>
-      <NuxtLink to="/Questionpage">Ask a question</NuxtLink>
+      <NuxtLink to="/contact">Ask a question</NuxtLink>
       <h3>New question</h3>
       <div class="fq-question__wrapper">
         <Question
           v-for="text in questions"
+          :id="text.id"
           :key="text.id"
           :question="text.question"
           :answer="text.answer"
           :lastname="text.lastname"
           :firstname="text.firstname"
-          :id="text.id"
         />
       </div>
       <h3>popular</h3>

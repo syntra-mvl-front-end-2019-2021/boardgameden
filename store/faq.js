@@ -43,14 +43,13 @@ export const actions = {
         context.commit('setQuestionAnswers', body.data)
       })
       .catch((err) => {
-
         // TODO: error handling
 
         console.error(err)
       })
   },
   createQuestion(context, body) {
-    fetch('http://206.81.26.160/items/faqs', {
+    fetch('http://206.81.26.160/items/contact_form_item', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +68,7 @@ export const actions = {
         console.log(body)
       })
       .catch((err) => {
- registratieform
+        registratieform
         console.error(err)
       })
   },
