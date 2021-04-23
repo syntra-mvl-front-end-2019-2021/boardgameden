@@ -32,6 +32,7 @@ export default {
       { src: 'gsap/SplitText.min.js' },
       { src: 'gsap/DrawSVGPlugin.min.js' },
       { src: 'gsap/GSDevTools.min.js' },
+      { src: '~/plugins/scrollmagic.js', ssr: false },
     ],
   },
 
@@ -55,7 +56,7 @@ export default {
   modules: ['@nuxtjs/style-resources'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: { vendor: ['scrollmagic'] },
   styleResources: {
     // your settings here
     scss: ['./assets/styles/resources.scss'],

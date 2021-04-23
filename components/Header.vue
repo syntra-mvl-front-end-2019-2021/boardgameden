@@ -43,7 +43,6 @@ header {
   position: fixed;
   z-index: 10000;
   padding: 4rem 10rem;
-  border-bottom: black 1px solid;
 }
 .inner_header {
   @include flexCenter;

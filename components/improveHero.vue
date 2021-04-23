@@ -74,13 +74,20 @@
 </template>
 
 <script>
-// import * as ScrollMagic from 'scrollmagic' // Or use scrollmagic-with-ssr to avoid server rendering problems
-// import { TweenMax, TimelineMax } from 'gsap' // Also works with TweenLite and TimelineLite
-// import { ScrollMagicPluginGsap } from 'scrollmagic-plugin-gsap'
-
-// ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax)
+import { TimelineMax } from 'gsap'
 export default {
   name: 'ImproveHero',
+  mounted() {
+    const ScrollMagic = require('scrollMagic')
+
+    this.$options.controller = new ScrollMagic.Controller()
+    const Timeline = new TimelineMax()
+
+    Timeline.to('.bigBlueBackground', 8, { x: 500 })
+  },
+  destroyed() {
+    this.$options.controller.destroy()
+  },
 }
 </script>
 
