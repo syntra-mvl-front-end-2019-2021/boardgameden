@@ -1,7 +1,5 @@
 <template>
     <form @submit.prevent="login">
-  <div>
-    <form @submit.prevent>
       <div>
         <label for="username">username</label>
         <input v-model="username" name="username" placeholder="username" />
