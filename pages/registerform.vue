@@ -1,11 +1,7 @@
 <template>
-
-  <div id="app">
     <form @submit.prevent="login">
-=======
   <div>
     <form @submit.prevent>
-
       <div>
         <label for="username">username</label>
         <input v-model="username" name="username" placeholder="username" />
@@ -35,14 +31,12 @@
         <label for="email">email</label>
         <input v-model="age" name="email" placeholder="email" type="email" />
       </div>
-
       <div>
         <label for="address">address</label>
         <input v-model="address" name="address" placeholder="address" />
       </div>
       <input type="submit" value="register" />
     </form>
-  </div>
 </template>
 <script>
 export default {

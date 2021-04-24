@@ -11,11 +11,8 @@
           :key="text.id"
           :question="text.question"
           :answer="text.answer"
-<<<<<<< HEAD
           :lastname="text.lastname"
           :firstname="text.firstname"
-=======
->>>>>>> 426771090ee2e3c700d5b8ea3d05690ec489b817
         />
       </div>
       <h3>popular</h3>

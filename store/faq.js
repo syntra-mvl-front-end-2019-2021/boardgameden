@@ -42,7 +42,7 @@ export const actions = {
         console.error(err)
       })
   },
-<<<<<<< HEAD
+
   createQuestion(context, body) {
     fetch('http://206.81.26.160/items/faqs', {
       method: 'POST',
@@ -67,6 +67,4 @@ export const actions = {
         console.error(err)
       })
   },
-=======
->>>>>>> 426771090ee2e3c700d5b8ea3d05690ec489b817
 }
