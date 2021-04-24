@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'gameDen',
+  name: 'GameDen',
 }
 </script>
 <style></style>
