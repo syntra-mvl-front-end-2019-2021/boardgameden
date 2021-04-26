@@ -1,9 +1,10 @@
 <template>
   <div>
-    <section class="container">
+    <section class="container faq">
       <h2>FAQ</h2>
-      <NuxtLink to="/contact">Ask a question</NuxtLink>
-      <h3>New question</h3>
+      <NuxtLink class="button-link__orange" to="/contact">
+        Ask a question
+      </NuxtLink>
       <div class="fq-question__wrapper">
         <Question
           v-for="text in questions"
@@ -15,7 +16,6 @@
           :firstname="text.firstname"
         />
       </div>
-      <h3>popular</h3>
     </section>
   </div>
 </template>
@@ -39,4 +39,20 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss">
+section.faq {
+  h2 {
+    display: inline;
+  }
+  .button-link__orange {
+    float: right;
+  }
+  .fq-question__wrapper {
+    margin: 3em 0;
+    .question-content__item {
+      padding: 1em 0;
+      border-bottom: 1px solid $black;
+    }
+  }
+}
+</style>
