@@ -1,7 +1,23 @@
 <template>
   <div class="question-content__item">
-    <p>question: {{ question }}</p>
-    <p v-if="answer">answer: {{ answer }}</p>
+    <div class="question-wrapper">
+      <h4 class="question-wrapper__question">{{ question }}</h4>
+      <button
+        :class="{
+          'question-wrapper__button': true,
+          'question-wrapper__button--open': isActive,
+        }"
+        @click="showAnswer"
+      ></button>
+    </div>
+    <div
+      :class="{
+        'answer-wrapper': true,
+        active: isActive,
+      }"
+    >
+      <p v-if="answer">{{ answer }}</p>
+    </div>
   </div>
 </template>
 <script>
@@ -21,15 +37,48 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      isActive: false,
+    }
+  },
+  methods: {
+    showAnswer() {
+      this.isActive = !this.isActive
+    },
+  },
 }
 </script>
 <style lang="scss">
 .question-content__item {
-  p {
-    line-height: 30px;
+  width: 60%;
+  margin: auto;
+  .question-wrapper {
+    display: flex;
+    justify-content: space-between;
+    &__question {
+      color: $orange;
+    }
+    &__button {
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      background-color: $orange;
+      border: none;
+      width: 17px;
+      height: 17px;
+      margin-top: 15px;
+      transform: rotate(270deg);
+      transition: $transition-normal;
+    }
+    &__button--open {
+      transform: rotate(180deg);
+    }
   }
-  h2 {
-    padding: 20px 0 30px 0;
+  .answer-wrapper {
+    display: none;
+    transition: $transition-normal;
+  }
+  .active {
+    display: block;
   }
 }
 </style>
