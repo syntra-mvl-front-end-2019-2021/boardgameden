@@ -9,13 +9,13 @@
         <NuxtLink to="/">Home</NuxtLink>
         <NuxtLink to="/shop">Shop</NuxtLink>
         <NuxtLink to="/gameDen">PLAY!</NuxtLink>
-        <NuxtLink to="/Faq">FAQ</NuxtLink>
+        <NuxtLink to="/faq">FAQ</NuxtLink>
         <NuxtLink to="/contact">Contact</NuxtLink>
       </nav>
       <div class="inner_header--login-items">
         <a v-if="isLoggedIn" @click="logout">Logout</a>
         <a v-else @click="redirect">Login</a>
-        <a>Register</a>
+        <NuxtLink to="/register">Register</NuxtLink>
       </div>
     </div>
   </header>
