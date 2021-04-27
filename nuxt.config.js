@@ -32,6 +32,10 @@ export default {
       { src: 'gsap/SplitText.min.js' },
       { src: 'gsap/DrawSVGPlugin.min.js' },
       { src: 'gsap/GSDevTools.min.js' },
+      {
+        src: '~/plugins/debug.addIndicators.js',
+        ssr: false,
+      },
       { src: '~/plugins/scrollmagic.js', ssr: false },
     ],
   },

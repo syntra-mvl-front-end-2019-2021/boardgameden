@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <ImproveHero />
+    <Hero />
 
     <Nuxt />
     <Footer />
