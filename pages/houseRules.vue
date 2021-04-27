@@ -34,7 +34,7 @@
 </template>
 <script>
 export default {
-  name: 'HouseRules',
+  name: 'Houserules',
 }
 </script>
 <style lang="scss">

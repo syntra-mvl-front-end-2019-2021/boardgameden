@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import question from '~/components/Question'
+import question from '~/components/question'
 export default {
   name: 'Faq',
   components: {
