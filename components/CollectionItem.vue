@@ -1,19 +1,23 @@
 <template>
   <div>
-      <strong>${{game.name}}</strong>
+    <strong>{{ game.bg_atlas_id }}</strong>
   </div>
 </template>
 
 <script>
 export default {
-    props: ["game"],
+  props: ['game'],
 
-    mounted() {
-        this.$store.dispatch('getGame', this.name);
-    }
-};
+  created() {
+    this.$axios
+      .get(
+        `https://www.boardgameatlas.com/api/game/${this.game.bg_atlas_id}/basegame?client_id=KrUdcULOvp`
+      )
+      .then((response) => {
+        console.log(response)
+      })
+  },
+}
 </script>
 
-<style>
-
-</style>
+<style></style>

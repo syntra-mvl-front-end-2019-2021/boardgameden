@@ -1,27 +1,27 @@
 <template>
   <div class="container">
     <h1>Collection</h1>
-    <collection-item v-for="game in games" :key="game.name" :game="game" />
+    <CollectionItem
+      v-for="game in games"
+      :key="game.bg_atlas_id"
+      :game="game"
+    />
   </div>
 </template>
 
 <script>
-import CollectionItem from "./CollectionItem"
+// import CollectionItem from '~/components/CollectionItem'
 export default {
-components: {
-    CollectionItem
-},
+  components: {
+    // CollectionItem,
+  },
 
-computed: {
+  computed: {
     games() {
-        return this.$store.state.games;
-    }
-},
-
-mounted() {
-    this.$store.dispatch('getGames');
-    }
-};
+      return this.$auth.user.boardgames.map((val) => val.boardgames_id)
+    },
+  },
+}
 </script>
 
 <style lang="scss">
