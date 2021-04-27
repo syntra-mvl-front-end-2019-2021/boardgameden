@@ -68,7 +68,7 @@
         />
       </svg>
 
-      <img class="logo_img" src="~/assets/images/logo.png" alt="" />
+      <img class="logo_img" src="~/assets/images/logoStripped.png" alt="" />
     </div>
     <!-- <img src="~/assets/images/name.png" alt="" /> -->
   </div>
@@ -79,7 +79,8 @@
 // import { timeline, TimelineMax } from 'gsap'
 
 export default {
-  name: 'ImproveHero',
+  name: 'Hero',
+  //! TODO
   // mounted() {
   //   const ScrollMagic = require('scrollMagic')
   //   this.$options.controller = new ScrollMagic.Controller()
@@ -122,63 +123,63 @@ export default {
     @include flexCenter;
     flex-direction: column;
     justify-content: space-around;
-    width: 500px;
-    height: 80%;
+    // width: 500px;
+    // height: 80%;
     position: relative;
 
     svg {
       position: absolute;
-      width: 120px;
+      width: 130px;
       &:nth-child(1) {
-        top: 20%;
-        left: 0%;
-        top: 20%;
-        left: 0.8rem;
+        top: -7.5rem;
+        left: -4.4rem;
+        // top: 20%;
+        // left: 0.8rem;
         .blue {
           fill: rgba(129, 203, 235);
         }
       }
       &:nth-child(2) {
-        top: 20%;
-        right: 0;
-        top: 20%;
-        right: 0.5rem;
+        top: -7.5rem;
+        right: -4.4rem;
+        // top: 20%;
+        // right: 0.5rem;
         .orange {
           fill: #ea5b30;
         }
       }
       &:nth-child(3) {
-        // top: 35%;
-        // left: -10rem;
-        top: 38%;
-        left: -3rem;
+        top: -0.2rem;
+        left: -8.4rem;
+        // top: 38%;
+        // left: -3rem;
         .blue {
           fill: rgba(129, 203, 235, 0.815);
         }
       }
       &:nth-child(4) {
-        top: 35%;
-        right: -10rem;
-        top: 38%;
-        right: -3rem;
+        top: -0.2rem;
+        right: -8.4rem;
+        // top: 38%;
+        // right: -3rem;
         .orange {
           fill: #ea5b30c4;
         }
       }
       &:nth-child(5) {
-        // left: -30rem;
-        // top: 15%;
-        left: 1rem;
-        bottom: 20%;
+        left: -4.4rem;
+        bottom: -7.7rem;
+        // left: 1rem;
+        // bottom: 20%;
         .blue {
           fill: rgba(129, 203, 235, 0.733);
         }
       }
       &:nth-child(6) {
-        // top: 15%;
-        // right: -30rem;
-        bottom: 20%;
-        right: 1rem;
+        bottom: -7.8rem;
+        right: -4.4rem;
+        // bottom: 20%;
+        // right: 1rem;
 
         .orange {
           fill: #ea5b30b2;
