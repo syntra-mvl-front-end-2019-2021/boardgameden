@@ -20,11 +20,11 @@
   </div>
 </template>
 <script>
-import question from '~/components/Question'
+import Question from '~/components/Question'
 export default {
   name: 'Faq',
   components: {
-    question,
+    Question,
   },
   computed: {
     questions() {

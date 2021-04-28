@@ -1,5 +1,5 @@
+@import '../../node_modules/@braid/vue-formulate/themes/snow/snow.scss';
 @import 'resources';
-
 body {
   // background-color: $green;
   font-family: 'bahnschrift';
@@ -9,7 +9,7 @@ body {
   .container{
     width: 1200px;
     margin: auto;
-    
+
     @media screen and (max-width: $xl){
       width: $large;
     }
