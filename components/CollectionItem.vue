@@ -11,7 +11,10 @@ export default {
   created() {
     this.$axios
       .get(
-        `https://www.boardgameatlas.com/api/game/${this.game.bg_atlas_id}/basegame?client_id=KrUdcULOvp`
+        `https://www.boardgameatlas.com/api/game/${this.game.bg_atlas_id}/basegame?client_id=KrUdcULOvp`,
+        {
+          headers: { Authorization: '' },
+        }
       )
       .then((response) => {
         console.log(response)

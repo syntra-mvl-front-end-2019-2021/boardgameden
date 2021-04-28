@@ -14,6 +14,7 @@
       </nav>
       <div class="inner_header--login-items">
         <a v-if="isLoggedIn" @click="logout">Logout</a>
+        <NuxtLink v-if="isLoggedIn" to="/profile">Profile</NuxtLink>
         <a v-else @click="redirect">Login</a>
         <NuxtLink to="/register">Register</NuxtLink>
       </div>
