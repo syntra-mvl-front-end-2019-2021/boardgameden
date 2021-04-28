@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import question from '~/components/question'
+import question from '~/components/Question'
 export default {
   name: 'Faq',
   components: {
