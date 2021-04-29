@@ -1,7 +1,8 @@
 <template>
-  <div class="game-comp">
+  <div class="game-comp" @click="getGameId">
     <!-- https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540147295104 -->
     <img class="game-img" :src="url" alt="" />
+    <p class="game-title">{{ id }}</p>
     <h3 class="game-title">{{ title }}</h3>
     <p class="game-description">{{ description }}</p>
   </div>
@@ -23,14 +24,22 @@ export default {
       type: String,
       required: true,
     },
+    id: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       game: {},
+      gameId: '',
     }
   },
   methods: {
-    getCategory() {},
+    getGameId() {
+      this.gameId = this.id
+      console.log(this.gameId)
+    },
   },
 }
 </script>

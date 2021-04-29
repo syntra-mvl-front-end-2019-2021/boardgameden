@@ -1,5 +1,5 @@
+@import '../../node_modules/@braid/vue-formulate/themes/snow/snow.scss';
 @import 'resources';
-
 body {
   // background-color: $green;
   font-family: 'bahnschrift';
@@ -10,7 +10,11 @@ body {
     width: 1200px;
     margin: auto;
 
+<<<<<<< HEAD
     @media screen and (max-width: $xl) {
+=======
+    @media screen and (max-width: $xl){
+>>>>>>> 6dd5d7e78d2426ddc51550ed16f899b4a549e085
       width: $large;
     }
     @media screen and (max-width: $large) {
@@ -21,6 +25,19 @@ body {
     }
     @media screen and (max-width: $small) {
       width: 90%;
+    }
+
+    .button-link__orange{
+      border: 2px solid $orange;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      color: $orange;
+      transition: $transition-normal;
+    }
+
+    .button-link__orange:hover{
+      background-color: $orange;
+      color: white;
     }
   }
 }

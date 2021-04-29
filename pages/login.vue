@@ -26,24 +26,31 @@
       <h1>Login</h1>
       <form @submit.prevent="login">
         <div>
-          <label>
+          <div class="round-input-container">
             <div class="round-input-decorator">
               <div class="round-input-border-left"></div>
-              <span class="round-input-label-text">E-Mail</span>
+              <label for="email" class="round-input-label-text">E-Mail</label>
               <div class="round-input-border-right"></div>
             </div>
-            <input v-model="email" type="text" value="email" />
-          </label>
+            <input id="email" v-model="email" type="text" value="email" />
+          </div>
         </div>
         <div>
-          <label>
+          <div class="round-input-container">
             <div class="round-input-decorator">
               <div class="round-input-border-left"></div>
-              <span class="round-input-label-text">Wachtwoord</span>
+              <label for="password" class="round-input-label-text"
+                >Wachtwoord</label
+              >
               <div class="round-input-border-right"></div>
             </div>
-            <input v-model="password" type="password" value="password" />
-          </label>
+            <input
+              id="password"
+              v-model="password"
+              type="password"
+              value="password"
+            />
+          </div>
         </div>
         <div class="choice"></div>
         <div>
@@ -65,22 +72,21 @@ export default {
   },
   computed: {
     loginBody() {
-      return JSON.stringify({
+      return {
         email: this.email,
         password: this.password,
-      })
+      }
     },
   },
   methods: {
     login() {
-      this.$store.dispatch('auth/login', this.loginBody)
+      this.$auth.loginWith('local', { data: this.loginBody })
     },
   },
 }
 </script>
 
 <style scoped lang="scss">
-@import '~/assets/styles/imports/mixins';
 .loginPage {
   @include flexCenter();
   width: 100%;
@@ -99,7 +105,7 @@ export default {
       @include flexCenter();
       flex-direction: column;
       justify-content: space-around;
-      label {
+      .round-input-container {
         @include flexCenter();
         display: inline-block;
         position: relative;
@@ -142,7 +148,6 @@ export default {
 
         input {
           height: 30px;
-          padding: 6px 8px;
           position: relative;
           font-size: 1em;
           padding: 13px 20px 13px 15px;

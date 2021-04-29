@@ -1,13 +1,14 @@
 <template>
   <div>
-    <Hero />
-    <section class="container">
+    <section class="container faq">
       <h2>FAQ</h2>
-      <NuxtLink to="/Questionpage">Ask a question</NuxtLink>
-      <h3>New question</h3>
+      <NuxtLink class="button-link__orange" to="/contact">
+        Ask a question
+      </NuxtLink>
       <div class="fq-question__wrapper">
-        <question
+        <Question
           v-for="text in questions"
+          :id="text.id"
           :key="text.id"
           :question="text.question"
           :answer="text.answer"
@@ -15,22 +16,22 @@
           :firstname="text.firstname"
         />
       </div>
-      <h3>popular</h3>
     </section>
   </div>
 </template>
 <script>
-import question from '@/components/question'
-import Hero from '~/components/Hero.vue'
+import Question from '~/components/Question'
 export default {
   name: 'Faq',
   components: {
-    question,
-    Hero,
+    Question,
   },
   computed: {
     questions() {
       return this.$store.getters['faq/getQuestionAnswers']
+    },
+    isLoggedIn() {
+      return this.$store.getters['faq/isLoggedIn']
     },
   },
   created() {
@@ -38,4 +39,20 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss">
+section.faq {
+  h2 {
+    display: inline;
+  }
+  .button-link__orange {
+    float: right;
+  }
+  .fq-question__wrapper {
+    margin: 3em 0;
+    .question-content__item {
+      padding: 1em 0;
+      border-bottom: 1px solid $black;
+    }
+  }
+}
+</style>
