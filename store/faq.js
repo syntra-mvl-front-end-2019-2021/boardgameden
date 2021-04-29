@@ -14,6 +14,12 @@ export const mutations = {
   setQuestionAnswers(state, questionsAnswersResponse) {
     state.questionAnswers = questionsAnswersResponse
   },
+<<<<<<< HEAD
+  logout(state) {
+    this.questionAnswers = ''
+  },
+=======
+>>>>>>> staging
 }
 
 export const actions = {

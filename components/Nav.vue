@@ -22,8 +22,6 @@ nav {
   @include flexCenter;
   justify-content: space-evenly;
   width: 450px;
-  height: 100px;
-
   a {
     color: $orange;
     text-decoration: none;

@@ -2,6 +2,7 @@
   <header>
     <div class="inner_header">
       <Nav />
+
       <div class="login">
         <a v-if="isLoggedIn" @click="logout">Logout</a>
         <a v-else @click="redirect">Login</a>
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-import Nav from '~/components/Hero.vue'
+import Nav from '~/components/Nav.vue'
 
 export default {
   name: 'Header',
@@ -39,15 +40,14 @@ export default {
 @import '~/assets/styles/imports/mixins';
 header {
   width: 100%;
-  height: 200px;
-  position: absolute;
+  position: fixed;
   z-index: 10000;
+  padding: 4rem 10rem;
 }
 .inner_header {
   @include flexCenter;
   justify-content: space-between;
-  margin: auto;
-  max-width: 1200px;
+  width: 100%;
 
   .login {
     a {
