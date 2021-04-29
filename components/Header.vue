@@ -22,11 +22,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import Nav from '~/components/Nav.vue'
-
-=======
->>>>>>> 6dd5d7e78d2426ddc51550ed16f899b4a549e085
 export default {
   name: 'Header',
   data() {
@@ -65,17 +60,6 @@ header.navigation-background__colored {
   -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
 }
 header {
-<<<<<<< HEAD
-  width: 100%;
-  position: fixed;
-  z-index: 10000;
-  padding: 4rem 10rem;
-}
-.inner_header {
-  @include flexCenter;
-  justify-content: space-between;
-  width: 100%;
-=======
   transition: all 0.3s ease-in-out;
   position: fixed;
   z-index: 10000;
@@ -101,7 +85,6 @@ header {
         position: relative;
         line-height: 50px;
       }
->>>>>>> 6dd5d7e78d2426ddc51550ed16f899b4a549e085
 
       a::after {
         position: absolute;

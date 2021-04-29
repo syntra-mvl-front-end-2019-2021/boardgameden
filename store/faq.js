@@ -17,19 +17,14 @@ export const mutations = {
   setQuestionAnswers(state, questionsAnswersResponse) {
     state.questionAnswers = questionsAnswersResponse
   },
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   logout(state) {
     this.questionAnswers = ''
   },
-=======
->>>>>>> staging
-=======
 
   setToken(state, token) {
     state.token = token
   },
->>>>>>> 6dd5d7e78d2426ddc51550ed16f899b4a549e085
 }
 
 export const actions = {
@@ -72,7 +67,7 @@ export const actions = {
         console.log(body)
       })
       .catch((err) => {
-        registratieform
+        // registratieform
         console.error(err)
       })
   },
