@@ -18,6 +18,10 @@ export const mutations = {
     state.questionAnswers = questionsAnswersResponse
   },
 
+  logout(state) {
+    this.questionAnswers = ''
+  },
+
   setToken(state, token) {
     state.token = token
   },
@@ -63,7 +67,7 @@ export const actions = {
         console.log(body)
       })
       .catch((err) => {
-        registratieform
+        // registratieform
         console.error(err)
       })
   },
