@@ -3,7 +3,7 @@
     <a href="">Home</a>
     <a href="">Shop</a>
     <a href="">PLAY!</a>
-    <a href="">FAQ</a>
+    <NuxtLink to="/Faq">FAQ</NuxtLink>
     <a href="">Contact</a>
   </nav>
 </template>
@@ -23,9 +23,30 @@ nav {
   justify-content: space-evenly;
   width: 450px;
   a {
-    color: #ea5d2f;
+    color: $orange;
     text-decoration: none;
-    font-weight: bolder;
+    position: relative;
+  }
+
+  a::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: $orange;
+    content: '';
+    opacity: 0;
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    -moz-transition: opacity 0.3s, -moz-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+    -webkit-transform: translateY(10px);
+    -moz-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+
+  a:hover::after {
+    opacity: 1;
   }
 }
 </style>
