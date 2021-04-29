@@ -81,33 +81,33 @@
 export default {
   name: 'Hero',
   //! TODO
-  // mounted() {
-  //   const ScrollMagic = require('scrollMagic')
-  //   this.$options.controller = new ScrollMagic.Controller()
-  //   const Timeline = new TimelineMax()
+  //   mounted() {
+  //     const ScrollMagic = require('scrollMagic')
+  //     this.$options.controller = new ScrollMagic.Controller()
+  //     const Timeline = new TimelineMax()
 
-  //   Timeline.to('.bigBlueBackgroundOne', 1, {
-  //     x: -100,
-  //     y: -100,
-  //   })
-  //     .to('.bigBlueBackgroundTwo', 1, { x: -200 })
-  //     .to('.bigBlueBackgroundThree', 1, { x: -100, y: 100 })
+  //     Timeline.to('.bigBlueBackgroundOne', 1, {
+  //       x: -100,
+  //       y: -100,
+  //     })
+  //       .to('.bigBlueBackgroundTwo', 1, { x: -200 })
+  //       .to('.bigBlueBackgroundThree', 1, { x: -100, y: 100 })
 
-  //   // eslint-disable-next-line no-unused-vars
-  //   const scene = new ScrollMagic.Scene({
-  //     triggerElement: 'form',
-  //     duration: '300%',
-  //     triggerHook: 0,
-  //   })
-  //     .addIndicators()
-  //     .setTween(timeline)
-  //     .setPin('.home-page')
+  //     // eslint-disable-next-line no-unused-vars
+  //     const scene = new ScrollMagic.Scene({
+  //       triggerElement: 'form',
+  //       duration: '300%',
+  //       triggerHook: 0,
+  //     })
+  //       .addIndicators()
+  //       .setTween(timeline)
+  //       .setPin('form')
 
-  //     .addTo(this.$options.controller)
-  // },
-  // destroyed() {
-  //   this.$options.controller.destroy()
-  // },
+  //       .addTo(this.$options.controller)
+  //   },
+  //   destroyed() {
+  //     this.$options.controller.destroy()
+  //   },
 }
 </script>
 
