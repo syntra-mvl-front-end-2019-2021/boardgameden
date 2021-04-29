@@ -17,7 +17,7 @@
       <div>
         <label>
           E-mailadres*
-          <input v-model="email" type="email" />
+          <input v-model="email" type="text" />
         </label>
       </div>
       <div>
@@ -25,13 +25,10 @@
         <textarea v-model="question" placeholder=""></textarea>
       </div>
       <div>
-        answer*
-        <textarea v-if="answer" v-model="answer" placeholder=""></textarea>
-      </div>
-      <div>
         <button type="submit">Submit</button>
       </div>
     </form>
+    <h2>Contact</h2>
   </div>
 </template>
 <script>
@@ -43,23 +40,37 @@ export default {
       lastename: '',
       email: '',
       question: '',
-      answer: '',
     }
   },
   computed: {
     questionBody() {
       return JSON.stringify({
-        firstname: this.firstname,
-        lastename: this.lastename,
+        first_name: this.firstname,
+        last_name: this.lastename,
         email: this.email,
         question: this.question,
-        answer: this.answer,
       })
+    },
+    isLoggedIn() {
+      return this.$store.getters['faq/isLoggedIn']
     },
   },
   methods: {
     createQuestion() {
-      this.$store.dispatch('faq/createQuestion', this.questionBody)
+      this.$axios('/items/contact_form_item', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: this.questionBody,
+      })
+        .then((response) => {
+          // TODO: notify user
+          console.log(response.data)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     },
     resetForm(event) {
       event.target.reset()
@@ -67,4 +78,5 @@ export default {
   },
 }
 </script>
+
 <style scoped></style>
