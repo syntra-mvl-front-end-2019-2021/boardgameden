@@ -20,12 +20,20 @@
           class="c-collection__slides--gameComponents"
           @scroll="sliderScroll"
         >
+          <!-- <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
+          <GameComp :url="game.image_url" :title="game.name" /> -->
+          <GameComp
+            v-for="game in games"
+            :id="game.id"
+            :key="game.id"
+            :url="game.image_url"
+            :title="game.name"
+            :description="game.description_preview"
+          />
         </div>
         <button
           class="c-collection__slides__btn c-collection__slides__btn--right"
@@ -49,8 +57,8 @@ export default {
       sliderWidth: 0,
       slideWidth: 0,
       currentSlide: 0,
-      // games: [],
-      game: {},
+      games: [],
+      // game: {},
       // categories: this.game.categories,
     }
   },
@@ -67,8 +75,8 @@ export default {
         return response.json()
       })
       .then((result) => {
-        // this.games = result.games
-        this.game = result.games[0]
+        this.games = result.games
+        // this.game = result.games[0]
       })
       .catch(() => {})
   },
@@ -137,6 +145,7 @@ export default {
 
     &--gameComponents {
       display: grid;
+      height: 250px;
       grid-template-columns: repeat(6, calc((100% - 3rem) / 4));
       grid-column-gap: 2rem;
       overflow-x: scroll;
