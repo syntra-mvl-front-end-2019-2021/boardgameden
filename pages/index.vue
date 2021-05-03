@@ -62,6 +62,17 @@ export default {
       // categories: this.game.categories,
     }
   },
+  computed: {
+    activeSlide() {
+      return this.slides[this.currentSlide]
+    },
+    slidesPerPage() {
+      return Math.round(this.sliderWidth / this.slideWidth)
+    },
+    numberOfPages() {
+      return this.slides.length + 1 - this.slidesPerPage
+    },
+  },
   created() {
     fetch(this.baseURL + 'search?client_id=KrUdcULOvp', {
       // &ids=i5Oqu5VZgP
@@ -79,6 +90,13 @@ export default {
         // this.game = result.games[0]
       })
       .catch(() => {})
+  },
+  mounted() {
+    this.calcWidths()
+    window.addEventListener('resize', this.calcWidths)
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.calcWidths)
   },
   methods: {
     calcWidths() {
