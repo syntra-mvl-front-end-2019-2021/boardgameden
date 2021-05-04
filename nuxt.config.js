@@ -1,4 +1,9 @@
 export default {
+  publicRuntimeConfig: {
+    baseURL: process.env.BASE_URL,
+    gbURL: process.env.GB_URL,
+    gbClientId: process.env.GB_CLIENT_ID,
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'boardgameden',
@@ -26,6 +31,18 @@ export default {
         href: '/favicon.ico',
       },
     ],
+    script: [
+      { src: 'gsap/TweenMax.min.js' },
+      { src: 'gsap/MorphSVGPlugin.min.js' },
+      { src: 'gsap/SplitText.min.js' },
+      { src: 'gsap/DrawSVGPlugin.min.js' },
+      { src: 'gsap/GSDevTools.min.js' },
+      {
+        src: '~/plugins/debug.addIndicators.js',
+        ssr: false,
+      },
+      { src: '~/plugins/scrollmagic.js', ssr: false },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -48,14 +65,14 @@ export default {
   modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth-next'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: { vendor: ['scrollmagic'] },
   styleResources: {
     // your settings here
     scss: ['./assets/styles/resources.scss'],
   },
 
   axios: {
-    baseUrl: 'http://206.81.26.160',
+    baseUrl: process.env.BASE_URL,
   },
 
   auth: {
