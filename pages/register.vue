@@ -1,5 +1,27 @@
 <template>
   <main>
+    <svg
+      class="bigBlueBackground"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 377 435"
+      stroke-linejoin="round"
+    >
+      <path
+        class="blue"
+        d="M188.1 0l188.1 108.6 0 217.2 -188.1 108.6 -188.1-108.6 0-217.2 188.1-108.6Z"
+      />
+    </svg>
+    <svg
+      class="bigOrangeBackground"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 377 435"
+      stroke-linejoin="round"
+    >
+      <path
+        class="orange"
+        d="M188.1 0l188.1 108.6 0 217.2 -188.1 108.6 -188.1-108.6 0-217.2 188.1-108.6Z"
+      />
+    </svg>
     <div class="registerPage_form">
       <h1>Register</h1>
       <FormulateForm
@@ -124,8 +146,7 @@ export default {
 <style lang="scss">
 main {
   @include flexCenter();
-  max-width: 1200px;
-  margin: auto;
+
   width: 100%;
   // height: 100vh;
   padding-top: 7rem;
@@ -134,9 +155,12 @@ main {
     @include flexCenter();
     flex-direction: column;
     text-align: center;
+    max-width: 1200px;
+    margin: auto;
     width: 100%;
     h1 {
       color: #ea5d30;
+      margin: 0 auto 2rem;
     }
     .formulate-form {
       width: 80%;
@@ -156,7 +180,6 @@ main {
         }
         .formulate-input {
           // height: 30px;
-          position: relative;
           font-size: 1em;
           min-width: 450px;
 
@@ -167,6 +190,17 @@ main {
           }
           .formulate-input-element--submit {
             margin: auto;
+            button {
+              background: rgba(129, 203, 235);
+              padding: 0.5rem 1rem;
+              border: none;
+              border-radius: 8px;
+              outline: none;
+              cursor: pointer;
+              &:focus {
+                box-shadow: 1px 1px 3px 0 rgba(129, 203, 235);
+              }
+            }
           }
         }
         &__username {
@@ -183,6 +217,30 @@ main {
           justify-content: space-evenly;
         }
       }
+    }
+  }
+  .bigBlueBackground {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    left: -5rem;
+    top: -25rem;
+    transform: rotate(135deg);
+    .blue {
+      fill: rgba(129, 203, 235);
+      width: 500px;
+      height: 500px;
+    }
+  }
+  .bigOrangeBackground {
+    position: absolute;
+    top: -20rem;
+    right: 15rem;
+    width: 500px;
+    height: 500px;
+    transform: rotate(-135deg);
+    .orange {
+      fill: #ea5b30be;
     }
   }
 }
