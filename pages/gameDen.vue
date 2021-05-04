@@ -2,6 +2,7 @@
   <div>
     <h2>Play!</h2>
     <HomePageSearch />
+    <gameevent />
   </div>
 </template>
 <script>
