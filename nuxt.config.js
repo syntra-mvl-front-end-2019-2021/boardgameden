@@ -1,5 +1,9 @@
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
+  publicRuntimeConfig: {
+    baseURL: process.env.BASE_URL,
+    gbURL: process.env.GB_URL,
+    gbClientId: process.env.GB_CLIENT_ID,
+  },
   head: {
     title: 'boardgameden',
     htmlAttrs: {
@@ -67,7 +71,7 @@ export default {
   },
 
   axios: {
-    baseUrl: 'http://206.81.26.160',
+    baseUrl: process.env.BASE_URL,
   },
 
   auth: {
