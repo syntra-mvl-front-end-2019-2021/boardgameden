@@ -8,7 +8,7 @@
       <p>Playtime {{ game.min_playtime }} - {{ game.max_playtime }} min</p>
       <!-- <p>{{ game.id }}</p> -->
       <img :src="game.image_url" alt="" />
-      <p>{{ category }}</p>
+      <!-- <p>{{ category }}</p> -->
       <p>Rating</p>
       <p>Username</p>
       <p>Location</p>
@@ -33,8 +33,10 @@ export default {
     }
   },
   created() {
-    fetch(this.baseURL + 'search?client_id=JLBr5npPhV', {
+    fetch(this.baseURL + 'search?client_id=KrUdcULOvp', {
       // &ids=i5Oqu5VZgP
+      // JLBr5npPhV
+
       method: 'GET',
       headers: {},
     })
@@ -49,8 +51,8 @@ export default {
         console.log(result)
         // this.games = result.games
         this.game = result.games[0]
-        console.log(result.games)
-        console.log(this.game.categories)
+        // console.log(result.games)
+        // console.log(this.game.categories)
       })
       .catch(() => {})
   },

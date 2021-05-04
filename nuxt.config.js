@@ -26,6 +26,18 @@ export default {
         href: '/favicon.ico',
       },
     ],
+    script: [
+      { src: 'gsap/TweenMax.min.js' },
+      { src: 'gsap/MorphSVGPlugin.min.js' },
+      { src: 'gsap/SplitText.min.js' },
+      { src: 'gsap/DrawSVGPlugin.min.js' },
+      { src: 'gsap/GSDevTools.min.js' },
+      {
+        src: '~/plugins/debug.addIndicators.js',
+        ssr: false,
+      },
+      { src: '~/plugins/scrollmagic.js', ssr: false },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -39,18 +51,46 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
+    '@braid/vue-formulate/nuxt',
     '@nuxtjs/eslint-module',
     '@nuxtjs/style-resources',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/style-resources'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth-next'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: { vendor: ['scrollmagic'] },
   styleResources: {
     // your settings here
     scss: ['./assets/styles/resources.scss'],
+  },
+
+  axios: {
+    baseUrl: 'http://206.81.26.160',
+  },
+
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/profile',
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'data.access_token',
+        },
+        user: {
+          property: 'data',
+        },
+        endpoints: {
+          login: { url: '/auth/login', method: 'post' },
+          logout: false,
+          user: { url: '/users/me?fields=*.*.*', method: 'get' },
+        },
+      },
+    },
   },
 }

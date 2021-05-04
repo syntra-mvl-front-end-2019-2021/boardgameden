@@ -1,31 +1,44 @@
+@import '../../node_modules/@braid/vue-formulate/themes/snow/snow.scss';
 @import 'resources';
-
 body {
   // background-color: $green;
   font-family: 'bahnschrift';
-  section{
+  section {
     padding: 2em 0;
   }
-  .container{
+  .container {
     width: 1200px;
     margin: auto;
-    
+
     @media screen and (max-width: $xl){
       width: $large;
     }
-    @media screen and (max-width: $large){
+    @media screen and (max-width: $large) {
       width: $medium;
     }
-    @media screen and (max-width: $medium){
+    @media screen and (max-width: $medium) {
       width: $small;
     }
-    @media screen and (max-width: $small){
+    @media screen and (max-width: $small) {
       width: 90%;
+    }
+
+    .button-link__orange{
+      border: 2px solid $orange;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      color: $orange;
+      transition: $transition-normal;
+    }
+
+    .button-link__orange:hover{
+      background-color: $orange;
+      color: white;
     }
   }
 }
 
-a{
+a {
   cursor: pointer;
   text-decoration: none;
 }

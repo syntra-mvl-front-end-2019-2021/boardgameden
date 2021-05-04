@@ -1,8 +1,14 @@
 <template>
   <div>
+<<<<<<< HEAD
     <h1>Profile123</h1>
     <ul v-if="userData">
       <li>email: {{ userData.email }}</li>
+=======
+    <h1>Profile</h1>
+    <ul v-if="$auth.user">
+      <li>email: {{ $auth.user.email }}</li>
+>>>>>>> efefc65cb8ae84b4a363a20f15ce676ef2962419
     </ul>
     <Collection />
     <h3>test</h3>
@@ -11,36 +17,15 @@
 </template>
 
 <script>
+<<<<<<< HEAD
+=======
+import Collection from '~/components/Collection'
+>>>>>>> efefc65cb8ae84b4a363a20f15ce676ef2962419
 
 export default {
   name: 'ProfilePage',
-
-  data() {
-    return {
-      userData: null,
-    }
-  },
-  created() {
-    fetch('http://206.81.26.160/users/me?fields=*.*.*', {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + this.$store.state.auth.token,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('could not fetch userdata')
-        }
-
-        return response.json()
-      })
-      .then((body) => {
-        this.userData = body.data
-      })
-      .catch(() => {
-        this.$store.commit('auth/logout')
-      })
-  },
+  components: [Collection],
+  middleware: ['auth'],
 }
 </script>
 

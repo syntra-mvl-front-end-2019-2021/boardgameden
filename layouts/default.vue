@@ -1,28 +1,23 @@
 <template>
   <div>
     <Header />
+    <Hero />
     <Nuxt />
     <Footer />
   </div>
 </template>
 
 <script>
+import Hero from '~/components/Hero'
+import Header from '~/components/Header'
+import Footer from '~/components/Footer'
+
 export default {
   name: 'DefaultLayout',
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters['auth/isLoggedIn']
-    },
-  },
-  watch: {
-    isLoggedIn(newValue) {
-      if (newValue) {
-        this.$router.push('/profile')
-        return
-      }
-
-      this.$router.push('/login')
-    },
+  components: {
+    Hero,
+    Header,
+    Footer,
   },
 }
 </script>
