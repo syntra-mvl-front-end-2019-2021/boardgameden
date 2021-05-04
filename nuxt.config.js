@@ -4,7 +4,6 @@ export default {
     gbURL: process.env.GB_URL,
     gbClientId: process.env.GB_CLIENT_ID,
   },
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'boardgameden',
     htmlAttrs: {
