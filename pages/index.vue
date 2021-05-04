@@ -16,23 +16,20 @@
           @click="clickLeft"
         ></button>
         <div
+          v-if="games"
           ref="slider"
           class="c-collection__slides--gameComponents"
           @scroll="sliderScroll"
         >
-          <!-- <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" /> -->
           <GameComp
             v-for="game in games"
-            :id="game.id"
-            :key="game.id"
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
+            :key="1 + game.bg_atlas_id"
+            :gb-id="game.bg_atlas_id"
+          />
+          <GameComp
+            v-for="game in games"
+            :key="2 + game.bg_atlas_id"
+            :gb-id="game.bg_atlas_id"
           />
         </div>
         <button
@@ -73,26 +70,26 @@ export default {
       return this.slides.length + 1 - this.slidesPerPage
     },
   },
-  created() {
-    fetch(this.baseURL + 'search?client_id=KrUdcULOvp', {
-      // &ids=i5Oqu5VZgP
-      method: 'GET',
-      headers: {},
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('could not fetch userdata')
+  watch: {
+    games(newVal) {
+      this.$nextTick(() => {
+        if (newVal.length) {
+          this.calcWidths()
         }
-        return response.json()
       })
-      .then((result) => {
-        this.games = result.games
-        // this.game = result.games[0]
+    },
+  },
+  created() {
+    this.$axios('/items/boardgames')
+      .then((response) => {
+        console.log(response)
+        this.games = response.data.data
       })
-      .catch(() => {})
+      .catch((e) => {
+        console.error(e)
+      })
   },
   mounted() {
-    this.calcWidths()
     window.addEventListener('resize', this.calcWidths)
   },
   unmounted() {
@@ -100,8 +97,10 @@ export default {
   },
   methods: {
     calcWidths() {
-      this.sliderWidth = this.$refs.slider.offsetWidth
-      this.slideWidth = this.$refs.slider.children[0].offsetWidth
+      if (this.$refs.slider.children[0]) {
+        this.sliderWidth = this.$refs.slider.offsetWidth
+        this.slideWidth = this.$refs.slider.children[0].offsetWidth
+      }
     },
     clickLeft() {
       this.$refs.slider.scrollLeft =
