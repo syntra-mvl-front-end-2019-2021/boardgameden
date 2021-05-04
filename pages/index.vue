@@ -1,5 +1,6 @@
 <template>
   <div class="home-page">
+    <Hero />
     <HomePageSearch />
     <div class="players">
       <div class="players_text">
@@ -20,20 +21,12 @@
           class="c-collection__slides--gameComponents"
           @scroll="sliderScroll"
         >
-          <!-- <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
           <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" /> -->
-          <GameComp
-            v-for="game in games"
-            :id="game.id"
-            :key="game.id"
-            :url="game.image_url"
-            :title="game.name"
-            :description="game.description_preview"
-          />
+          <GameComp :url="game.image_url" :title="game.name" />
+          <GameComp :url="game.image_url" :title="game.name" />
         </div>
         <button
           class="c-collection__slides__btn c-collection__slides__btn--right"
@@ -48,17 +41,19 @@
 import GameComp from '../components/GameComp.vue'
 import HomePageSearch from '../components/HomePageSearch.vue'
 import GameOfTheMonth from '../components/GameOfTheMonth.vue'
+import Hero from '~/components/Hero.vue'
+
 export default {
   name: 'GamePage',
-  components: { GameComp, HomePageSearch, GameOfTheMonth },
+  components: { GameComp, HomePageSearch, GameOfTheMonth, Hero },
   data() {
     return {
       baseURL: 'https://api.boardgameatlas.com/api/',
       sliderWidth: 0,
       slideWidth: 0,
       currentSlide: 0,
-      games: [],
-      // game: {},
+      // games: [],
+      game: {},
       // categories: this.game.categories,
     }
   },
@@ -74,7 +69,7 @@ export default {
     },
   },
   created() {
-    fetch(this.baseURL + 'search?client_id=KrUdcULOvp', {
+    fetch(this.baseURL + 'search?client_id=JLBr5npPhV', {
       // &ids=i5Oqu5VZgP
       method: 'GET',
       headers: {},
@@ -86,8 +81,8 @@ export default {
         return response.json()
       })
       .then((result) => {
-        this.games = result.games
-        // this.game = result.games[0]
+        // this.games = result.games
+        this.game = result.games[0]
       })
       .catch(() => {})
   },
@@ -163,7 +158,6 @@ export default {
 
     &--gameComponents {
       display: grid;
-      height: 250px;
       grid-template-columns: repeat(6, calc((100% - 3rem) / 4));
       grid-column-gap: 2rem;
       overflow-x: scroll;
