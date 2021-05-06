@@ -3,7 +3,8 @@
     <h1>
       {{ tittle }}
     </h1>
-    <FormulateForm v-model="formData" @submit="submit">
+    <button @click="toggle = !toggle">click here</button>
+    <FormulateForm v-if="toggle" v-model="formData" @submit="submit">
       <FormulateInput
         type="text"
         name="Event"
@@ -55,7 +56,9 @@ export default {
         Location: '',
         Event: '',
       },
+      toggle: true,
     }
   },
+  methods: {},
 }
 </script>
