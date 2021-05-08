@@ -1,18 +1,21 @@
 <template>
   <footer class="c-footer">
     <div class="c-footer__nav">
-      <a href="">Contact</a>
-      <a href="">FAQ</a>
-      <a href="">Contact</a>
+      <NuxtLink to="/contact">Contact</NuxtLink>
+      <NuxtLink to="/faq">FAQ</NuxtLink>
+      <!--
       <a href="">About</a>
       <a href="">Privacy</a>
-      <a href="">Houserules</a>
+      -->
+      <NuxtLink to="/houserules">Houserules</NuxtLink>
     </div>
+    <!--
     <div class="c-footer__icons">
       <div class="c-footer__icon"></div>
       <div class="c-footer__icon"></div>
       <div class="c-footer__icon"></div>
     </div>
+    -->
     <div class="c-footer__logo">
       <img src="~/assets/images/name.png" alt="" />
     </div>
