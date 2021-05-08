@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page">
+  <div class="home-page container">
     <HomePageSearch />
     <div class="players">
       <div class="players_text">

@@ -5,7 +5,9 @@
       <img class="game-img" :src="game.thumb_url" alt="game.name" />
       <p class="game-title">{{ gbId }}</p>
       <h3 class="game-title">{{ game.name }}</h3>
-      <div class="game-description" v-html="game.description"></div>
+      <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
+        More Info
+      </NuxtLink>
     </div>
   </div>
 </template>
