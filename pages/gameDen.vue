@@ -1,24 +1,25 @@
 <template>
   <div>
     <h2>Play!</h2>
-    <h1>
-      {{ tittle }}
-    </h1>
     <button @click="toggle = !toggle">created event</button>
-    <FormulateForm v-if="toggle" v-model="formData" @submit="submit">
+    <FormulateForm
+      v-if="toggle"
+      v-model="formData"
+      :form-errors="formErrors"
+      @submit="submit"
+    >
       <FormulateInput
         type="text"
         name="Event"
         label="Event"
         validation-name="Event"
-        validation="required"
+        validation=""
       />
       <FormulateInput
         type="text"
         name="Boardgame"
         label="Boardgame"
         validation-name="Boardgame"
-      
       />
       <FormulateInput
         type="date"
@@ -30,13 +31,15 @@
         type="text"
         name="Location"
         label="Location"
-        validation="required|alphanumeric"
+        validation=""
       />
       <FormulateInput
         type="text"
         name="User"
         label="User"
-        validation="required|alphanumeric"
+        validation-name="User
+        "
+        validation=""
       />
       <FormulateInput type="hidden" name="role" />
       <FormulateErrors />
@@ -47,20 +50,50 @@
 <script>
 export default {
   name: 'Gameevent',
+  middleware: 'auth',
   data() {
     return {
       formErrors: [],
       formData: {
         User: '',
-        tittle: '',
         Date: '',
         Location: '',
         Event: '',
         Boardgame: '',
+        attendees: '',
+        role: '1eb0baf8-fbfb-40a6-b706-6146e6ffc1f0',
       },
       toggle: false,
     }
   },
-  methods: {},
+  computed: {
+    minDate() {
+      const curDate = new Date()
+      curDate.setFullYear(curDate.getFullYear() - 18)
+
+      return curDate.toISOString().substr(0, 10)
+    },
+  },
+  methods: {
+    submit(data) {
+      return this.$axios('/items/boardgame_dens', {
+        method: 'POST',
+        data,
+      })
+        .then(() => {
+          this.$router.push('/login')
+        })
+        .catch((error) => {
+          console.log(error.response)
+          if (error.response && error.response.data.errors) {
+            this.formErrors = error.response.data.errors.map(
+              (val) => val.message
+            )
+          }
+
+          this.formErrors = ['Could not save user, try again']
+        })
+    },
+  },
 }
 </script>
