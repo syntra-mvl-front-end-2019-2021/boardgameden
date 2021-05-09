@@ -20,6 +20,7 @@
     "nuxt": "^2.15.3",
     "scrollmagic": "^2.0.8",
     "scrollmagic-plugin-gsap": "^1.0.4",
+    "vue-select": "^3.11.2",
     "vueperslides": "^3.2.0"
   },
   "devDependencies": {
