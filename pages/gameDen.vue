@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Play!</h2>
-    <button @click="toggle = !toggle">created event</button>
+    <button @click="toggle = !toggle">create event</button>
     <FormulateForm
       v-if="toggle"
       v-model="formData"
@@ -12,7 +12,7 @@
         v-model="value"
         :options="boardGames"
         type="select"
-        placeholder="Select an board game"
+        placeholder="Select a board game"
         label="boardgames"
       />
       <FormulateInput
