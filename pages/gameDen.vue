@@ -9,37 +9,23 @@
       @submit="submit"
     >
       <FormulateInput
-        type="text"
-        name="Event"
-        label="Event"
-        validation-name="Event"
-        validation=""
+        v-model="value"
+        :options="boardGames"
+        type="select"
+        placeholder="Select an board game"
+        label="boardgames"
       />
       <FormulateInput
         type="text"
-        name="Boardgame"
-        label="Boardgame"
-        validation-name="Boardgame"
+        name="location"
+        label="location"
       />
       <FormulateInput
-        type="date"
-        name="Date"
-        label="Date"
-        :validation="'required|before:' + minDate"
-      />
-      <FormulateInput
-        type="text"
-        name="Location"
-        label="Location"
-        validation=""
-      />
-      <FormulateInput
-        type="text"
-        name="User"
-        label="User"
-        validation-name="User
-        "
-        validation=""
+        v-model="value"
+        :options="attendees"
+        type="select"
+        placeholder="Select an attendees"
+        label="user"
       />
       <FormulateInput type="hidden" name="role" />
       <FormulateErrors />
@@ -48,6 +34,7 @@
   </div>
 </template>
 <script>
+import vSelect from 'vue-select'
 export default {
   name: 'Gameevent',
   middleware: 'auth',
@@ -55,24 +42,35 @@ export default {
     return {
       formErrors: [],
       formData: {
-        User: '',
-        Date: '',
-        Location: '',
-        Event: '',
-        Boardgame: '',
+        user: '',
+        first_Name: '',
+        location: '',
+        boardgame: '',
         attendees: '',
+        bg_name: '',
+        id: '',
         role: '1eb0baf8-fbfb-40a6-b706-6146e6ffc1f0',
       },
       toggle: false,
     }
   },
   computed: {
-    minDate() {
-      const curDate = new Date()
-      curDate.setFullYear(curDate.getFullYear() - 18)
-
-      return curDate.toISOString().substr(0, 10)
+    boardGames() {
+      return this.$store.getters['boardgames/getBoardGames'].map(function (
+        boardGame
+      ) {
+        return { label: boardGame.bg_name, value: boardGame.id }
+      })
     },
+    attendees() {
+      return this.$store.getters['users/getUsers'].map(function (user) {
+        return { label: user.first_name, value: user.id }
+      })
+    },
+  },
+  created() {
+    this.$store.dispatch('boardgames/getBoardGames', {}),
+      this.$store.dispatch('users/getUsers', {})
   },
   methods: {
     submit(data) {
