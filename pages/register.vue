@@ -84,17 +84,16 @@ export default {
       return curDate.toISOString().substr(0, 10)
     },
   },
-  created() {
-    this.formData.birthdate = this.minDate
-  },
+  created() {},
   methods: {
     submit(data) {
       return this.$axios('/users', {
         method: 'POST',
         data,
       })
-        .then(() => {
-          this.$router.push('/login')
+        .then((response) => {
+          // TODO: notify user
+          console.log(response.data)
         })
         .catch((error) => {
           console.log(error.response)

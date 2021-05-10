@@ -1,5 +1,5 @@
 <template>
-  <div class="game-page">
+  <div class="game-page container">
     <h1>Game Page</h1>
     <div :key="game.id" class="game">
       <h2>{{ game.name }}</h2>
@@ -33,13 +33,20 @@ export default {
     }
   },
   created() {
-    fetch(this.baseURL + 'search?client_id=KrUdcULOvp', {
-      // &ids=i5Oqu5VZgP
-      // JLBr5npPhV
+    /*
+    fetch(
+      this.baseURL +
+        'search?ids=' +
+        this.activeGameId +
+        '&client_id=KrUdcULOvp',
+      {
+        // &ids=i5Oqu5VZgP
+        // JLBr5npPhV
 
-      method: 'GET',
-      headers: {},
-    })
+        method: 'GET',
+        headers: {},
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error('could not fetch userdata')
@@ -50,16 +57,40 @@ export default {
       .then((result) => {
         console.log(result)
         // this.games = result.games
-        this.game = result.games[0]
+        this.game = result
         // console.log(result.games)
         // console.log(this.game.categories)
       })
       .catch(() => {})
+    */
+    this.$axios(this.$config.gbURL + '/search', {
+      params: {
+        client_id: this.$config.gbClientId,
+        ids: this.activeGameId,
+      },
+    })
+      .then((response) => {
+        if (!response.data.games) {
+          throw new Error('could not find game')
+        }
+        this.game = response.data.data.games[0]
+        console.log('data=' + response.data.data.games[0])
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+      .finally(() => {
+        this.loading = false
+      })
   },
   methods: {
     // getCategory() {
     //   if(this.categories.id === )
     // },
+    activeGameId: () => {
+      const urlId = this.$route.params.gbId
+      return urlId
+    },
   },
 }
 </script>
