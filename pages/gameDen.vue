@@ -15,11 +15,7 @@
         placeholder="Select an board game"
         label="boardgames"
       />
-      <FormulateInput
-        type="text"
-        name="location"
-        label="location"
-      />
+      <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
         v-model="value"
         :options="attendees"
