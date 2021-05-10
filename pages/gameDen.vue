@@ -38,13 +38,10 @@ export default {
     return {
       formErrors: [],
       formData: {
-        user: '',
-        first_Name: '',
+       user: this.$auth.user.uid,
         location: '',
         boardgame: '',
-        attendees: '',
-        bg_name: '',
-        id: '',
+        attendees: [],
         role: '1eb0baf8-fbfb-40a6-b706-6146e6ffc1f0',
       },
       toggle: false,
