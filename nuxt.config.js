@@ -55,11 +55,7 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    '@braid/vue-formulate/nuxt',
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/style-resources',
-  ],
+  buildModules: ['@braid/vue-formulate/nuxt', '@nuxtjs/eslint-module'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth-next'],

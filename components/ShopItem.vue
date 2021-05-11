@@ -31,8 +31,8 @@
 export default {
   name: 'ShopItem',
   props: {
-    title: String,
-    user: String,
+    title: { type: String, required: true },
+    user: { type: String, required: true },
   },
   data() {
     return {
