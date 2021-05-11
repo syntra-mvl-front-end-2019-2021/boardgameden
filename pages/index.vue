@@ -1,5 +1,6 @@
 <template>
-  <div class="home-page container">
+<div class="home-page">
+    <Hero />
     <HomePageSearch />
     <div class="players">
       <div class="players_text">
@@ -21,6 +22,7 @@
           class="c-collection__slides--gameComponents"
           @scroll="sliderScroll"
         >
+
           <GameComp
             v-for="game in games"
             :key="1 + game.bg_atlas_id"
@@ -45,17 +47,19 @@
 import GameComp from '../components/GameComp.vue'
 import HomePageSearch from '../components/HomePageSearch.vue'
 import GameOfTheMonth from '../components/GameOfTheMonth.vue'
+import Hero from '~/components/Hero.vue'
+
 export default {
   name: 'GamePage',
-  components: { GameComp, HomePageSearch, GameOfTheMonth },
+  components: { GameComp, HomePageSearch, GameOfTheMonth, Hero },
   data() {
     return {
       baseURL: 'https://api.boardgameatlas.com/api/',
       sliderWidth: 0,
       slideWidth: 0,
       currentSlide: 0,
-      games: [],
-      // game: {},
+      // games: [],
+      game: {},
       // categories: this.game.categories,
     }
   },
@@ -80,11 +84,13 @@ export default {
     },
   },
   created() {
-    this.$axios('/items/boardgames')
+$axios('/items/boardgames')
+
       .then((response) => {
         console.log(response)
         this.games = response.data.data
       })
+
       .catch((e) => {
         console.error(e)
       })
@@ -162,7 +168,6 @@ export default {
 
     &--gameComponents {
       display: grid;
-      height: 250px;
       grid-template-columns: repeat(6, calc((100% - 3rem) / 4));
       grid-column-gap: 2rem;
       overflow-x: scroll;
