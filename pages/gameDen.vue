@@ -1,6 +1,12 @@
 <template>
   <div>
     <h2>Play!</h2>
+    <button @click="boardgamedens">Add boardgameden</button>
+    <ul id="example-1">
+      <li v-for="item in boardgamedens" :key="item.boardgamedens">
+        {{ item.boardgamedens }}
+      </li>
+    </ul>
     <button @click="toggle = !toggle">created event</button>
     <FormulateForm
       v-if="toggle"
@@ -16,15 +22,16 @@
         name="boardgame"
         label="boardgame"
       />
-      <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
         v-model="value"
-        :options="attendees"
+        :options="attenDees"
         type="select"
         placeholder="Select an attendees"
         label="attendees"
         name="attendees"
       />
+      <FormulateInput type="text" name="location" label="location" />
+
       <FormulateInput type="hidden" name="role" />
       <FormulateErrors />
       <FormulateInput type="submit" name="Submit" />
@@ -33,13 +40,13 @@
 </template>
 <script>
 export default {
-  name: 'Gameevent',
+  name: 'Gameden',
   middleware: 'auth',
   data() {
     return {
+      boardgamedens: '',
       formErrors: [],
       formData: {
-        user: '',
         location: '',
         boardgame: '',
         attendees: '',
@@ -55,15 +62,19 @@ export default {
         return { label: boardGame.bg_name, value: boardGame.id }
       })
     },
-    attendees() {
+    attenDees() {
       return this.$store.getters['users/getUsers'].map(function (users) {
         return { label: users.first_name, value: users.id }
       })
     },
+    boardgamedens() {
+      return this.$store.getters['boardgamedens/ getBoardgameden']
+    },
   },
   created() {
-    this.$store.dispatch('boardgames/getBoardGames',{}),
-      this.$store.dispatch('users/getUsers',{})
+    this.$store.dispatch('boardgames/getBoardGames', {}),
+      this.$store.dispatch('users/getUsers', {}),
+      this.$store.dispatch('boardgameden/getBoardgameden', {})
   },
   methods: {
     submit(data) {
@@ -73,25 +84,6 @@ export default {
       })
         .then(() => {
           this.$router.push('/login')
-        })
-        .catch((error) => {
-          console.log(error.response)
-          if (error.response && error.response.data.errors) {
-            this.formErrors = error.response.data.errors.map(
-              (val) => val.message
-            )
-          }
-
-          this.formErrors = ['Could not save user, try again']
-        })
-    },
-    getEvent(data) {
-      return this.$axios('/items/boardgame_dens', {
-        method: 'GET',
-        data,
-      })
-        .then((response) => {
-          console.log(response)
         })
         .catch((error) => {
           console.log(error.response)
