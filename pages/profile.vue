@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- <h2>{{ userData.first_name }}</h2> -->
+    <h2>{{ $auth.user.first_name }}</h2>
     <img :src="userData.first_name" />
 
-    <ul v-if="userData">
-      <li>email: {{ userData.email }}</li>
+    <ul v-if="$auth.user">
+      <li>email: {{ $auth.user.email }}</li>
     </ul>
     <Collection />
 
