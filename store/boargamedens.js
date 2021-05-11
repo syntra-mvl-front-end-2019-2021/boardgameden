@@ -4,23 +4,22 @@ export const state = function () {
   }
 }
 
-export const getters = {
-  getBoardgameden(state) {
-    return state.boardgamedens
-  },
-}
+export const getters = {}
 export const mutations = {
   setBoardgameden(state, boardgamedenResponse) {
-    state.boardgames = boardgamedenResponse
+    state.boardgamedens = boardgamedenResponse
   },
 }
 export const actions = {
   getBoardgameden(context) {
+    if (context.state.boardgamedens.length > 0) {
+      return
+    }
+
     this.$axios('/items/boardgame_dens', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer' + state.token,
       },
     })
       .then((response) => {

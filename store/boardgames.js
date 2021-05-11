@@ -4,11 +4,7 @@ export const state = function () {
   }
 }
 
-export const getters = {
-  getBoardGames(state) {
-    return state.boardgames
-  },
-}
+export const getters = {}
 export const mutations = {
   setBoardGames(state, boardGamesResponse) {
     state.boardgames = boardGamesResponse
@@ -21,11 +17,9 @@ export const actions = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer' + state.token,
       },
     })
       .then((response) => {
-        console.log(response)
         context.commit('setBoardGames', response.data.data)
       })
       .catch((err) => {
