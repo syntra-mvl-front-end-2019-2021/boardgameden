@@ -23,16 +23,8 @@
         placeholder="Select an board game"
         name="boardgame"
         label="boardgame"
-
-        placeholder="Select a board game"
-        label="boardgames"
       />
-      <FormulateInput
-        type="text"
-        name="location"
-        label="location"
-
-      />
+      <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
         v-model="value"
         :options="attenDees"
@@ -55,7 +47,6 @@ export default {
   middleware: 'auth',
   data() {
     return {
-      boardgamedens: '',
       formErrors: [],
       formData: {
         location: '',
@@ -83,9 +74,9 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('boardgames/getBoardGames', {}),
-      this.$store.dispatch('users/getUsers', {}),
-      this.$store.dispatch('boardgameden/getBoardgameden', {})
+    this.$store.dispatch('boardgames/getBoardGames', {})
+    this.$store.dispatch('users/getUsers', {})
+    this.$store.dispatch('boardgameden/getBoardgameden', {})
   },
   methods: {
     submit(data) {

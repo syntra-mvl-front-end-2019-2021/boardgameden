@@ -27,54 +27,22 @@ export default {
   data() {
     return {
       baseURL: 'https://api.boardgameatlas.com/api/',
-      // games: [],
       game: {},
-      // categories: this.game.categories,
     }
   },
   created() {
-    /*
-    fetch(
-      this.baseURL +
-        'search?ids=' +
-        this.activeGameId +
-        '&client_id=KrUdcULOvp',
-      {
-        // &ids=i5Oqu5VZgP
-        // JLBr5npPhV
-
-        method: 'GET',
-        headers: {},
-      }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('could not fetch userdata')
-        }
-
-        return response.json()
-      })
-      .then((result) => {
-        console.log(result)
-        // this.games = result.games
-        this.game = result
-        // console.log(result.games)
-        // console.log(this.game.categories)
-      })
-      .catch(() => {})
-    */
     this.$axios(this.$config.gbURL + '/search', {
       params: {
         client_id: this.$config.gbClientId,
-        ids: this.activeGameId,
+        ids: this.$route.params.id,
       },
     })
       .then((response) => {
         if (!response.data.games) {
           throw new Error('could not find game')
         }
-        this.game = response.data.data.games[0]
-        console.log('data=' + response.data.data.games[0])
+        this.game = response.data.games[0]
+        console.log('data=' + response.data.games[0])
       })
       .catch((e) => {
         console.error(e)
@@ -82,15 +50,6 @@ export default {
       .finally(() => {
         this.loading = false
       })
-  },
-  methods: {
-    // getCategory() {
-    //   if(this.categories.id === )
-    // },
-    activeGameId: () => {
-      const urlId = this.$route.params.gbId
-      return urlId
-    },
   },
 }
 </script>
