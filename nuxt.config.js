@@ -31,18 +31,7 @@ export default {
         href: '/favicon.ico',
       },
     ],
-    script: [
-      { src: 'gsap/TweenMax.min.js' },
-      { src: 'gsap/MorphSVGPlugin.min.js' },
-      { src: 'gsap/SplitText.min.js' },
-      { src: 'gsap/DrawSVGPlugin.min.js' },
-      { src: 'gsap/GSDevTools.min.js' },
-      {
-        src: '~/plugins/debug.addIndicators.js',
-        ssr: false,
-      },
-      { src: '~/plugins/scrollmagic.js', ssr: false },
-    ],
+    script: [],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
