@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>Play!</h2>
+
     <button @click="boardgamedens">Add boardgameden</button>
     <ul id="example-1">
       <li v-for="item in boardgamedens" :key="item.boardgamedens">
@@ -8,6 +9,7 @@
       </li>
     </ul>
     <button @click="toggle = !toggle">created event</button>
+    <button @click="toggle = !toggle">create event</button>
     <FormulateForm
       v-if="toggle"
       v-model="formData"
@@ -21,6 +23,15 @@
         placeholder="Select an board game"
         name="boardgame"
         label="boardgame"
+
+        placeholder="Select a board game"
+        label="boardgames"
+      />
+      <FormulateInput
+        type="text"
+        name="location"
+        label="location"
+
       />
       <FormulateInput
         v-model="value"
