@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>Profile123</h1>
+    <!-- <h2>{{ userData.first_name }}</h2> -->
+    <img :src="userData.first_name" />
+
     <ul v-if="userData">
       <li>email: {{ userData.email }}</li>
     </ul>
     <Collection />
-    <h3>test</h3>
-    <!--    <h2>{{ game.name }}</h2>-->
 
     <input v-model="searchTerm" type="text" />
     <ul>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import Collection from '~/components/Collection'
+
 export default {
   name: 'ProfilePage',
   components: { Collection },

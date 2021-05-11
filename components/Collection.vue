@@ -10,7 +10,7 @@
 </template>
 
 <script>
-// import CollectionItem from '~/components/CollectionItem'
+import CollectionItem from '~/components/CollectionItem'
 export default {
   components: { CollectionItem },
   computed: {
