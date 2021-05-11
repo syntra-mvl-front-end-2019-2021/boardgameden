@@ -93,6 +93,7 @@ export default {
       })
         .then((response) => {
           // TODO: notify user
+          this.$router.push('/thanks')
           console.log(response.data)
         })
         .catch((error) => {

@@ -2,7 +2,7 @@
   <div>
     <div class="profile">
       <img :src="$auth.user.avatar" />
-      <h2>Welcome, {{ $auth.user.first_name }}</h2>
+      <h2>Welcome, {{ $auth.user.user_name }}</h2>
       <ul v-if="$auth.user">
         <li>First name: {{ $auth.user.first_name }}</li>
         <li>Last name: {{ $auth.user.last_name }}</li>
