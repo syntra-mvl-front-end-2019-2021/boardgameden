@@ -87,11 +87,16 @@ export default {
         token: {
           property: 'data.access_token',
         },
+        refreshToken: {
+          property: 'data.refresh_token',
+          data: 'refresh_token',
+        },
         user: {
           property: 'data',
         },
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
+          refresh: { url: '/auth/refresh', method: 'post' },
           logout: false,
           user: { url: '/users/me?fields=*.*.*', method: 'get' },
         },
