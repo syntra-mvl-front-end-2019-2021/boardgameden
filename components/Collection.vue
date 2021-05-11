@@ -13,11 +13,11 @@
 import CollectionItem from '~/components/CollectionItem'
 export default {
   components: { CollectionItem },
-  computed: {
-    games() {
-      return this.$auth.user.boardgames.map((val) => val.boardgames_id)
-    },
-  },
+  // computed: {
+  //   games() {
+  //     return this.$auth.user.boardgames.map((val) => val.boardgames_id)
+  //   },
+  // },
 }
 </script>
 

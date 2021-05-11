@@ -1,17 +1,21 @@
 <template>
   <div>
-    <h2>{{ $auth.user.first_name }}</h2>
-    <img :src="userData.first_name" />
-
-    <ul v-if="$auth.user">
-      <li>email: {{ $auth.user.email }}</li>
-    </ul>
-    <Collection />
-
-    <input v-model="searchTerm" type="text" />
-    <ul>
-      <li v-for="game in results" :key="game.id">{{ game.name }}</li>
-    </ul>
+    <div class="profile">
+      <img :src="$auth.user.avatar" />
+      <h2>Welcome, {{ $auth.user.first_name }}</h2>
+      <ul v-if="$auth.user">
+        <li>First name: {{ $auth.user.first_name }}</li>
+        <li>Last name: {{ $auth.user.last_name }}</li>
+        <li>Email: {{ $auth.user.email }}</li>
+        <li>Location: {{ $auth.user.location }}</li>
+      </ul>
+      <h4>Search boardgame</h4>
+      <input v-model="searchTerm" type="text" />
+      <ul>
+        <li v-for="game in results" :key="game.id">{{ game.name }}</li>
+      </ul>
+      <Collection />
+    </div>
   </div>
 </template>
 
@@ -53,4 +57,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.profile {
+  margin-left: 200px;
+}
+</style>

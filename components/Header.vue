@@ -39,6 +39,7 @@
         <NuxtLink to="/contact">Contact</NuxtLink>
       </nav>
       <div class="inner_header--login-items">
+        <a v-if="isLoggedIn" @click="profile">{{ $auth.user.first_name }}</a>
         <a v-if="isLoggedIn" @click="logout">Logout</a>
         <a v-else @click="redirect">Login</a>
         <NuxtLink to="/register">Register</NuxtLink>
@@ -50,6 +51,7 @@
 <script>
 export default {
   name: 'Header',
+  middleware: ['auth'],
   data() {
     return {
       scrollIndex: null,
@@ -70,6 +72,9 @@ export default {
     },
     redirect() {
       this.$router.push('/login')
+    },
+    profile() {
+      this.$router.push('/profile')
     },
     updateScroll() {
       this.scrollIndex = window.scrollY
