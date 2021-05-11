@@ -13,7 +13,8 @@
         :options="boardGames"
         type="select"
         placeholder="Select an board game"
-        label="boardgames"
+        name="boardgame"
+        label="boardgame"
       />
       <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
@@ -21,7 +22,8 @@
         :options="attendees"
         type="select"
         placeholder="Select an attendees"
-        label="user"
+        label="attendees"
+        name="attendees"
       />
       <FormulateInput type="hidden" name="role" />
       <FormulateErrors />
@@ -30,7 +32,6 @@
   </div>
 </template>
 <script>
-import vSelect from 'vue-select'
 export default {
   name: 'Gameevent',
   middleware: 'auth',
@@ -38,11 +39,10 @@ export default {
     return {
       formErrors: [],
       formData: {
-       user: this.$auth.user.uid,
+        user: '',
         location: '',
         boardgame: '',
-        attendees: [],
-        role: '1eb0baf8-fbfb-40a6-b706-6146e6ffc1f0',
+        attendees: '',
       },
       toggle: false,
     }
@@ -56,14 +56,14 @@ export default {
       })
     },
     attendees() {
-      return this.$store.getters['users/getUsers'].map(function (user) {
-        return { label: user.first_name, value: user.id }
+      return this.$store.getters['users/getUsers'].map(function (users) {
+        return { label: users.first_name, value: users.id }
       })
     },
   },
   created() {
-    this.$store.dispatch('boardgames/getBoardGames', {}),
-      this.$store.dispatch('users/getUsers', {})
+    this.$store.dispatch('boardgames/getBoardGames',{}),
+      this.$store.dispatch('users/getUsers',{})
   },
   methods: {
     submit(data) {
@@ -73,6 +73,25 @@ export default {
       })
         .then(() => {
           this.$router.push('/login')
+        })
+        .catch((error) => {
+          console.log(error.response)
+          if (error.response && error.response.data.errors) {
+            this.formErrors = error.response.data.errors.map(
+              (val) => val.message
+            )
+          }
+
+          this.formErrors = ['Could not save user, try again']
+        })
+    },
+    getEvent(data) {
+      return this.$axios('/items/boardgame_dens', {
+        method: 'GET',
+        data,
+      })
+        .then((response) => {
+          console.log(response)
         })
         .catch((error) => {
           console.log(error.response)
