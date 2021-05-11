@@ -1,5 +1,5 @@
 <template>
-<div class="home-page">
+  <div class="home-page">
     <Hero />
     <HomePageSearch />
     <div class="players">
@@ -22,7 +22,6 @@
           class="c-collection__slides--gameComponents"
           @scroll="sliderScroll"
         >
-
           <GameComp
             v-for="game in games"
             :key="1 + game.bg_atlas_id"
@@ -84,8 +83,7 @@ export default {
     },
   },
   created() {
-$axios('/items/boardgames')
-
+    this.$axios('/items/boardgames')
       .then((response) => {
         console.log(response)
         this.games = response.data.data
