@@ -1,4 +1,9 @@
 export default {
+  publicRuntimeConfig: {
+    baseURL: process.env.BASE_URL,
+    gbURL: process.env.GB_URL,
+    gbClientId: process.env.GB_CLIENT_ID,
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'boardgameden',
@@ -67,7 +72,7 @@ export default {
   },
 
   axios: {
-    baseUrl: 'http://206.81.26.160',
+    baseUrl: process.env.BASE_URL,
   },
 
   auth: {
@@ -82,11 +87,16 @@ export default {
         token: {
           property: 'data.access_token',
         },
+        refreshToken: {
+          property: 'data.refresh_token',
+          data: 'refresh_token',
+        },
         user: {
           property: 'data',
         },
         endpoints: {
           login: { url: '/auth/login', method: 'post' },
+          refresh: { url: '/auth/refresh', method: 'post' },
           logout: false,
           user: { url: '/users/me?fields=*.*.*', method: 'get' },
         },

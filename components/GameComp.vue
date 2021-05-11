@@ -1,10 +1,14 @@
 <template>
-  <div class="game-comp" @click="getGameId">
-    <!-- https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1540147295104 -->
-    <img class="game-img" :src="url" alt="" />
-    <p class="game-title">{{ id }}</p>
-    <h3 class="game-title">{{ title }}</h3>
-    <p class="game-description">{{ description }}</p>
+  <div class="game-comp">
+    <div v-if="loading" class="game-comp__loading"></div>
+    <div v-if="!loading && game" class="game-comp__content">
+      <img class="game-img" :src="game.thumb_url" alt="game.name" />
+      <p class="game-title">{{ gbId }}</p>
+      <h3 class="game-title">{{ game.name }}</h3>
+      <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
+        More Info
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
@@ -12,38 +16,50 @@
 export default {
   name: 'GameComp',
   props: {
-    url: {
-      type: String,
-      required: true,
-    },
-    title: {
+    gbId: {
       type: String,
       required: true,
     },
   },
   data() {
     return {
-      game: {},
-      gameId: '',
+      loading: true,
+      game: null,
     }
   },
-  methods: {
-    getGameId() {
-      this.gameId = this.id
-      console.log(this.gameId)
-    },
+  created() {
+    this.$axios(this.$config.gbURL + '/search', {
+      params: {
+        client_id: this.$config.gbClientId,
+        ids: this.gbId,
+      },
+    })
+      .then((response) => {
+        if (!response.data.games) {
+          throw new Error('could not find game')
+        }
+        this.game = response.data.games[0]
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+      .finally(() => {
+        this.loading = false
+      })
   },
+  methods: {},
 }
 </script>
 
 <style lang="scss">
 .game-comp {
-  width: 15rem;
-  height: 20rem;
-  overflow: hidden;
-  margin: auto;
-  display: grid;
-  place-items: center;
+  &__content {
+    overflow: hidden;
+    margin: auto;
+    display: grid;
+    place-items: center;
+  }
+
   .game-img {
     height: 10rem;
     box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -56,6 +72,40 @@ export default {
   }
   .game-description {
     font-size: 0.6rem;
+  }
+
+  &__loading {
+    position: relative;
+    height: 20rem;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -1rem;
+      margin-left: -1rem;
+      border-top: 3px solid rgba(255, 255, 255, 0.2);
+      border-right: 3px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+      border-left: 3px solid $orange;
+      animation: load8 1.1s infinite linear;
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 </style>

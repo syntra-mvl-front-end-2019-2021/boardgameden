@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page">
+<div class="home-page">
     <Hero />
     <HomePageSearch />
     <div class="players">
@@ -17,16 +17,22 @@
           @click="clickLeft"
         ></button>
         <div
+          v-if="games"
           ref="slider"
           class="c-collection__slides--gameComponents"
           @scroll="sliderScroll"
         >
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
-          <GameComp :url="game.image_url" :title="game.name" />
+
+          <GameComp
+            v-for="game in games"
+            :key="1 + game.bg_atlas_id"
+            :gb-id="game.bg_atlas_id"
+          />
+          <GameComp
+            v-for="game in games"
+            :key="2 + game.bg_atlas_id"
+            :gb-id="game.bg_atlas_id"
+          />
         </div>
         <button
           class="c-collection__slides__btn c-collection__slides__btn--right"
@@ -68,26 +74,28 @@ export default {
       return this.slides.length + 1 - this.slidesPerPage
     },
   },
-  created() {
-    fetch(this.baseURL + 'search?client_id=JLBr5npPhV', {
-      // &ids=i5Oqu5VZgP
-      method: 'GET',
-      headers: {},
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('could not fetch userdata')
+  watch: {
+    games(newVal) {
+      this.$nextTick(() => {
+        if (newVal.length) {
+          this.calcWidths()
         }
-        return response.json()
       })
-      .then((result) => {
-        // this.games = result.games
-        this.game = result.games[0]
+    },
+  },
+  created() {
+$axios('/items/boardgames')
+
+      .then((response) => {
+        console.log(response)
+        this.games = response.data.data
       })
-      .catch(() => {})
+
+      .catch((e) => {
+        console.error(e)
+      })
   },
   mounted() {
-    this.calcWidths()
     window.addEventListener('resize', this.calcWidths)
   },
   unmounted() {
@@ -95,8 +103,10 @@ export default {
   },
   methods: {
     calcWidths() {
-      this.sliderWidth = this.$refs.slider.offsetWidth
-      this.slideWidth = this.$refs.slider.children[0].offsetWidth
+      if (this.$refs.slider.children[0]) {
+        this.sliderWidth = this.$refs.slider.offsetWidth
+        this.slideWidth = this.$refs.slider.children[0].offsetWidth
+      }
     },
     clickLeft() {
       this.$refs.slider.scrollLeft =
