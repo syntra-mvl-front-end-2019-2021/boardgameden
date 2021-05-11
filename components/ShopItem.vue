@@ -3,7 +3,7 @@
     <div class="shop-item">
       <p>Item:</p>
       <strong>{{ title }}</strong>
-      <button class="button-link__orange" @click="openModal">
+      <button @click="openModal" class="button-link__orange">
         Buy or Swap
       </button>
     </div>
@@ -15,8 +15,8 @@
     >
       <p>
         <textarea
-          id=""
           name=""
+          id=""
           cols="30"
           rows="10"
           placeholder="Hey! I would like to purchase this item"
