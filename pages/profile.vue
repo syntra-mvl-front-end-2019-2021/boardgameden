@@ -13,7 +13,7 @@ import Collection from '~/components/Collection'
 
 export default {
   name: 'ProfilePage',
-  components: [Collection],
+  components: { Collection },
   middleware: ['auth'],
 }
 </script>
