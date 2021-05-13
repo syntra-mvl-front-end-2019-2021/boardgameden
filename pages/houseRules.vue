@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="bg-triangle"></div>
     <section class="container">
       <h2>House Rules</h2>
       <div class="house-rules">
@@ -64,10 +65,20 @@ ul li {
 p {
   line-height: 30px;
 }
+
+.bg-triangle {
+  width: 100px;
+  height: 1000px;
+  background-color: $blue;
+  clip-path: polygon(0 20%, 45% 50%, 0 100%);
+  position: absolute;
+  width: 100%;
+}
 .house-rules {
   width: 90%;
   margin: auto;
   margin-top: 3rem;
+  // position: relative;
 
   .house-rules__intro {
     display: flex;
@@ -86,7 +97,7 @@ p {
       flex-direction: row;
       justify-content: space-between;
       position: relative;
-      top: -30px;
+      top: -100px;
 
       .image {
         height: 80%;
