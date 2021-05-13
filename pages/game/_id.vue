@@ -1,5 +1,5 @@
 <template>
-  <div class="game-page">
+  <div class="game-page container">
     <h1>Game Page</h1>
     <div :key="game.id" class="game">
       <h2>{{ game.name }}</h2>
@@ -27,39 +27,29 @@ export default {
   data() {
     return {
       baseURL: 'https://api.boardgameatlas.com/api/',
-      // games: [],
       game: {},
-      // categories: this.game.categories,
     }
   },
   created() {
-    fetch(this.baseURL + 'search?client_id=KrUdcULOvp', {
-      // &ids=i5Oqu5VZgP
-      // JLBr5npPhV
-
-      method: 'GET',
-      headers: {},
+    this.$axios(this.$config.gbURL + '/search', {
+      params: {
+        client_id: this.$config.gbClientId,
+        ids: this.$route.params.id,
+      },
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error('could not fetch userdata')
+        if (!response.data.games) {
+          throw new Error('could not find game')
         }
-
-        return response.json()
+        this.game = response.data.games[0]
+        console.log('data=' + response.data.games[0])
       })
-      .then((result) => {
-        console.log(result)
-        // this.games = result.games
-        this.game = result.games[0]
-        // console.log(result.games)
-        // console.log(this.game.categories)
+      .catch((e) => {
+        console.error(e)
       })
-      .catch(() => {})
-  },
-  methods: {
-    // getCategory() {
-    //   if(this.categories.id === )
-    // },
+      .finally(() => {
+        this.loading = false
+      })
   },
 }
 </script>

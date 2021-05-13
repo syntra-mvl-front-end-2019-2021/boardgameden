@@ -1,11 +1,7 @@
-export const state = {
-  users: [],
+export const state = function () {
+  return { users: [] }
 }
-export const getters = {
-  getUsers(state) {
-    return state.users
-  },
-}
+export const getters = {}
 export const mutations = {
   setUsers(state, usersResponse) {
     state.users = usersResponse
@@ -18,11 +14,9 @@ export const actions = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer' + state.token,
       },
     })
       .then((response) => {
-        console.log(response)
         context.commit('setUsers', response.data.data)
       })
       .catch((err) => {
