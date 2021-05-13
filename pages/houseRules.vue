@@ -17,8 +17,16 @@
             </p>
           </div>
           <div class="intro-images">
-            <img class="image-1" src="~/assets/images/respect.jpg" alt="" />
-            <img class="image-2" src="~/assets/images/connected.jpg" alt="" />
+            <img
+              class="image image-1"
+              src="~/assets/images/respect.jpg"
+              alt=""
+            />
+            <img
+              class="image image-2"
+              src="~/assets/images/connected.jpg"
+              alt=""
+            />
           </div>
         </div>
         <div class="house-rules__rules">
@@ -59,24 +67,45 @@ p {
 .house-rules {
   width: 90%;
   margin: auto;
+  margin-top: 3rem;
 
   .house-rules__intro {
     display: flex;
+    justify-content: space-between;
+    height: 60vh;
+    margin-bottom: 3rem;
+    position: relative;
 
     .intro-text {
-      width: 60%;
+      width: 49%;
     }
 
     .intro-images {
-      width: 40%;
+      width: 49%;
       display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      position: relative;
+      top: -30px;
+
+      .image {
+        height: 80%;
+        width: 80%;
+        clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+        position: relative;
+
+        @media screen and (max-width: $xl) {
+          height: 70%;
+          width: 70%;
+        }
+      }
 
       .image-1 {
-        width: 50%;
+        top: 50%;
       }
 
       .image-2 {
-        width: 50%;
+        left: -160px;
       }
     }
   }
