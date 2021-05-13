@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <section class="container">
     <h2>Shop</h2>
     <div class="shop-wrapper">
       <ShopItem
@@ -9,7 +9,7 @@
         :user="games.game01.user"
       />
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import ShopItem from '@/components/ShopItem.vue'

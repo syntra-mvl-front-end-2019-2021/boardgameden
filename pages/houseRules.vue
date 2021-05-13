@@ -13,8 +13,7 @@
               share with you our code of conduct. These days we see too much
               intolerant conversations circling the internet and even hateful
               messages. Please be aware that we are all here to have a great
-              time and so inappropriate behaviour will not be tolerated. You can
-              find the
+              time and so inappropriate behaviour will not be tolerated.
             </p>
           </div>
           <div class="intro-images">
@@ -43,7 +42,7 @@
           <div>
             <h4>Please do not</h4>
             <ul>
-              <li>bahave inappropriate</li>
+              <li>behave inappropriate</li>
               <li>share any personal information if you don't want to</li>
               <li>Lorem ipsum dolor sit amet</li>
             </ul>
