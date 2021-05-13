@@ -2,23 +2,15 @@
   <div>
     <h2>Play!</h2>
 
-    <button @click="boardgamedens">Add boardgameden</button>
-    <ul id="example-1">
-      <li v-for="item in boardgamedens" :key="item.boardgamedens">
-        {{ item.boardgamedens }}
-      </li>
-    </ul>
-    <button @click="toggle = !toggle">created event</button>
-    <button @click="toggle = !toggle">create event</button>
+    <button @click="toggle = !toggle">Add boardgameden</button>
     <FormulateForm
-      v-if="toggle"
       v-model="formData"
+      :class="{ 'gameden-form--hidden': toggle }"
       :form-errors="formErrors"
       @submit="submit"
     >
       <FormulateInput
-        v-model="value"
-        :options="boardGames"
+        :options="boardgameDensOptions"
         type="select"
         placeholder="Select an board game"
         name="boardgame"
@@ -26,16 +18,13 @@
       />
       <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
-        v-model="value"
-        :options="attenDees"
+        :options="usersOptions"
         type="select"
         placeholder="Select an attendees"
         label="attendees"
         name="attendees"
       />
-      <FormulateInput type="text" name="location" label="location" />
-
-      <FormulateInput type="hidden" name="role" />
+      <FormulateInput name="user" type="hidden" />
       <FormulateErrors />
       <FormulateInput type="submit" name="Submit" />
     </FormulateForm>
@@ -52,40 +41,47 @@ export default {
         location: '',
         boardgame: '',
         attendees: '',
+        user: '',
       },
       toggle: false,
     }
   },
   computed: {
-    boardGames() {
-      return this.$store.getters['boardgames/getBoardGames'].map(function (
-        boardGame
-      ) {
+    boardgames() {
+      return this.$store.state.boardgames.boardgames
+    },
+    users() {
+      return this.$store.state.users.users
+    },
+    currentUser() {
+      return this.$auth.user
+    },
+    boardgameDensOptions() {
+      return this.boardgames.map(function (boardGame) {
         return { label: boardGame.bg_name, value: boardGame.id }
       })
     },
-    attenDees() {
-      return this.$store.getters['users/getUsers'].map(function (users) {
+    usersOptions() {
+      return this.users.map(function (users) {
         return { label: users.first_name, value: users.id }
       })
     },
-    boardgamedens() {
-      return this.$store.getters['boardgamedens/ getBoardgameden']
-    },
   },
   created() {
-    this.$store.dispatch('boardgames/getBoardGames', {})
-    this.$store.dispatch('users/getUsers', {})
-    this.$store.dispatch('boardgameden/getBoardgameden', {})
+    this.formData.user = this.currentUser.id
+    this.$store.dispatch('boardgames/getBoardGames')
+    this.$store.dispatch('users/getUsers')
   },
   methods: {
     submit(data) {
+      data.attendees = [{ users_id: data.attendees }]
+
       return this.$axios('/items/boardgame_dens', {
         method: 'POST',
         data,
       })
         .then(() => {
-          this.$router.push('/login')
+          //  TODO: do something
         })
         .catch((error) => {
           console.log(error.response)
@@ -101,3 +97,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.gameden-form--hidden {
+  display: none;
+}
+</style>

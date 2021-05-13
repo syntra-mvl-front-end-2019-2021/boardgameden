@@ -57,9 +57,7 @@ export default {
       sliderWidth: 0,
       slideWidth: 0,
       currentSlide: 0,
-      // games: [],
-      game: {},
-      // categories: this.game.categories,
+      games: [],
     }
   },
   computed: {
