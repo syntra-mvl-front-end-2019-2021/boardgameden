@@ -74,7 +74,9 @@ export default {
   },
   methods: {
     submit(data) {
+            //process...             
       data.attendees = [{ users_id: data.attendees }]
+            //process...             
 
       return this.$axios('/items/boardgame_dens', {
         method: 'POST',
@@ -82,6 +84,7 @@ export default {
       })
         .then(() => {
           //  TODO: do something
+           this.formData= false;
         })
         .catch((error) => {
           console.log(error.response)
@@ -90,10 +93,14 @@ export default {
               (val) => val.message
             )
           }
-
           this.formErrors = ['Could not save user, try again']
         })
-    },
+        },
+         Reset(event){
+            event.preventDefault(),
+            //process...             
+            event.target.reset()
+    }
   },
 }
 </script>
