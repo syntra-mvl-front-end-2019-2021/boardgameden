@@ -40,14 +40,14 @@ export default {
   },
   computed: {
     getBoardgameShop() {
-      return this.$store.state.boardgameShop.boardgameShop
+      return this.$store.state.shop.boardgameShop
     },
   },
   created() {
-    this.$axios(
-      this.$config.baseURL +
-        '/items/boardgames_directus_users?fields=*.boardgames_id.*'
-    )
+   return this.$axios(
+    this.$config.baseURL +
+        '/items/boardgames_directus_users?fields=*.boardgames_id.*',
+        )
       .then((response) => {
         const games = response.data.data
         this.gamesForSale = games.filter(this.returnSales)

@@ -15,8 +15,7 @@ export const actions = {
     if (context.state.boardgameShop.length > 0) {
       return
     }
-
-    this.$axios(
+   return this.$axios(
       this.$config.baseURL +
         '/items/boardgames_directus_users?fields=*.boardgames_id.*',
       {
