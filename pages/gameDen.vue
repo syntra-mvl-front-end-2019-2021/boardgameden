@@ -4,10 +4,10 @@
 
     <button @click="toggle = !toggle">Add boardgameden</button>
     <FormulateForm
-      v-model="formData"
+      v-model="formData" 
       :class="{ 'gameden-form--hidden': toggle }"
       :form-errors="formErrors"
-    @submit="submit"
+    @submit.prevent="submit" @submit="resetForm"
     >
       <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
@@ -17,6 +17,14 @@
         name="boardgame"
         label="boardgame"
       />
+        <FormulateInput
+        type="group"
+        name="attendees"
+        :repeatable="true"
+        label="Who is going to attend?"
+        add-label="+ Add Attendee"
+        validation="required"
+      >
       <FormulateInput
         :options="usersOptions"
         type="select"
@@ -24,9 +32,10 @@
         name="attendees"
         label="attendees"
       />
+       </FormulateInput>
       <FormulateInput name="user" type="hidden" />
       <FormulateErrors />
-      <FormulateInput type="submit" name="Submit" />
+      <FormulateInput name="submit" type="submit" />
     </FormulateForm>
   </div>
 </template>
@@ -73,8 +82,8 @@ export default {
     this.$store.dispatch('users/getUsers')
   },
   methods: {
-     resetForm() {
-   return (this.formData='')
+       resetForm(event) {
+      event.target.reset()
     },
     submit(data) {
       // process...
