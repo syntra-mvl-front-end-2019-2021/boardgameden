@@ -1,6 +1,6 @@
 export const state = function () {
   return {
-    boardgameShop: {},
+    boardgameShop: [],
   }
 }
 
@@ -33,7 +33,6 @@ export const actions = {
       }
     )
       .then((response) => {
-        console.log(JSON.stringify(response))
         context.commit('setBoardgameden', response.data.data)
       })
       .catch((err) => {
