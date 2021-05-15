@@ -1,16 +1,15 @@
 <template>
   <section class="s-search">
-    <form class="form">
-      <div class="form__search">
-        <label for="search"></label>
-        <input
-          id="search"
-          type="text"
-          placeholder="Zoek je avontuur"
-          name="search"
-        />
-      </div>
-      <div class="form__city">
+    <form class="form form__search" @submit.prevent="submit">
+      <label for="search"></label>
+      <input
+        id="search"
+        v-model="searchinput"
+        type="text"
+        placeholder="Zoek je avontuur"
+        name="search"
+      />
+      <!-- <div class="form__city">
         <label for="city"></label>
         <input id="city" type="text" placeholder="City" name="city" />
       </div>
@@ -24,16 +23,58 @@
           <option value="30">30</option>
           <option value="40">40</option>
         </select>
-      </div>
-      <button type="submit">Fetch</button>
+      </div> -->
+      <button type="submit" @submit="submit">zoek</button>
     </form>
   </section>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  setup() {
-    return {}
+  name: 'HomepageSearch',
+  middleware: 'auth',
+
+  data() {
+    return {
+      searchinput: '',
+      board_games: [],
+    }
+  },
+  computed: {
+    boardgames() {
+      return this.$store.state.boardgames.boardgames
+    },
+  },
+  created() {
+    this.$store.dispatch('boardgames/getBoardGames')
+    this.get_all_games_to_local_storage()
+  },
+  methods: {
+    submit(event) {
+      const id = this.get_game_id_user_search()
+      this.$router.push('shop/' + id)
+    },
+
+    get_game_id_user_search() {
+      if (this.searchinput !== '') {
+        const result = this.board_games.find(
+          (item) => item.bg_name === this.searchinput
+        )
+        return result.bg_atlas_id
+      }
+    },
+
+    get_all_games_to_local_storage() {
+      axios
+        .get('http://206.81.26.160/items/boardgames')
+        .then((response) => {
+          this.board_games = response.data.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
   },
 }
 </script>
