@@ -7,8 +7,9 @@
       v-model="formData"
       :class="{ 'gameden-form--hidden': toggle }"
       :form-errors="formErrors"
-      @submit="submit"
+    @submit="submit"
     >
+      <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
         :options="boardgameDensOptions"
         type="select"
@@ -16,13 +17,12 @@
         name="boardgame"
         label="boardgame"
       />
-      <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
         :options="usersOptions"
         type="select"
         placeholder="Select an attendees"
-        label="attendees"
         name="attendees"
+        label="attendees"
       />
       <FormulateInput name="user" type="hidden" />
       <FormulateErrors />
@@ -73,10 +73,13 @@ export default {
     this.$store.dispatch('users/getUsers')
   },
   methods: {
+     resetForm() {
+   return (this.formData='')
+    },
     submit(data) {
-            //process...             
+      // process...
       data.attendees = [{ users_id: data.attendees }]
-            //process...             
+      // process...
 
       return this.$axios('/items/boardgame_dens', {
         method: 'POST',
@@ -84,7 +87,7 @@ export default {
       })
         .then(() => {
           //  TODO: do something
-           this.formData= false;
+          this.formData = false
         })
         .catch((error) => {
           console.log(error.response)
@@ -95,12 +98,7 @@ export default {
           }
           this.formErrors = ['Could not save user, try again']
         })
-        },
-         Reset(event){
-            event.preventDefault(),
-            //process...             
-            event.target.reset()
-    }
+    },
   },
 }
 </script>
