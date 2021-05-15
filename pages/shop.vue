@@ -2,12 +2,28 @@
   <section class="container">
     <h2>Shop</h2>
     <div class="shop-wrapper">
-      <ShopItem
-        v-for="game in games"
-        :key="game.bg_atlas_id"
-        :title="games.game01.title"
-        :user="games.game01.user"
-      />
+      <div class="shop-wrapper__row">
+        <h3>For sale:</h3>
+        <div class="shop-wrapper__row--grid">
+          <ShopItem
+            v-for="game in gamesForSale"
+            :key="game.id"
+            :title="game.boardgames_id"
+            :user="game.users_id"
+          />
+        </div>
+      </div>
+      <div class="shop-wrapper__row">
+        <h3>For swap:</h3>
+        <div class="shop-wrapper__row--grid">
+          <ShopItem
+            v-for="game in gamesForSwap"
+            :key="game.id"
+            :title="game.boardgames_id"
+            :user="game.users_id"
+          />
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -18,45 +34,45 @@ export default {
   components: { ShopItem },
   data() {
     return {
-      games: {
-        game01: {
-          title: 'Root',
-          user: 'admin',
-        },
-        game02: {
-          title: 'Root',
-          user: 'admin',
-        },
-        game03: {
-          title: 'Root',
-          user: 'admin',
-        },
-        game04: {
-          title: 'Root',
-          user: 'admin',
-        },
-      },
+      gamesForSale: {},
+      gamesForSwap: {},
     }
   },
-  /*
-  created() {
-    this.$axios('/collections/boardgames_directus_users')
-      .then((response) => {
-        console.log(response.data)
-        this.games = response.data.data
-      })
-      .catch((e) => {
-        console.error(e)
-      })
+  computed: {
+    getGamesForSale() {
+      return this.$store.getters.gamesForSale
+    },
+    getGamesForSwap() {
+      return this.$store.getters.gamesForSwap
+    },
   },
-  */
+  created() {
+    this.gamesForSale = this.getGamesForSale
+    this.gamesForSwap = this.getGamesForSwap
+    console.log('shopSale = ' + this.$store.getters.gamesForSale)
+  },
+  methods: {
+    returnSales(el) {
+      return el.is_for_sale
+    },
+    returnSwappable(el) {
+      return el.is_swappable
+    },
+  },
 }
 </script>
-<style style="scss">
+<style lang="scss">
 .shop-wrapper {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  flex-direction: column;
   margin: 3em 0;
+  &__row {
+    width: 100%;
+    &--grid {
+      display: flex;
+      width: 100%;
+      margin: 2em 0;
+    }
+  }
 }
 </style>
