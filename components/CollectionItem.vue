@@ -6,7 +6,12 @@
 
 <script>
 export default {
-  props: ['game'],
+  props: {
+    game: {
+      type: String,
+      required: true,
+    },
+  },
 
   created() {
     this.$axios

@@ -1,9 +1,10 @@
 <template>
-  <div>
-    <div class="shop-item">
-      <p>Item:</p>
-      <strong>{{ title }}</strong>
-      <button @click="openModal" class="button-link__orange">
+  <div class="shop-item">
+    <div>
+      <h5>
+        Item: <strong>{{ title }}</strong>
+      </h5>
+      <button class="button-link__orange" @click="openModal">
         Buy or Swap
       </button>
     </div>
@@ -16,7 +17,6 @@
       <p>
         <textarea
           name=""
-          id=""
           cols="30"
           rows="10"
           placeholder="Hey! I would like to purchase this item"
@@ -74,5 +74,9 @@ export default {
 
 .shop-item {
   width: 200px;
+  border: solid $orange 1px;
+  border-radius: 10px;
+  padding: 2em;
+  margin: 1em;
 }
 </style>
