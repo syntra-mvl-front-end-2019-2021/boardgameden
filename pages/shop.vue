@@ -34,29 +34,22 @@ export default {
   components: { ShopItem },
   data() {
     return {
-      gamesForSale: [],
-      gamesForSwap: [],
+      gamesForSale: {},
+      gamesForSwap: {},
     }
   },
   computed: {
-    getBoardgameShop() {
-      return this.$store.state.shop.boardgameShop
+    getGamesForSale() {
+      return this.$store.getters.gamesForSale
+    },
+    getGamesForSwap() {
+      return this.$store.getters.gamesForSwap
     },
   },
   created() {
-   return this.$axios(
-    this.$config.baseURL +
-        '/items/boardgames_directus_users?fields=*.boardgames_id.*',
-        )
-      .then((response) => {
-        const games = response.data.data
-        this.gamesForSale = games.filter(this.returnSales)
-        this.gamesForSwap = games.filter(this.returnSwappable)
-        console.log(this.getBoardgameShop)
-      })
-      .catch((e) => {
-        console.error(e)
-      })
+    this.gamesForSale = this.getGamesForSale
+    this.gamesForSwap = this.getGamesForSwap
+    console.log('shopSale = ' + this.$store.getters.gamesForSale)
   },
   methods: {
     returnSales(el) {

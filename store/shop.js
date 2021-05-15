@@ -4,7 +4,14 @@ export const state = function () {
   }
 }
 
-export const getters = {}
+export const getters = {
+  gamesForSale: (state) => {
+    return state.boardgameShop.filter((game) => game.is_for_sale)
+  },
+  gamesForSwap: (state) => {
+    return state.boardgameShop.filter((game) => game.is_swappable)
+  },
+}
 export const mutations = {
   setBoardgameden(state, boardgamedenResponse) {
     state.boardgameShop = boardgamedenResponse
@@ -15,7 +22,7 @@ export const actions = {
     if (context.state.boardgameShop.length > 0) {
       return
     }
-   return this.$axios(
+    return this.$axios(
       this.$config.baseURL +
         '/items/boardgames_directus_users?fields=*.boardgames_id.*',
       {
@@ -26,7 +33,7 @@ export const actions = {
       }
     )
       .then((response) => {
-        console.log(response)
+        console.log(JSON.stringify(response))
         context.commit('setBoardgameden', response.data.data)
       })
       .catch((err) => {
