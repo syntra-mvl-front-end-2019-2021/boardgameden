@@ -1,37 +1,38 @@
 @import 'variables';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
-body{
+body {
   font-family: Poppins;
-  h1{
+  h1 {
     font-size: 46px;
     color: $bluegreen;
-    span{
+    span {
       color: $orange;
       font-weight: $light;
     }
   }
-  h2{
+  h2 {
     font-size: 46px;
     color: $orange;
   }
-  h3{
+  h3 {
     font-size: 38px;
     color: $black;
-    span{
+    span {
       color: $orange;
     }
   }
-  h4{
+  h4 {
     font-size: 24px;
   }
-  p{
+  p {
     color: $black;
     font-size: 20px;
     font-weight: $extra-light;
   }
-  .button-link{
-    border:1px $orange solid;
+  .button-link {
+    border: 1px $orange solid;
     color: $orange;
     padding: 1em 1.5em;
   }
