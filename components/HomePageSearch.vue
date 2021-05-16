@@ -4,7 +4,7 @@
       <label for="search"></label>
       <input
         id="search"
-        v-model="searchinput"
+        v-model.trim="searchinput"
         type="text"
         placeholder="Zoek je avontuur"
         name="search"
@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'HomepageSearch',
   middleware: 'auth',
@@ -41,19 +40,54 @@ export default {
       board_games: [],
     }
   },
+  // mounted() {
+  //   this.$store.dispatch('GET_GAMES')
+  // },
+  // methods: {
+  // search() {
+  //   // todo search games
+  //   console.log(this.searchinput)
+  // },
+  //   submit(event) {
+  //     const id = this.get_game_id_user_search()
+  //     this.$router.push('shop/' + id)
+  //   },
+  // },
   computed: {
     boardgames() {
       return this.$store.state.boardgames.boardgames
     },
   },
   created() {
-    this.$store.dispatch('boardgames/getBoardGames')
+    // this.$store.dispatch('boardgames/getBoardGames')
     this.get_all_games_to_local_storage()
   },
   methods: {
     submit(event) {
-      const id = this.get_game_id_user_search()
-      this.$router.push('shop/' + id)
+      this.$router.push(
+        'shop/' +
+          this.$config.baseURL +
+          '/search' +
+          this.board_games.bg_atlas_id
+      )
+      this.$axios(this.$config.gbURL + '/search', {
+        params: {
+          client_id: this.$config.gbClientId,
+          ids: this.board_games.bg_atlas_id,
+        },
+      })
+        .then((response) => {
+          if (!response.data.games) {
+            throw new Error('could not find game')
+          }
+          this.board_games = response.data.games[0]
+        })
+        .catch((e) => {
+          console.error(e)
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
 
     get_game_id_user_search() {
@@ -61,22 +95,44 @@ export default {
         const result = this.board_games.find(
           (item) => item.bg_name === this.searchinput
         )
-        return result.bg_atlas_id
+        console.log(result.bg_atlas_id)
+        return this.id === result.bg_atlas_id
       }
     },
 
     get_all_games_to_local_storage() {
-      axios
-        .get('http://206.81.26.160/items/boardgames')
-        .then((response) => {
-          this.board_games = response.data.data
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      // this.$axios(this.$config.baseURL + '/shop/search', {
+      //   params: {
+      //     client_id: this.$config.gbClientId,
+      //     ids: this.board_games.bg_atlas_id,
+      //   },
+      // })
+      //   .then((response) => {
+      //     if (!response.data.games) {
+      //       throw new Error('could not find game')
+      //     }
+      //     this.board_games = response.data.games[0]
+      //   })
+      //   .catch((e) => {
+      //     console.error(e)
+      //   })
+      //   .finally(() => {
+      //     this.loading = false
+      //   })
     },
   },
 }
+// get_all_games_to_local_storage() {
+//       axios
+//         .get('http://206.81.26.160/items/boardgames')
+//         .then((response) => {
+//           this.board_games = response.data.data
+//         })
+//         .catch((error) => {
+//           console.log(error)
+//         })
+//     },
+//   },
 </script>
 
 <style lang="scss" scoped>
@@ -139,5 +195,12 @@ export default {
       color: black;
     }
   }
+}
+.test {
+  width: 100vh;
+  height: 100vh;
+  background: white;
+  position: absolute;
+  z-index: 10000;
 }
 </style>
