@@ -6,10 +6,10 @@
         <h3>For sale:</h3>
         <div class="shop-wrapper__row--grid">
           <ShopItem
-            v-for="game in gamesForSale"
+            v-for="game in getGamesForSale"
             :key="game.id"
-            :title="game.boardgames_id"
-            :user="game.users_id"
+            :title="game.boardgames_id.bg_name"
+            :user="game.users_id.first_name"
           />
         </div>
       </div>
@@ -17,10 +17,10 @@
         <h3>For swap:</h3>
         <div class="shop-wrapper__row--grid">
           <ShopItem
-            v-for="game in gamesForSwap"
+            v-for="game in getGamesForSwap"
             :key="game.id"
-            :title="game.boardgames_id"
-            :user="game.users_id"
+            :title="game.boardgames_id.bg_name"
+            :user="game.users_id.first_name"
           />
         </div>
       </div>
@@ -34,30 +34,33 @@ export default {
   components: { ShopItem },
   data() {
     return {
-      gamesForSale: {},
-      gamesForSwap: {},
+      games: [],
     }
   },
   computed: {
     getGamesForSale() {
-      return this.$store.getters.gamesForSale
+      return this.games.filter((game) => game.is_for_sale)
     },
     getGamesForSwap() {
-      return this.$store.getters.gamesForSwap
+      return this.games.filter((game) => game.is_swappable)
     },
   },
   created() {
-    this.gamesForSale = this.getGamesForSale
-    this.gamesForSwap = this.getGamesForSwap
-    console.log('shopSale = ' + this.$store.getters.gamesForSale)
-  },
-  methods: {
-    returnSales(el) {
-      return el.is_for_sale
-    },
-    returnSwappable(el) {
-      return el.is_swappable
-    },
+    return this.$axios('/items/boardgames_directus_users?fields=*.*.*', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        this.games = response.data.data
+        console.log(this.games)
+      })
+      .catch((err) => {
+        // TODO: error handling
+
+        console.error(err)
+      })
   },
 }
 </script>
