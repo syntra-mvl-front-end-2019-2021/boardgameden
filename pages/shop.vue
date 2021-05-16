@@ -8,8 +8,8 @@
           <ShopItem
             v-for="game in getGamesForSale"
             :key="game.id"
-            :title="game.boardgames_id"
-            :user="game.users_id"
+            :title="game.boardgames_id.bg_name"
+            :user="game.users_id.first_name"
           />
         </div>
       </div>
@@ -19,8 +19,8 @@
           <ShopItem
             v-for="game in getGamesForSwap"
             :key="game.id"
-            :title="game.boardgames_id"
-            :user="game.users_id"
+            :title="game.boardgames_id.bg_name"
+            :user="game.users_id.first_name"
           />
         </div>
       </div>
@@ -35,6 +35,7 @@ export default {
   data() {
     return {
       games: [],
+      users: [],
     }
   },
   computed: {
@@ -46,15 +47,12 @@ export default {
     },
   },
   created() {
-    return this.$axios(
-      'http://206.81.26.160/items/boardgames_directus_users?fields=*.boardgames_id.*',
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    return this.$axios('/items/boardgames_directus_users?fields=*.*.*', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
       .then((response) => {
         this.games = response.data.data
         console.log(this.games)
