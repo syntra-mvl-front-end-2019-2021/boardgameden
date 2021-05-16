@@ -3,10 +3,10 @@
     <h2>Play!</h2>
     <button @click="toggle = !toggle">Add boardgameden</button>
     <FormulateForm
-     @submit="submit"
       v-model="formData"
       :class="{ 'gameden-form--hidden': toggle }"
       :form-errors="formErrors"
+      @submit="submit"
     >
       <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
@@ -16,13 +16,12 @@
         name="boardgame"
         label="boardgame"
       />
-        <FormulateInput
+      <FormulateInput
         type="group"
         name="attendees"
         :repeatable="true"
         label="Who is going to attend?"
         add-label="+ Add Attendee"
-       
       >
         <FormulateInput
           :options="usersOptions"
@@ -31,7 +30,7 @@
           name="attendees"
           label="attendees"
         />
-        </FormulateInput>
+      </FormulateInput>
       <FormulateInput name="user" type="hidden" />
       <FormulateErrors />
       <FormulateInput name="submit" type="submit" />
@@ -81,10 +80,10 @@ export default {
     this.$store.dispatch('users/getUsers')
   },
   methods: {
-addElement: function() {
+    addElement() {
       this.attendees.push({
-        value: ''
-      });
+        value: '',
+      })
     },
     submit(data) {
       // process...
@@ -106,11 +105,9 @@ addElement: function() {
             )
           }
           this.formErrors = ['Could not save user, try again']
-          
         })
-        
     },
-     resetForm(event) {
+    resetForm(event) {
       event.target.reset()
     },
   },
