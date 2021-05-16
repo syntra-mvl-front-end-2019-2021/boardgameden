@@ -55,39 +55,35 @@ export default {
   // },
   computed: {
     boardgames() {
-      return this.$store.state.boardgames.boardgames
+      // eslint-disable-next-line camelcase
+      return this.board_games.filter((filtered_game) => {
+        return filtered_game.title.match(this.searchinput)
+      })
     },
   },
   created() {
-    // this.$store.dispatch('boardgames/getBoardGames')
-    this.get_all_games_to_local_storage()
+    this.$axios(this.$config.baseURL + '/search', {
+      params: {
+        ids: this.board_games.bg_atlas_id,
+      },
+    })
+      .then((response) => {
+        if (!response.data.games) {
+          throw new Error('could not find game')
+        }
+        this.board_games = response.data.games
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+      .finally(() => {
+        this.loading = false
+      })
   },
   methods: {
     submit(event) {
-      this.$router.push(
-        'shop/' +
-          this.$config.baseURL +
-          '/search' +
-          this.board_games.bg_atlas_id
-      )
-      this.$axios(this.$config.gbURL + '/search', {
-        params: {
-          client_id: this.$config.gbClientId,
-          ids: this.board_games.bg_atlas_id,
-        },
-      })
-        .then((response) => {
-          if (!response.data.games) {
-            throw new Error('could not find game')
-          }
-          this.board_games = response.data.games[0]
-        })
-        .catch((e) => {
-          console.error(e)
-        })
-        .finally(() => {
-          this.loading = false
-        })
+      this.get_game_id_user_search()
+      this.$router.push('shop/' + this.id)
     },
 
     get_game_id_user_search() {
@@ -100,26 +96,7 @@ export default {
       }
     },
 
-    get_all_games_to_local_storage() {
-      // this.$axios(this.$config.baseURL + '/shop/search', {
-      //   params: {
-      //     client_id: this.$config.gbClientId,
-      //     ids: this.board_games.bg_atlas_id,
-      //   },
-      // })
-      //   .then((response) => {
-      //     if (!response.data.games) {
-      //       throw new Error('could not find game')
-      //     }
-      //     this.board_games = response.data.games[0]
-      //   })
-      //   .catch((e) => {
-      //     console.error(e)
-      //   })
-      //   .finally(() => {
-      //     this.loading = false
-      //   })
-    },
+    get_all_games_to_local_storage() {},
   },
 }
 // get_all_games_to_local_storage() {
