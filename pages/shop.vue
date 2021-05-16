@@ -6,7 +6,7 @@
         <h3>For sale:</h3>
         <div class="shop-wrapper__row--grid">
           <ShopItem
-            v-for="game in gamesForSale"
+            v-for="game in getGamesForSale"
             :key="game.id"
             :title="game.boardgames_id"
             :user="game.users_id"
@@ -17,7 +17,7 @@
         <h3>For swap:</h3>
         <div class="shop-wrapper__row--grid">
           <ShopItem
-            v-for="game in gamesForSwap"
+            v-for="game in getGamesForSwap"
             :key="game.id"
             :title="game.boardgames_id"
             :user="game.users_id"
@@ -33,10 +33,7 @@ export default {
   name: 'Shop',
   components: { ShopItem },
   data() {
-    return {
-      gamesForSale: {},
-      gamesForSwap: {},
-    }
+    return {}
   },
   computed: {
     getGamesForSale() {
@@ -47,18 +44,9 @@ export default {
     },
   },
   created() {
-    this.gamesForSale = this.getGamesForSale
-    this.gamesForSwap = this.getGamesForSwap
-    console.log('shopSale = ' + this.$store.getters.gamesForSale)
+    console.log('shopSale = ' + this.getGamesForSale)
   },
-  methods: {
-    returnSales(el) {
-      return el.is_for_sale
-    },
-    returnSwappable(el) {
-      return el.is_swappable
-    },
-  },
+  methods: {},
 }
 </script>
 <style lang="scss">

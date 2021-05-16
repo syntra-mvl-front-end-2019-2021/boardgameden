@@ -1,15 +1,15 @@
 export const state = function () {
   return {
-    boardgameShop: [],
+    boardgameShop: {},
   }
 }
 
 export const getters = {
   gamesForSale: (state) => {
-    return state.boardgameShop.filter((game) => game.is_for_sale)
+    return state.filter((game) => game.is_for_sale)
   },
   gamesForSwap: (state) => {
-    return state.boardgameShop.filter((game) => game.is_swappable)
+    return state.filter((game) => game.is_swappable)
   },
 }
 export const mutations = {
