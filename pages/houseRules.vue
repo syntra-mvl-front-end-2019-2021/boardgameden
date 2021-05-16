@@ -119,5 +119,9 @@ p {
       }
     }
   }
+
+  .house-rules__rules {
+    position: relative;
+  }
 }
 </style>
