@@ -1,26 +1,30 @@
 export const state = function () {
   return {
-    boardgames: [],
+    boardgamedens: [],
   }
 }
 
 export const getters = {}
 export const mutations = {
-  setBoardGames(state, boardGamesResponse) {
-    state.boardgames = boardGamesResponse
+  setBoardgameden(state, boardgamedenResponse) {
+    state.boardgamedens = boardgamedenResponse
   },
 }
-
 export const actions = {
-  getBoardGames(context) {
-    this.$axios('/items/boardgames', {
+  getBoardgameden(context) {
+    if (context.state.boardgamedens.length > 0) {
+      return
+    }
+
+    this.$axios('/items/boardgame_dens', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
       .then((response) => {
-        context.commit('setBoardGames', response.data.data)
+        console.log(response)
+        context.commit('setBoardgameden', response.data.data)
       })
       .catch((err) => {
         // TODO: error handling

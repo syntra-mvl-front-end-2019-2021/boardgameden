@@ -1,5 +1,6 @@
 <template>
-  <div class="home-page container">
+  <div class="home-page">
+    <Hero />
     <HomePageSearch />
     <div class="players">
       <div class="players_text">
@@ -45,9 +46,11 @@
 import GameComp from '../components/GameComp.vue'
 import HomePageSearch from '../components/HomePageSearch.vue'
 import GameOfTheMonth from '../components/GameOfTheMonth.vue'
+import Hero from '~/components/Hero.vue'
+
 export default {
   name: 'GamePage',
-  components: { GameComp, HomePageSearch, GameOfTheMonth },
+  components: { GameComp, HomePageSearch, GameOfTheMonth, Hero },
   data() {
     return {
       baseURL: 'https://api.boardgameatlas.com/api/',
@@ -55,8 +58,6 @@ export default {
       slideWidth: 0,
       currentSlide: 0,
       games: [],
-      // game: {},
-      // categories: this.game.categories,
     }
   },
   computed: {
@@ -85,6 +86,7 @@ export default {
         console.log(response)
         this.games = response.data.data
       })
+
       .catch((e) => {
         console.error(e)
       })
@@ -162,7 +164,6 @@ export default {
 
     &--gameComponents {
       display: grid;
-      height: 250px;
       grid-template-columns: repeat(6, calc((100% - 3rem) / 4));
       grid-column-gap: 2rem;
       overflow-x: scroll;

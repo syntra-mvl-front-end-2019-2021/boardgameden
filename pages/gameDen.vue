@@ -1,85 +1,87 @@
 <template>
   <div>
     <h2>Play!</h2>
-    <button @click="toggle = !toggle">create event</button>
+
+    <button @click="toggle = !toggle">Add boardgameden</button>
     <FormulateForm
-      v-if="toggle"
       v-model="formData"
+      :class="{ 'gameden-form--hidden': toggle }"
       :form-errors="formErrors"
       @submit="submit"
     >
       <FormulateInput
-        v-model="value"
-        :options="boardGames"
+        :options="boardgameDensOptions"
         type="select"
-        placeholder="Select a board game"
-        label="boardgames"
+        placeholder="Select an board game"
+        name="boardgame"
+        label="boardgame"
       />
+      <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
-        type="text"
-        name="location"
-        label="location"
-      />
-      <FormulateInput
-        v-model="value"
-        :options="attendees"
+        :options="usersOptions"
         type="select"
         placeholder="Select an attendees"
-        label="user"
+        label="attendees"
+        name="attendees"
       />
-      <FormulateInput type="hidden" name="role" />
+      <FormulateInput name="user" type="hidden" />
       <FormulateErrors />
       <FormulateInput type="submit" name="Submit" />
     </FormulateForm>
   </div>
 </template>
 <script>
-import vSelect from 'vue-select'
 export default {
-  name: 'Gameevent',
+  name: 'Gameden',
   middleware: 'auth',
   data() {
     return {
       formErrors: [],
       formData: {
-        user: '',
-        first_Name: '',
         location: '',
         boardgame: '',
         attendees: '',
-        bg_name: '',
-        id: '',
-        role: '1eb0baf8-fbfb-40a6-b706-6146e6ffc1f0',
+        user: '',
       },
       toggle: false,
     }
   },
   computed: {
-    boardGames() {
-      return this.$store.getters['boardgames/getBoardGames'].map(function (
-        boardGame
-      ) {
+    boardgames() {
+      return this.$store.state.boardgames.boardgames
+    },
+    users() {
+      return this.$store.state.users.users
+    },
+    currentUser() {
+      return this.$auth.user
+    },
+    boardgameDensOptions() {
+      return this.boardgames.map(function (boardGame) {
         return { label: boardGame.bg_name, value: boardGame.id }
       })
     },
-    attendees() {
-      return this.$store.getters['users/getUsers'].map(function (user) {
-        return { label: user.first_name, value: user.id }
+    usersOptions() {
+      return this.users.map(function (users) {
+        return { label: users.first_name, value: users.id }
       })
     },
   },
   created() {
-    this.$store.dispatch('boardgames/getBoardGames', {}),
-      this.$store.dispatch('users/getUsers', {})
+    this.formData.user = this.currentUser.id
+    this.$store.dispatch('boardgames/getBoardGames')
+    this.$store.dispatch('users/getUsers')
   },
   methods: {
     submit(data) {
+      data.attendees = [{ users_id: data.attendees }]
+
       return this.$axios('/items/boardgame_dens', {
         method: 'POST',
         data,
       })
         .then(() => {
-          this.$router.push('/login')
+          //  TODO: do something
         })
         .catch((error) => {
           console.log(error.response)
@@ -95,3 +97,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.gameden-form--hidden {
+  display: none;
+}
+</style>

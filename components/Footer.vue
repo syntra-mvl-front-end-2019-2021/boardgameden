@@ -3,19 +3,33 @@
     <div class="c-footer__nav">
       <NuxtLink to="/contact">Contact</NuxtLink>
       <NuxtLink to="/faq">FAQ</NuxtLink>
-      <!--
-      <a href="">About</a>
-      <a href="">Privacy</a>
-      -->
       <NuxtLink to="/houserules">Houserules</NuxtLink>
     </div>
-    <!--
-    <div class="c-footer__icons">
-      <div class="c-footer__icon"></div>
-      <div class="c-footer__icon"></div>
-      <div class="c-footer__icon"></div>
+
+    <div class="c-footer__find-us">
+      <p class="social-media__where-to-find">Where are we hiding?</p>
+      <div class="c-footer__social-media">
+        <a
+          href="https://en.wikipedia.org/wiki/Facebook"
+          class="fa fa-facebook"
+          target="blank"
+          rel="noreferrer noopener"
+        ></a>
+        <a
+          href="https://en.wikipedia.org/wiki/LinkedIn"
+          class="fa fa-instagram"
+          target="blank"
+          rel="noreferrer noopener"
+        ></a>
+        <a
+          href="https://en.wikipedia.org/wiki/Twitter"
+          class="fa fa-twitter"
+          target="blank"
+          rel="noreferrer noopener"
+        ></a>
+      </div>
     </div>
-    -->
+
     <div class="c-footer__logo">
       <img src="~/assets/images/name.png" alt="" />
     </div>
@@ -33,32 +47,46 @@ export default {
   @include flexCenter;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 300px;
+  // height: 300px;
   width: 100%;
   background: linear-gradient(#ffffff, rgba(129, 203, 235, 0.767) 100%);
   position: relative;
+  margin-top: 5rem;
   &__nav {
     @include flexCenter;
-    justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 1000px;
+    margin-bottom: 2rem;
     a {
+      text-align: center;
+      padding: 1rem 0;
+      width: 500px;
       color: black;
       font-weight: 600;
+      border-bottom: solid 1px black;
+
+      &:last-child {
+        border: none;
+      }
     }
   }
-  &__icons {
-    @include flexCenter;
-    justify-content: space-evenly;
-    width: 30%;
-    margin: 0 auto;
+
+  &__social-media {
+    text-align: center;
+    margin: 0.5rem 0 2rem 0;
   }
 
-  &__icon {
-    width: 20px;
-    height: 20px;
-    background: white;
-    @include flexCenter;
+  .fa {
+    background-color: black;
+    color: white;
+    width: 2rem;
+    height: 2rem;
+    text-decoration: none;
+    border-radius: 50%;
+    padding-top: 7px;
+    margin-right: 0.2rem;
   }
 
   &__logo {
