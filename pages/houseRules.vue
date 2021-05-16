@@ -17,14 +17,10 @@
             </p>
           </div>
           <div class="intro-images">
-            <img
-              class="image image-1"
-              src="~/assets/images/respect.jpg"
-              alt=""
-            />
+            <img class="image image-1" src="~/assets/images/dice.jpg" alt="" />
             <img
               class="image image-2"
-              src="~/assets/images/connected.jpg"
+              src="~/assets/images/boardgame.jpg"
               alt=""
             />
           </div>
@@ -102,7 +98,7 @@ h3 {
     display: flex;
     justify-content: space-between;
     height: 60vh;
-    margin-bottom: 3rem;
+    margin-bottom: 6rem;
     position: relative;
 
     .intro-text {
@@ -122,6 +118,7 @@ h3 {
         width: 80%;
         clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
         position: relative;
+        opacity: 0.8;
 
         @media screen and (max-width: $xl) {
           height: 70%;
