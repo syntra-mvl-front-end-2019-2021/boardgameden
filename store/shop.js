@@ -1,15 +1,15 @@
 export const state = function () {
   return {
-    boardgameShop: {},
+    boardgameShop: [],
   }
 }
 
 export const getters = {
   gamesForSale: (state) => {
-    return state.filter((game) => game.is_for_sale)
+    return state.boardgameShop.filter((game) => game.is_for_sale)
   },
   gamesForSwap: (state) => {
-    return state.filter((game) => game.is_swappable)
+    return state.boardgameShop.filter((game) => game.is_swappable)
   },
 }
 export const mutations = {
@@ -23,8 +23,7 @@ export const actions = {
       return
     }
     return this.$axios(
-      this.$config.baseURL +
-        '/items/boardgames_directus_users?fields=*.boardgames_id.*',
+      'http://206.81.26.160/items/boardgames_directus_users?fields=*.boardgames_id.*',
       {
         method: 'GET',
         headers: {

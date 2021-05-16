@@ -33,20 +33,38 @@ export default {
   name: 'Shop',
   components: { ShopItem },
   data() {
-    return {}
+    return {
+      games: [],
+    }
   },
   computed: {
     getGamesForSale() {
-      return this.$store.getters.gamesForSale
+      return this.games.filter((game) => game.is_for_sale)
     },
     getGamesForSwap() {
-      return this.$store.getters.gamesForSwap
+      return this.games.filter((game) => game.is_swappable)
     },
   },
   created() {
-    console.log('shopSale = ' + this.getGamesForSale)
+    return this.$axios(
+      'http://206.81.26.160/items/boardgames_directus_users?fields=*.boardgames_id.*',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+      .then((response) => {
+        this.games = response.data.data
+        console.log(this.games)
+      })
+      .catch((err) => {
+        // TODO: error handling
+
+        console.error(err)
+      })
   },
-  methods: {},
 }
 </script>
 <style lang="scss">
