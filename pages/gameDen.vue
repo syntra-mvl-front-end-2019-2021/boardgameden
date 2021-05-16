@@ -1,13 +1,12 @@
 <template>
   <div>
     <h2>Play!</h2>
-
     <button @click="toggle = !toggle">Add boardgameden</button>
     <FormulateForm
-      v-model="formData" 
+     @submit="submit"
+      v-model="formData"
       :class="{ 'gameden-form--hidden': toggle }"
       :form-errors="formErrors"
-    @submit.prevent="submit" @submit="resetForm"
     >
       <FormulateInput type="text" name="location" label="location" />
       <FormulateInput
@@ -23,16 +22,16 @@
         :repeatable="true"
         label="Who is going to attend?"
         add-label="+ Add Attendee"
-        validation="required"
+       
       >
-      <FormulateInput
-        :options="usersOptions"
-        type="select"
-        placeholder="Select an attendees"
-        name="attendees"
-        label="attendees"
-      />
-       </FormulateInput>
+        <FormulateInput
+          :options="usersOptions"
+          type="select"
+          placeholder="Select an attendees"
+          name="attendees"
+          label="attendees"
+        />
+        </FormulateInput>
       <FormulateInput name="user" type="hidden" />
       <FormulateErrors />
       <FormulateInput name="submit" type="submit" />
@@ -82,8 +81,10 @@ export default {
     this.$store.dispatch('users/getUsers')
   },
   methods: {
-       resetForm(event) {
-      event.target.reset()
+addElement: function() {
+      this.attendees.push({
+        value: ''
+      });
     },
     submit(data) {
       // process...
@@ -96,7 +97,6 @@ export default {
       })
         .then(() => {
           //  TODO: do something
-          this.formData = false
         })
         .catch((error) => {
           console.log(error.response)
@@ -106,7 +106,12 @@ export default {
             )
           }
           this.formErrors = ['Could not save user, try again']
+          
         })
+        
+    },
+     resetForm(event) {
+      event.target.reset()
     },
   },
 }
