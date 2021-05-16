@@ -1,6 +1,6 @@
 export const state = function () {
   return {
-    boardgameShop: {},
+    boardgameShop: [],
   }
 }
 
@@ -23,8 +23,7 @@ export const actions = {
       return
     }
     return this.$axios(
-      this.$config.baseURL +
-        '/items/boardgames_directus_users?fields=*.boardgames_id.*',
+      'http://206.81.26.160/items/boardgames_directus_users?fields=*.boardgames_id.*',
       {
         method: 'GET',
         headers: {
@@ -33,7 +32,6 @@ export const actions = {
       }
     )
       .then((response) => {
-        console.log(JSON.stringify(response))
         context.commit('setBoardgameden', response.data.data)
       })
       .catch((err) => {
