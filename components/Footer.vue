@@ -58,14 +58,14 @@ export default {
     flex-direction: column;
     width: 100%;
     max-width: 1000px;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     a {
       text-align: center;
       padding: 1rem 0;
       width: 500px;
-      color: black;
+      color: $orange;
       font-weight: 600;
-      border-bottom: solid 1px black;
+      border-bottom: solid 1px $bluegreen;
 
       &:last-child {
         border: none;
@@ -73,13 +73,18 @@ export default {
     }
   }
 
+  .social-media__where-to-find {
+    color: $bluegreen;
+    font-weight: $bold;
+  }
+
   &__social-media {
     text-align: center;
-    margin: 0.5rem 0 2rem 0;
+    margin: 0.5rem 0 3rem 0;
   }
 
   .fa {
-    background-color: black;
+    background-color: $orange;
     color: white;
     width: 2rem;
     height: 2rem;
@@ -91,6 +96,7 @@ export default {
 
   &__logo {
     width: 200px;
+    margin-bottom: 2rem;
     img {
       width: 100%;
     }
