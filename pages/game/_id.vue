@@ -1,16 +1,6 @@
 <template>
   <section class="game-page">
-    <h2>
-      <span class="g">G</span>
-      <span class="g">a</span>
-      <span class="g">m</span>
-      <span class="g">e</span>
-      <span class="g"> </span>
-      <span class="g">P</span>
-      <span class="g">a</span>
-      <span class="g">g</span>
-      <span class="g">e</span>
-    </h2>
+    <h2>Game Page</h2>
     <div :key="game.id" class="game">
       <div class="game-image">
         <img :src="game.image_url" alt="" />
@@ -27,10 +17,16 @@
         <h3>{{ game.name }}</h3>
         <p>{{ game.description_preview }}</p>
         <div class="game-btns">
-          <button class="play-btn button-link">PLAY</button>
+          <button type="button" class="play-btn button-link__orange">
+            PLAY
+          </button>
           <div class="collection-btns">
-            <button class="swap-btn button-link">SWAP!</button>
-            <button class="buy-btn button-link">BUY!</button>
+            <button type="button" class="swap-btn button-link__orange">
+              SWAP!
+            </button>
+            <button type="button" class="buy-btn button-link__orange">
+              BUY!
+            </button>
           </div>
         </div>
       </div>
@@ -77,10 +73,7 @@ export default {
 
   h2 {
     margin-bottom: 3rem;
-
-    span {
-      animation: moveIn ease-in 1s;
-    }
+    animation: moveIn 5s;
   }
 }
 
@@ -139,22 +132,29 @@ export default {
 @keyframes moveIn {
   0% {
     opacity: 0;
-    transform: translate(100px, 100px);
-  }
-
-  60% {
-    opacity: 0.2;
-    transform: translate(60px);
+    transform: translateX(150px);
   }
 
   80% {
-    opacity: 0.4;
-    transform: translate(20px);
+    transform: translate(-30px);
   }
 
   100% {
     opacity: 1;
     transform: translate(0);
   }
+}
+
+.button-link__orange {
+  border: 2px solid $orange;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  color: $orange;
+  transition: $transition-normal;
+}
+
+.button-link__orange:hover {
+  background-color: $orange;
+  color: white;
 }
 </style>
