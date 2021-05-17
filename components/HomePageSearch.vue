@@ -1,5 +1,5 @@
 <template>
-  <section class="s-search">
+  <div class="s-search">
     <form class="form">
       <div class="form__search">
         <label for="search"></label>
@@ -27,7 +27,7 @@
       </div>
       <button type="submit">Fetch</button>
     </form>
-  </section>
+  </div>
 </template>
 
 <script>
