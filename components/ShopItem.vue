@@ -1,9 +1,16 @@
 <template>
+
+  <div>
+    <div class="shop-item">
+      <p>Item:</p>
+      <strong>{{ title }}</strong>
+
   <div class="shop-item">
     <div>
       <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
         {{ title }}
       </NuxtLink>
+
       <button class="button-link__orange" @click="openModal">
         Buy or Swap
       </button>
@@ -13,9 +20,13 @@
         'shop-modal': true,
         open: showModal,
       }"
-    >
+
       <p>
         <textarea
+
+          id=""
+
+
           name=""
           cols="30"
           rows="10"
