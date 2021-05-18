@@ -8,6 +8,7 @@
         <li>Last name: {{ $auth.user.last_name }}</li>
         <li>Email: {{ $auth.user.email }}</li>
         <li>Location: {{ $auth.user.location }}</li>
+        <NuxtLink to="/edit_profile">Edit Profile</NuxtLink>
       </ul>
       <h4>Search boardgame</h4>
       <input v-model="searchTerm" type="text" />
