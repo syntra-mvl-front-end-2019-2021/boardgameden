@@ -1,5 +1,5 @@
 <template>
-  <section class="s-month-game">
+  <div class="s-month-game">
     <h2>Game of the month!</h2>
     <div class="month-game">
       <div class="round-input-decorator">
@@ -19,7 +19,7 @@
         </p>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
