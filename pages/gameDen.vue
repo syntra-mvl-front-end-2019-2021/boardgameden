@@ -1,10 +1,10 @@
 <template>
   <div>
     <div v-for="game in results" :key="game.user" class="avent">
-      <span>attendees: {{ game.attendees}}</span> |
+      <span>attendees: {{ game.attendees }}</span> |
       <span>boardgame: {{ game.boardgame.bg_name }}</span> |
       <span>Location: {{ game.location }}</span> |
-      <span>user: {{ game.user.first_name}}</span>
+      <span>user: {{ game.user.first_name }}</span>
     </div>
     <NuxtLink to="/event">register event</NuxtLink>
   </div>
@@ -24,7 +24,7 @@ export default {
   },
   created() {
     this.$store.dispatch('evenement/getBoardgameden', {})
-      this.$axios
+    this.$axios
       .get(
         `/items/boardgame_dens?fields[]=user.first_name,location,boardgame.bg_name,attendees.id.first_name`,
         {

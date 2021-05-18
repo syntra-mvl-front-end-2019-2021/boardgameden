@@ -1,10 +1,4 @@
 <template>
-
-  <div>
-    <div class="shop-item">
-      <p>Item:</p>
-      <strong>{{ title }}</strong>
-
   <div class="shop-item">
     <div>
       <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
@@ -20,18 +14,17 @@
         'shop-modal': true,
         open: showModal,
       }"
->
+
+      <textarea
+        id=""
+        name=""
+        cols="30"
+        rows="10"
+        placeholder="Hey! I would like to purchase this item"
+      ></textarea>
+
+
       <p>
-        <textarea
-
-          id=""
-
-
-          name=""
-          cols="30"
-          rows="10"
-          placeholder="Hey! I would like to purchase this item"
-        ></textarea>
         Buy <strong> {{ title }} </strong> from <strong> {{ user }} </strong>
       </p>
     </div>

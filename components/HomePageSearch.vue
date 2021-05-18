@@ -1,30 +1,41 @@
 <template>
   <section class="s-search">
     <form class="form form__search" @submit.prevent="submit">
-      <label for="search"></label>
-      <input
-        id="search"
-        v-model="searchQuery"
-        type="text"
-        placeholder="Zoek je avontuur"
-        name="search"
-      />
-      <!-- <div class="form__city">
-        <label for="city"></label>
-        <input id="city" type="text" placeholder="City" name="city" />
+      <div class="c-autocomplete">
+        <label for="search"></label>
+        <input
+          id="search"
+          v-model="searchQuery"
+          type="text"
+          placeholder="Zoek je avontuur"
+          name="search"
+          @input="submit"
+        />
+        <div v-if="noResult" class="c-autocomplete__dropdown">
+          <button class="c-autocomplete__dropdown-item" disabled type="button">
+            No games found
+          </button>
+        </div>
+        <div
+          v-else
+          :class="{
+            'c-autocomplete__dropdown': true,
+            'c-autocomplete__dropdown--loading': searching,
+          }"
+        >
+          <button
+            v-for="game in games"
+            :key="game.id"
+            class="c-autocomplete__dropdown-item"
+            type="button"
+          >
+            {{ game.bg_name }}
+          </button>
+        </div>
       </div>
-      <div class="form__radius">
-        <label for="radius"></label>
-        <select id="radius" required name="radius">
-          <option value="" disabled selected>Radius</option>
-
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-          <option value="40">40</option>
-        </select>
-      </div> -->
-      <NuxtLink :to="'/shop/'" @submit="submit"> More Info </NuxtLink>
+      <NuxtLink :to="'/shop/'" class="c-autocomplete__submit" @submit="submit">
+        Search
+      </NuxtLink>
       <!-- <button type="submit" @submit="submit">zoek</button> -->
     </form>
   </section>
@@ -36,39 +47,49 @@ export default {
   middleware: 'auth',
 
   data() {
-    const games = []
-    const searchQuery = ''
     return {
-      games,
-      searchQuery,
+      games: [],
+      searchQuery: '',
+      timeOut: null,
+      searching: false,
+      noResult: false,
     }
   },
   computed: {},
   methods: {
-    submit(event) {
-      this.games = [{ bg_name: this.searchQuery }]
-      if (this.searchQuery !== '') {
-        this.games = this.games.filter((game) => {
-          return game.bg_name.match(this.searchQuery)
-        })
+    submit() {
+      if (this.timeOut) {
+        clearTimeout(this.timeOut)
       }
-      return this.$axios('/items/boardgames_directus_users?fields=*.*.*', {
+
+      if (!this.searchQuery) {
+        this.noResult = false
+        this.games = []
+        return
+      }
+
+      this.timeOut = setTimeout(() => {
+        this.searchGames()
+      }, 1000)
+    },
+
+    searchGames() {
+      this.searching = true
+      this.$axios('/items/boardgames', {
         method: 'GET',
-        event,
+        params: { filter: { bg_name: { _contains: this.searchQuery } } },
       })
-        .then(() => {
-          //  TODO: do something
-          console.log(this.games)
+        .then((result) => {
+          this.games = result.data.data
+          this.noResult = this.games.length === 0
         })
         .catch((error) => {
+          this.games = []
+          this.noResult = true
           console.log(error.response)
-          if (error.response && error.response.data.errors) {
-            this.formErrors = error.response.data.errors.map(
-              (val) => val.message
-            )
-          }
-
-          this.formErrors = ['Could not save user, try again']
+        })
+        .finally(() => {
+          this.searching = false
         })
     },
   },
@@ -137,8 +158,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/styles/imports/mixins';
-
 .s-search {
   @include flexCenter();
   max-width: 700px;
@@ -147,8 +166,8 @@ export default {
   background: #ea5c30;
   border-radius: 15px;
 
-  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
-    rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  box-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0,
+    rgba(0, 0, 0, 0.05) 0 1px 1px 0;
   .form {
     @include flexCenter();
     width: 100%;
@@ -177,31 +196,82 @@ export default {
       color: white;
       font-size: 1rem;
     }
-
-    button,
-    select {
-      height: 100%;
-      background: transparent;
-      font-size: 1rem;
-      cursor: pointer;
-      border: none;
-      color: white;
-      outline: none;
-      background: none;
-    }
-    select:required:invalid {
-      color: white;
-    }
-    option {
-      color: black;
-    }
   }
 }
-.test {
-  width: 100vh;
-  height: 100vh;
-  background: white;
-  position: absolute;
-  z-index: 10000;
+
+.c-autocomplete {
+  position: relative;
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+
+    &--loading {
+      min-height: 2rem;
+
+      &:before {
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(205, 199, 199, 0.8);
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -0.75rem;
+        margin-left: -0.75rem;
+        border-top: 2px solid rgba(255, 255, 255, 0.7);
+        border-right: 2px solid rgba(255, 255, 255, 0.7);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+        border-left: 2px solid $orange;
+        animation: load8 1.1s infinite linear;
+        border-radius: 50%;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+
+    &-item {
+      color: black;
+      display: block;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      text-align: left;
+      border: none;
+      border-bottom: 1px solid slategrey;
+    }
+  }
+
+  &__submit {
+    display: block;
+    background: transparent;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    color: white;
+    outline: none;
+    background: none;
+  }
+}
+
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 </style>

@@ -43,7 +43,11 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@braid/vue-formulate/nuxt', '@nuxtjs/eslint-module'],
+  buildModules: [
+    '@braid/vue-formulate/nuxt',
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/html-validator',
+  ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth-next'],
