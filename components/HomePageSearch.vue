@@ -4,7 +4,7 @@
       <label for="search"></label>
       <input
         id="search"
-        v-model.trim="searchinput"
+        v-model.trim="searchQuery"
         type="text"
         placeholder="Zoek je avontuur"
         name="search"
@@ -35,10 +35,42 @@ export default {
   middleware: 'auth',
 
   data() {
+    const games = []
+    const searchQuery = ''
     return {
-      searchinput: '',
-      board_games: [],
+      games,
+      searchQuery,
     }
+  },
+  computed: {},
+  methods: {
+    submit(event) {
+      this.games = [{ bg_name: this.searchQuery }]
+      if (this.searchQuery !== '') {
+        this.games = this.games.filter(
+          (game) => (game.bg_name = this.searchQuery)
+        )
+        return this.games
+      }
+      return this.$axios('/items/boardgames_directus_users?fields=*.*.*', {
+        method: 'GET',
+        event,
+      })
+        .then(() => {
+          //  TODO: do something
+          console.log(this.games)
+        })
+        .catch((error) => {
+          console.log(error.response)
+          if (error.response && error.response.data.errors) {
+            this.formErrors = error.response.data.errors.map(
+              (val) => val.message
+            )
+          }
+
+          this.formErrors = ['Could not save user, try again']
+        })
+    },
   },
   // mounted() {
   //   this.$store.dispatch('GET_GAMES')
@@ -53,63 +85,55 @@ export default {
   //     this.$router.push('shop/' + id)
   //   },
   // },
-  computed: {
-    boardgames() {
-      // eslint-disable-next-line camelcase
-      return this.board_games.filter((filtered_game) => {
-        return filtered_game.title.match(this.searchinput)
-      })
-    },
-  },
-  created() {
-    this.$axios(this.$config.baseURL + '/search', {
-      params: {
-        ids: this.board_games.bg_atlas_id,
-      },
-    })
-      .then((response) => {
-        if (!response.data.games) {
-          throw new Error('could not find game')
-        }
-        this.board_games = response.data.games
-      })
-      .catch((e) => {
-        console.error(e)
-      })
-      .finally(() => {
-        this.loading = false
-      })
-  },
-  methods: {
-    submit(event) {
-      this.get_game_id_user_search()
-      this.$router.push('shop/' + this.id)
-    },
+  //   created() {
+  //     this.$axios(this.$config.baseURL + '/search', {
+  //       params: {
+  //         ids: this.board_games.bg_atlas_id,
+  //       },
+  //     })
+  //       .then((response) => {
+  //         if (!response.data.games) {
+  //           throw new Error('could not find game')
+  //         }
+  //         this.board_games = response.data.games
+  //       })
+  //       .catch((e) => {
+  //         console.error(e)
+  //       })
+  //       .finally(() => {
+  //         this.loading = false
+  //       })
+  //   },
+  //   methods: {
+  //     submit(event) {
+  //       this.get_game_id_user_search()
+  //       this.$router.push('shop/' + this.id)
+  //     },
 
-    get_game_id_user_search() {
-      if (this.searchinput !== '') {
-        const result = this.board_games.find(
-          (item) => item.bg_name === this.searchinput
-        )
-        console.log(result.bg_atlas_id)
-        return this.id === result.bg_atlas_id
-      }
-    },
+  //     get_game_id_user_search() {
+  //       if (this.searchinput !== '') {
+  //         const result = this.board_games.find(
+  //           (item) => item.bg_name === this.searchinput
+  //         )
+  //         console.log(result.bg_atlas_id)
+  //         return this.id === result.bg_atlas_id
+  //       }
+  //     },
 
-    get_all_games_to_local_storage() {},
-  },
+  //     get_all_games_to_local_storage() {},
+  //   },
+  // }
+  // get_all_games_to_local_storage() {
+  //       axios
+  //         .get('http://206.81.26.160/items/boardgames')
+  //         .then((response) => {
+  //           this.board_games = response.data.data
+  //         })
+  //         .catch((error) => {
+  //           console.log(error)
+  //         })
+  //     },
 }
-// get_all_games_to_local_storage() {
-//       axios
-//         .get('http://206.81.26.160/items/boardgames')
-//         .then((response) => {
-//           this.board_games = response.data.data
-//         })
-//         .catch((error) => {
-//           console.log(error)
-//         })
-//     },
-//   },
 </script>
 
 <style lang="scss" scoped>
