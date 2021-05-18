@@ -1,21 +1,64 @@
 <template>
   <div>
-    <h1>Profile</h1>
-    <ul v-if="$auth.user">
-      <li>email: {{ $auth.user.email }}</li>
-    </ul>
-
-    <Collection />
+    <div class="profile">
+      <img :src="$auth.user.avatar" />
+      <h2>Welcome, {{ $auth.user.user_name }}</h2>
+      <ul v-if="$auth.user">
+        <li>First name: {{ $auth.user.first_name }}</li>
+        <li>Last name: {{ $auth.user.last_name }}</li>
+        <li>Email: {{ $auth.user.email }}</li>
+        <li>Location: {{ $auth.user.location }}</li>
+      </ul>
+      <h4>Search boardgame</h4>
+      <input v-model="searchTerm" type="text" />
+      <ul>
+        <li v-for="game in results" :key="game.id">{{ game.name }}</li>
+      </ul>
+      <Collection />
+    </div>
   </div>
 </template>
+
 <script>
 import Collection from '~/components/Collection'
 
 export default {
   name: 'ProfilePage',
-  components: [Collection],
+  components: { Collection },
   middleware: ['auth'],
+  data() {
+    return {
+      searchTerm: '',
+      results: [],
+    }
+  },
+
+  watch: {
+    searchTerm(newSearchTerm) {
+      if (newSearchTerm.length < 4) {
+        return
+      }
+      this.$axios(this.$config.gbURL + '/search', {
+        params: {
+          client_id: this.$config.gbClientId,
+          name: newSearchTerm,
+          limit: 5,
+        },
+      })
+        .then((response) => {
+          console.log(response.data)
+          this.results = response.data.games
+        })
+        .catch((e) => {
+          console.error(e)
+        })
+    },
+  },
 }
 </script>
 
-<style></style>
+<style>
+.profile {
+  margin-left: 200px;
+}
+</style>
