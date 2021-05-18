@@ -4,7 +4,7 @@
       <label for="search"></label>
       <input
         id="search"
-        v-model.trim="searchQuery"
+        v-model="searchQuery"
         type="text"
         placeholder="Zoek je avontuur"
         name="search"
@@ -24,7 +24,8 @@
           <option value="40">40</option>
         </select>
       </div> -->
-      <button type="submit" @submit="submit">zoek</button>
+      <NuxtLink :to="'/shop/'" @submit="submit"> More Info </NuxtLink>
+      <!-- <button type="submit" @submit="submit">zoek</button> -->
     </form>
   </section>
 </template>
@@ -47,10 +48,9 @@ export default {
     submit(event) {
       this.games = [{ bg_name: this.searchQuery }]
       if (this.searchQuery !== '') {
-        this.games = this.games.filter(
-          (game) => (game.bg_name = this.searchQuery)
-        )
-        return this.games
+        this.games = this.games.filter((game) => {
+          return game.bg_name.match(this.searchQuery)
+        })
       }
       return this.$axios('/items/boardgames_directus_users?fields=*.*.*', {
         method: 'GET',
