@@ -1,50 +1,121 @@
 <template>
   <div>
-    <div v-for="name in boardgameden" :key="name.user" class="event">
-      <span>Attendees: {{ name.attendees }}</span> |
-      <span>boardgame: {{ name.boardgame }}</span> |
-      <span>Location: {{ name.location }}</span> |
-      <span>user: {{ name.user }}</span>
-    </div>
+    <h2>Play!</h2>
+    <button @click="toggle = !toggle">Add boardgameden</button>
+    <FormulateForm
+      v-model="formData"
+      :class="{ 'gameden-form--hidden': toggle }"
+      :form-errors="formErrors"
+      @submit="submit"
+    >
+      <FormulateInput type="text" name="location" label="location" />
+      <FormulateInput
+        :options="boardgameDensOptions"
+        type="select"
+        placeholder="Select an board game"
+        name="boardgame"
+        label="boardgame"
+      />
+      <FormulateInput
+        type="group"
+        name="attendees"
+        :repeatable="true"
+        label="Who is going to attend?"
+        add-label="+ Add Attendee"
+      >
+        <FormulateInput
+          :options="usersOptions"
+          type="select"
+          placeholder="Select an attendees"
+          name="attendees"
+          label="attendees"
+        />
+      </FormulateInput>
+      <FormulateInput name="user" type="hidden" />
+      <FormulateErrors />
+      <FormulateInput name="submit" type="submit" />
+    </FormulateForm>
   </div>
 </template>
 <script>
 export default {
   name: 'Event',
+  middleware: 'auth',
   data() {
     return {
-      result: [],
+      formErrors: [],
+      formData: {
+        location: '',
+        boardgame: '',
+        attendees: '',
+        user: '',
+      },
+      toggle: false,
     }
-  }, 
-   computed: {
-      boardgameden() {
-      return this.$store.state.boardgamedens.boardgamedens
-    },
-/*
-      boardgames() {
+  },
+  computed: {
+    boardgames() {
       return this.$store.state.boardgames.boardgames
     },
-        users() {
+    users() {
       return this.$store.state.users.users
     },
-     boardgameDensOptions() {
+    currentUser() {
+      return this.$auth.user
+    },
+    boardgameDensOptions() {
       return this.boardgames.map(function (boardGame) {
-        return boardGame.bg_name
+        return { label: boardGame.bg_name, value: boardGame.id }
       })
     },
-  usersOptions() {
+    usersOptions() {
       return this.users.map(function (users) {
-        return  users.first_name
+        return { label: users.first_name, value: users.id }
       })
-    }*/
-   }, 
+    },
+  },
   created() {
-      this.$store.dispatch('boargamedens/getBoardgameden', {})
+    this.formData.user = this.currentUser.id
+    this.$store.dispatch('boardgames/getBoardGames')
+    this.$store.dispatch('users/getUsers')
+  },
+  methods: {
+    addElement() {
+      this.attendees.push({
+        value: '',
+      })
+    },
+    submit(data) {
+      // process...
+      data.attendees = [{ users_id: data.attendees }]
+      // process...
+
+      return this.$axios('/items/boardgame_dens', {
+        method: 'POST',
+        data,
+      })
+        .then(() => {
+          //  TODO: do something
+        })
+        .catch((error) => {
+          console.log(error.response)
+          if (error.response && error.response.data.errors) {
+            this.formErrors = error.response.data.errors.map(
+              (val) => val.message
+            )
+          }
+          this.formErrors = ['Could not save user, try again']
+        })
+    },
+    resetForm(event) {
+      event.target.reset()
+    },
   },
 }
 </script>
+
 <style lang="scss">
-.event {
-  margin-top: 5em;
+.gameden-form--hidden {
+  display: none;
 }
 </style>
