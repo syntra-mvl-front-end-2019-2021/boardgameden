@@ -34,35 +34,17 @@ import ShopItem from '@/components/ShopItem.vue'
 export default {
   name: 'Shop',
   components: { ShopItem },
-  data() {
-    return {
-      games: [],
-    }
+  fetch() {
+    this.$store.dispatch('boardgames/getGamesForSale')
+    this.$store.dispatch('boardgames/getGamesForSwap')
   },
   computed: {
     getGamesForSale() {
-      return this.games.filter((game) => game.is_for_sale)
+      return this.$store.state.boardgames.gamesForSale
     },
     getGamesForSwap() {
-      return this.games.filter((game) => game.is_swappable)
+      return this.$store.state.boardgames.gamesForSwap
     },
-  },
-  created() {
-    return this.$axios('/items/boardgames_directus_users?fields=*.*.*', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        this.games = response.data.data
-        console.log(this.games)
-      })
-      .catch((err) => {
-        // TODO: error handling
-
-        console.error(err)
-      })
   },
 }
 </script>
