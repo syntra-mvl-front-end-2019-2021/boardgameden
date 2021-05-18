@@ -1,24 +1,37 @@
 <template>
-  <div class="game-page container">
-    <h1>Game Page</h1>
+  <section class="game-page">
+    <h2>Game Page</h2>
     <div :key="game.id" class="game">
-      <h2>{{ game.name }}</h2>
-      <p>{{ game.description_preview }}</p>
-      <p>Players {{ game.min_players }} - {{ game.max_players }}</p>
-      <p>Playtime {{ game.min_playtime }} - {{ game.max_playtime }} min</p>
-      <!-- <p>{{ game.id }}</p> -->
-      <img :src="game.image_url" alt="" />
-      <!-- <p>{{ category }}</p> -->
-      <p>Rating</p>
-      <p>Username</p>
-      <p>Location</p>
-      <button class="play-btn">PLAY</button>
-      <div class="collection-btns">
-        <button class="swap-btn">SWAP!</button>
-        <button class="buy-btn">BUY!</button>
+      <div class="game-image">
+        <img :src="game.image_url" alt="" />
+        <p>Players &#128101; {{ game.min_players }} - {{ game.max_players }}</p>
+        <p>
+          Playtime &#128337; {{ game.min_playtime }} -
+          {{ game.max_playtime }} min
+        </p>
+        <p>Rating &#127942;</p>
+        <p>Username 💻</p>
+        <p>Location &#127969;</p>
+      </div>
+      <div class="game-details">
+        <h3>{{ game.name }}</h3>
+        <p>{{ game.description_preview }}</p>
+        <div class="game-btns">
+          <button type="button" class="play-btn button-link__orange">
+            PLAY
+          </button>
+          <div class="collection-btns">
+            <button type="button" class="swap-btn button-link__orange">
+              SWAP!
+            </button>
+            <button type="button" class="buy-btn button-link__orange">
+              BUY!
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -56,14 +69,47 @@ export default {
 
 <style lang="scss">
 .game-page {
-  width: 80%;
-  margin: auto;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 3rem;
+    animation: moveIn 5s;
+  }
 }
 
 .game {
-  margin-top: 2rem;
-  width: 500px;
-  margin-bottom: 3rem;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  padding: 2rem;
+  border: solid 3px $bluegreen;
+  border-radius: 20px;
+
+  .game-image {
+    width: 35%;
+    text-align: left;
+
+    p {
+      line-height: 2.5rem;
+    }
+
+    img {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .game-details {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    p {
+      line-height: 2.5rem;
+    }
+  }
 }
 .play-btn {
   width: 100%;
@@ -81,5 +127,34 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+@keyframes moveIn {
+  0% {
+    opacity: 0;
+    transform: translateX(150px);
+  }
+
+  80% {
+    transform: translate(-30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.button-link__orange {
+  border: 2px solid $orange;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  color: $orange;
+  transition: $transition-normal;
+}
+
+.button-link__orange:hover {
+  background-color: $orange;
+  color: white;
 }
 </style>

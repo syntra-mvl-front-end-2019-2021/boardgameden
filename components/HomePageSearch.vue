@@ -27,7 +27,7 @@
       <NuxtLink :to="'/shop/'" @submit="submit"> More Info </NuxtLink>
       <!-- <button type="submit" @submit="submit">zoek</button> -->
     </form>
-  </section>
+  </div>
 </template>
 
 <script>

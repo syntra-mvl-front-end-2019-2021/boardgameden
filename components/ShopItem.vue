@@ -1,9 +1,9 @@
 <template>
   <div class="shop-item">
     <div>
-      <h5>
-        Item: <strong>{{ title }}</strong>
-      </h5>
+      <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
+        {{ title }}
+      </NuxtLink>
       <button class="button-link__orange" @click="openModal">
         Buy or Swap
       </button>
@@ -33,6 +33,7 @@ export default {
   props: {
     title: { type: String, required: true },
     user: { type: String, required: true },
+    gbId: { type: String, required: true },
   },
   data() {
     return {

@@ -10,6 +10,7 @@
             :key="game.id"
             :title="game.boardgames_id.bg_name"
             :user="game.users_id.first_name"
+            :gbId="game.boardgames_id.bg_atlas_id"
           />
         </div>
       </div>
@@ -21,6 +22,7 @@
             :key="game.id"
             :title="game.boardgames_id.bg_name"
             :user="game.users_id.first_name"
+            :gbId="game.boardgames_id.bg_atlas_id"
           />
         </div>
       </div>
