@@ -1,9 +1,10 @@
 <template>
   <div class="shop-item">
     <div>
-      <h5>
-        Item: <strong>{{ title }}</strong>
-      </h5>
+      <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
+        {{ title }}
+      </NuxtLink>
+
       <button class="button-link__orange" @click="openModal">
         Buy or Swap
       </button>
@@ -14,13 +15,15 @@
         open: showModal,
       }"
     >
+      <textarea
+        id=""
+        name=""
+        cols="30"
+        rows="10"
+        placeholder="Hey! I would like to purchase this item"
+      ></textarea>
+
       <p>
-        <textarea
-          name=""
-          cols="30"
-          rows="10"
-          placeholder="Hey! I would like to purchase this item"
-        ></textarea>
         Buy <strong> {{ title }} </strong> from <strong> {{ user }} </strong>
       </p>
     </div>
@@ -33,6 +36,7 @@ export default {
   props: {
     title: { type: String, required: true },
     user: { type: String, required: true },
+    gbId: { type: String, required: true },
   },
   data() {
     return {
