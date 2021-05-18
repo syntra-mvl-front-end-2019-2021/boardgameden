@@ -1,10 +1,4 @@
 <template>
-
-  <div>
-    <div class="shop-item">
-      <p>Item:</p>
-      <strong>{{ title }}</strong>
-
   <div class="shop-item">
     <div>
       <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
