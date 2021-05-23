@@ -25,6 +25,13 @@
       >
         <FormulateInput
           :options="usersOptions"
+          type="email"
+          name="email"
+          validation="required|email"
+          label="Attendee’s email"
+        />
+        <FormulateInput
+          :options="usersOptions"
           type="select"
           placeholder="Select an attendees"
           name="attendees"

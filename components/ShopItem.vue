@@ -10,13 +10,13 @@
       </button>
     </div>
     <div
+      id=""
+
       :class="{
         'shop-modal': true,
         open: showModal,
       }"
-
-      <textarea
-        id=""
+        <textarea
         name=""
         cols="30"
         rows="10"
