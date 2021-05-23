@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div v-for="game in results" :key="game.attendees" class="avent">
-      <span>attendees: {{ game.attendees }}</span> |
-      <!-- <span>boardgame: {{ game.boardgame.bg_name }}</span> |
+    <div v-for="game in results" :key="game.user" class="avent">
+      <span>attendees: {{ [game.attendees] }}</span> |
+      <span>boardgame: {{ game.boardgame.bg_name }}</span> |
       <span>Location: {{ game.location }}</span> |
       <span>user: {{ game.user.first_name }}</span>
-      //-->
     </div>
     <NuxtLink to="/event">register event</NuxtLink>
   </div>
@@ -25,12 +24,15 @@ export default {
   },
   created() {
     this.$axios
-      .get(`/items/boardgame_dens?fields[]=attendees.users_id.last_name`, {
-        headers: { Authorization: '' },
-      })
+      .get(
+        `/items/boardgame_dens?fields[]=user.first_name,location,boardgame.bg_name,attendees.users_id.last_name`,
+        {
+          headers: { Authorization: '' },
+        }
+      )
       .then((response) => {
         console.log(response)
-        this.results.value = response.data.data
+        this.results = response.data.data
       })
   },
   methods: {},
