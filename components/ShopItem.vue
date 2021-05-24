@@ -44,8 +44,14 @@
           <FormulateInput
             class="shop-modal__form--data-element"
             type="text"
-            name="name"
-            label="name"
+            name="first_name"
+            label="first_name"
+          />
+          <FormulateInput
+            class="shop-modal__form--data-element"
+            type="text"
+            name="last_name"
+            label="last_name"
           />
           <FormulateInput
             class="shop-modal__form--data-element"
@@ -106,6 +112,7 @@ export default {
     dataBody() {
       return JSON.stringify({
         first_name: this.formValues.name,
+        last_name: this.formValues.name,
         email: this.formValues.mail,
        question: this.formValues.message,
       })
