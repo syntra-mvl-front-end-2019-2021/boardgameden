@@ -16,13 +16,17 @@
         'shop-modal': true,
         open: showModal,
       }"
-        <textarea
+       <textarea
+
+    >
+      <textarea
+        id=""
+
         name=""
         cols="30"
         rows="10"
         placeholder="Hey! I would like to purchase this item"
    ></textarea>
-
 
       <p>
         Buy <strong> {{ title }} </strong> from <strong> {{ user }} </strong>

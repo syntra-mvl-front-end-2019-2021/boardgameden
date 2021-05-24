@@ -226,6 +226,7 @@ main {
     left: -5rem;
     top: -25rem;
     transform: rotate(135deg);
+    pointer-events: none;
     .blue {
       fill: rgba(129, 203, 235);
       width: 500px;
@@ -239,6 +240,7 @@ main {
     width: 500px;
     height: 500px;
     transform: rotate(-135deg);
+    pointer-events: none;
     .orange {
       fill: #ea5b30be;
     }
