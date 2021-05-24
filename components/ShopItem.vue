@@ -45,19 +45,19 @@
             class="shop-modal__form--data-element"
             type="text"
             name="name"
-            label="Name:"
+            label="name"
           />
           <FormulateInput
             class="shop-modal__form--data-element"
             type="text"
-            name="mail"
-            label="E-mail:"
+            name="email"
+            label="email:"
           />
           <FormulateInput
             class="shop-modal__form--data-element"
             type="text"
             name="message"
-            label="Message:"
+            label="message:"
           />
           <FormulateInput
             class="shop-modal__form--data-submit"
@@ -82,6 +82,7 @@
 <script>
 export default {
   name: 'ShopItem',
+   middleware: 'auth',
   props: {
     title: { type: String, required: true },
     user: { type: String, required: true },
@@ -106,7 +107,7 @@ export default {
       return JSON.stringify({
         first_name: this.formValues.name,
         email: this.formValues.mail,
-        question: this.formValues.message,
+       question: this.formValues.message,
       })
     },
   },
