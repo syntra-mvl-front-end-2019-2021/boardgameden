@@ -88,7 +88,7 @@
 <script>
 export default {
   name: 'ShopItem',
-   middleware: 'auth',
+  middleware: 'auth',
   props: {
     title: { type: String, required: true },
     user: { type: String, required: true },
@@ -102,8 +102,9 @@ export default {
       submit: false,
       formErrors: [],
       formValues: {
-        name: '',
-        mail: '',
+        first_name: '',
+        last_name: '',
+        email: '',
         message: '',
       },
     }
@@ -111,10 +112,10 @@ export default {
   computed: {
     dataBody() {
       return JSON.stringify({
-        first_name: this.formValues.name,
-        last_name: this.formValues.name,
-        email: this.formValues.mail,
-       question: this.formValues.message,
+        first_name: this.formValues.first_name,
+        last_name: this.formValues.last_name,
+        email: this.formValues.email,
+        question: this.formValues.message,
       })
     },
   },
@@ -122,8 +123,9 @@ export default {
     openModal() {
       this.showModal = !this.showModal
       if (this.$auth.loggedIn) {
-        this.formValues.name = this.$auth.user.first_name
-        this.formValues.mail = this.$auth.user.email
+        this.formValues.first_name = this.$auth.user.first_name
+        this.formValues.last_name = this.$auth.user.last_name
+        this.formValues.email = this.$auth.user.email
       }
     },
     createQuestion() {
