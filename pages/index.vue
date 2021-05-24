@@ -2,6 +2,7 @@
   <div class="home-page">
     <Hero />
     <HomePageSearch />
+
     <div class="players">
       <div class="players_text">
         <h1>There are <span>#</span>in <span>City</span></h1>
