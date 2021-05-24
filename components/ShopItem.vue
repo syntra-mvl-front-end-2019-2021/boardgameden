@@ -11,10 +11,14 @@
       </button>
     </div>
     <div
+      id=""
+
       :class="{
         'shop-modal': true,
         open: showModal,
       }"
+       <textarea
+
     >
       <div v-if="submit">
         <p>Your request has succesfully been sent.</p>

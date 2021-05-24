@@ -171,7 +171,6 @@ export default {
       scroll-snap-type: x mandatory;
       overflow: -moz-scrollbars-none;
       -ms-overflow-style: none;
-      scrollbar-color: transparent transparent;
       margin: auto;
 
       &::-webkit-scrollbar {
