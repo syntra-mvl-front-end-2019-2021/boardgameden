@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="profile">
-      <img
+      <!-- <img
         :src="$config.baseURL + '/assets/' + $auth.user.avatar.id"
         alt="avatar"
-      />
+      /> -->
       <h2>Welcome, {{ $auth.user.user_name }}</h2>
       <ul v-if="$auth.user">
         <li>First name: {{ $auth.user.first_name }}</li>

@@ -4,7 +4,9 @@
     <HomePageSearch />
     <div v-if="isLoggedIn" class="players">
       <div class="players_text">
-        <h1>There are <span>#</span>in <span>City</span></h1>
+        <h1>
+          There are <span>#</span> players in <span>{{ location }}</span>
+        </h1>
       </div>
       <button class="players_join">Join them!</button>
     </div>
@@ -61,6 +63,9 @@ export default {
     }
   },
   computed: {
+    location() {
+      return this.$auth.user.location
+    },
     isLoggedIn() {
       return this.$auth.loggedIn
     },
