@@ -2,8 +2,7 @@
   <div class="home-page">
     <Hero />
     <HomePageSearch />
-
-    <div class="players">
+    <div v-if="isLoggedIn" class="players">
       <div class="players_text">
         <h1>There are <span>#</span>in <span>City</span></h1>
       </div>
@@ -62,6 +61,9 @@ export default {
     }
   },
   computed: {
+    isLoggedIn() {
+      return this.$auth.loggedIn
+    },
     activeSlide() {
       return this.slides[this.currentSlide]
     },
