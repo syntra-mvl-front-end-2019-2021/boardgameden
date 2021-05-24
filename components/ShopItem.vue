@@ -21,7 +21,7 @@
         cols="30"
         rows="10"
         placeholder="Hey! I would like to purchase this item"
-      ></textarea>
+   ></textarea>
 
 
       <p>

@@ -54,13 +54,11 @@ export default {
 </script>
 <style lang="scss">
 section.gameden {
+  box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+  -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+  -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
   h2 {
     display: inline;
-  }
-  p {
-    box-shadow: 1px 1px 10px 0px rgba(171, 171, 171, 0.2);
-    -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-    -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
   }
   .avent {
     padding-top: 6em;
