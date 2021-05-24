@@ -1,12 +1,21 @@
 <template>
   <div>
-    <div v-for="game in results" :key="game.user" class="avent">
-      <span>attendees: {{ [game.attendees] }}</span> |
-      <span>boardgame: {{ game.boardgame.bg_name }}</span> |
-      <span>Location: {{ game.location }}</span> |
-      <span>user: {{ game.user.first_name }}</span>
-    </div>
-    <NuxtLink to="/event">register event</NuxtLink>
+    <h2>EVENT</h2>
+    <section class="container gameden">
+      <div v-for="game in results" :key="game.user" class="avent">
+        <p>attendees: {{ game.attendees }}</p>
+
+        <p>boardgame: {{ game.boardgame.bg_name }}</p>
+
+        <p>Location: {{ game.location }}</p>
+
+        <p>user: {{ game.user.first_name }}</p>
+      </div>
+
+      <NuxtLink class="button-link__orange" to="/event"
+        >register event</NuxtLink
+      >
+    </section>
   </div>
 </template>
 <script>
@@ -15,6 +24,7 @@ export default {
   data() {
     return {
       results: [],
+      attendees: [],
     }
   },
   computed: {
@@ -35,14 +45,31 @@ export default {
         this.results = response.data.data
       })
   },
-  methods: {},
+  methods: {
+    getAttendees(attendeesArray) {
+      return attendeesArray.map((attendee) => attendee.last_name).join(',')
+    },
+  },
 }
 </script>
 <style lang="scss">
-.avent {
-  padding-top: 6em;
-  justify-content: center;
-  align-content: center;
-  margin: auto;
+section.gameden {
+  h2 {
+    display: inline;
+  }
+  p {
+    box-shadow: 1px 1px 10px 0px rgba(171, 171, 171, 0.2);
+    -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+    -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+  }
+  .avent {
+    padding-top: 6em;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+  }
+  .button-link__orange {
+    float: right;
+  }
 }
 </style>
