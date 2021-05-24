@@ -3,7 +3,7 @@
     <div v-if="loading" class="game-comp__loading"></div>
     <div v-if="!loading && game" class="game-comp__content">
       <img class="game-img" :src="game.thumb_url" alt="game.name" />
-      <p class="game-title">{{ gbId }}</p>
+      <!-- <p class="game-title">{{ gbId }}</p> -->
       <h3 class="game-title">{{ game.name }}</h3>
       <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
         More Info

@@ -9,6 +9,7 @@
           type="text"
           placeholder="Zoek je avontuur"
           name="search"
+          autocomplete="off"
           @input="submit"
         />
         <div v-if="noResult" class="c-autocomplete__dropdown">
@@ -23,20 +24,25 @@
             'c-autocomplete__dropdown--loading': searching,
           }"
         >
-          <button
+          <NuxtLink
             v-for="game in games"
             :key="game.id"
             class="c-autocomplete__dropdown-item"
-            type="button"
+            :to="'/game/' + game.bg_atlas_id"
           >
             {{ game.bg_name }}
-          </button>
+          </NuxtLink>
         </div>
       </div>
-      <NuxtLink :to="'/shop/'" class="c-autocomplete__submit" @submit="submit">
+      <NuxtLink
+        v-for="game in games"
+        :key="game.id"
+        :to="'/shop/' + game.bg_atlas_id"
+        class="c-autocomplete__submit"
+        @submit="submit"
+      >
         Search
       </NuxtLink>
-      <!-- <button type="submit" @submit="submit">zoek</button> -->
     </form>
   </section>
 </template>
@@ -55,7 +61,7 @@ export default {
       noResult: false,
     }
   },
-  computed: {},
+
   methods: {
     submit() {
       if (this.timeOut) {
@@ -77,7 +83,15 @@ export default {
       this.searching = true
       this.$axios('/items/boardgames', {
         method: 'GET',
-        params: { filter: { bg_name: { _contains: this.searchQuery } } },
+        params: {
+          filter: {
+            bg_name: {
+              _contains:
+                this.searchQuery.charAt(0).toUpperCase() +
+                this.searchQuery.slice(1),
+            },
+          },
+        },
       })
         .then((result) => {
           this.games = result.data.data
@@ -93,67 +107,6 @@ export default {
         })
     },
   },
-  // mounted() {
-  //   this.$store.dispatch('GET_GAMES')
-  // },
-  // methods: {
-  // search() {
-  //   // todo search games
-  //   console.log(this.searchinput)
-  // },
-  //   submit(event) {
-  //     const id = this.get_game_id_user_search()
-  //     this.$router.push('shop/' + id)
-  //   },
-  // },
-  //   created() {
-  //     this.$axios(this.$config.baseURL + '/search', {
-  //       params: {
-  //         ids: this.board_games.bg_atlas_id,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         if (!response.data.games) {
-  //           throw new Error('could not find game')
-  //         }
-  //         this.board_games = response.data.games
-  //       })
-  //       .catch((e) => {
-  //         console.error(e)
-  //       })
-  //       .finally(() => {
-  //         this.loading = false
-  //       })
-  //   },
-  //   methods: {
-  //     submit(event) {
-  //       this.get_game_id_user_search()
-  //       this.$router.push('shop/' + this.id)
-  //     },
-
-  //     get_game_id_user_search() {
-  //       if (this.searchinput !== '') {
-  //         const result = this.board_games.find(
-  //           (item) => item.bg_name === this.searchinput
-  //         )
-  //         console.log(result.bg_atlas_id)
-  //         return this.id === result.bg_atlas_id
-  //       }
-  //     },
-
-  //     get_all_games_to_local_storage() {},
-  //   },
-  // }
-  // get_all_games_to_local_storage() {
-  //       axios
-  //         .get('http://206.81.26.160/items/boardgames')
-  //         .then((response) => {
-  //           this.board_games = response.data.data
-  //         })
-  //         .catch((error) => {
-  //           console.log(error)
-  //         })
-  //     },
 }
 </script>
 
@@ -186,7 +139,7 @@ export default {
       padding: 0.2rem 0.2rem 0.2rem 0;
       border: none;
       border-right: white 3px solid;
-      width: 100%;
+      width: 500px;
       color: white;
       outline: none;
       background: none;
@@ -249,6 +202,7 @@ export default {
       text-align: left;
       border: none;
       border-bottom: 1px solid slategrey;
+      font-size: 1rem;
     }
   }
 
