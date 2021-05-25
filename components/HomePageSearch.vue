@@ -12,6 +12,13 @@
           autocomplete="off"
           @input="submit"
         />
+        <div class="c-autocomplete__city">
+          <label for="city"></label>
+          <input id="city" type="text" placeholder="City" name="city" />
+        </div>
+        <div class="c-autocomplete__radius">
+          <label for="radius"></label>
+        </div>
         <div v-if="noResult" class="c-autocomplete__dropdown">
           <button class="c-autocomplete__dropdown-item" disabled type="button">
             No games found
@@ -35,13 +42,10 @@
         </div>
       </div>
       <NuxtLink
-        v-for="game in games"
-        :key="game.id"
-        :to="'/shop/' + game.bg_atlas_id"
+        :to="'/shop/' + gbId"
         class="c-autocomplete__submit"
         @submit="submit"
-      >
-        Search
+        >Search
       </NuxtLink>
     </form>
   </section>
@@ -61,7 +65,7 @@ export default {
       noResult: false,
     }
   },
-
+  created() {},
   methods: {
     submit() {
       if (this.timeOut) {
@@ -127,19 +131,11 @@ export default {
     justify-content: space-around;
     height: 100%;
     padding: 0 1rem;
-    &__search {
-      width: 40%;
-    }
-    &__city,
-    &__radius {
-      width: 20%;
-    }
 
     input {
       padding: 0.2rem 0.2rem 0.2rem 0;
       border: none;
-      border-right: white 3px solid;
-      width: 500px;
+      max-width: 500px;
       color: white;
       outline: none;
       background: none;
@@ -154,6 +150,17 @@ export default {
 
 .c-autocomplete {
   position: relative;
+  @include flexCenter();
+  justify-content: space-evenly;
+  width: 100%;
+
+  &__search {
+    width: 40%;
+  }
+  &__city,
+  &__radius {
+    width: 20%;
+  }
   &__dropdown {
     position: absolute;
     top: 100%;
