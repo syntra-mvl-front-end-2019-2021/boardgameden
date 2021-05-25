@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h2>EVENT</h2>
     <section class="container gameden">
-      <div v-for="game in results" :key="game.user" class="avent">
+      <h2>EVENT</h2>
+      <div v-for="game in results" :key="game.id" class="avent">
         <p>attendees: {{ game.attendees }}</p>
 
         <p>boardgame: {{ game.boardgame.bg_name }}</p>
 
         <p>Location: {{ game.location }}</p>
 
-        <p>user: {{ game.user.first_name }}</p>
+        <p>organizer: {{ game.user.first_name }}</p>
       </div>
 
       <NuxtLink class="button-link__orange" to="/event"
@@ -41,7 +41,7 @@ export default {
         }
       )
       .then((response) => {
-        console.log(response)
+        console.log(this.results)
         this.results = response.data.data
       })
   },
@@ -54,17 +54,23 @@ export default {
 </script>
 <style lang="scss">
 section.gameden {
-  box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-  -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-  -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
   h2 {
     display: inline;
   }
+  p {
+    box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+    -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+    -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+  }
   .avent {
-    padding-top: 6em;
+    padding: 2em;
+    margin: 2em 0;
     justify-content: center;
     align-content: center;
-    margin: auto;
+    border-radius: 10px;
+    box-shadow: 1px 2px 2px 0px rgba(171, 171, 171, 0.87);
+    // -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+    // -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
   }
   .button-link__orange {
     float: right;
