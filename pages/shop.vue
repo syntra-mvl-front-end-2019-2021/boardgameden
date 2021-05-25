@@ -11,6 +11,7 @@
             :title="game.boardgames_id.bg_name"
             :user="game.users_id.first_name"
             :gb-id="game.boardgames_id.bg_atlas_id"
+            :thumburl="game.boardgames_id.bg_image"
           />
         </div>
       </div>
@@ -23,6 +24,7 @@
             :title="game.boardgames_id.bg_name"
             :user="game.users_id.first_name"
             :gb-id="game.boardgames_id.bg_atlas_id"
+            :thumburl="game.boardgames_id.bg_image"
           />
         </div>
       </div>
@@ -35,8 +37,9 @@ export default {
   name: 'Shop',
   components: { ShopItem },
   fetch() {
-    this.$store.dispatch('boardgames/getGamesForSale')
-    this.$store.dispatch('boardgames/getGamesForSwap')
+    console.log(this.$route.query.search)
+    this.$store.dispatch('boardgames/getGamesForSale', this.$route.query.search)
+    this.$store.dispatch('boardgames/getGamesForSwap', this.$route.query.search)
   },
   computed: {
     getGamesForSale() {
@@ -44,6 +47,9 @@ export default {
     },
     getGamesForSwap() {
       return this.$store.state.boardgames.gamesForSwap
+    },
+    searchParam() {
+      return this.$route.query.search
     },
   },
 }
@@ -59,6 +65,7 @@ export default {
       display: flex;
       width: 100%;
       margin: 2em 0;
+      flex-wrap: wrap;
     }
   }
 }
