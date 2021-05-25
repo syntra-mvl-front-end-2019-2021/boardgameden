@@ -37,8 +37,9 @@ export default {
   name: 'Shop',
   components: { ShopItem },
   fetch() {
-    this.$store.dispatch('boardgames/getGamesForSale')
-    this.$store.dispatch('boardgames/getGamesForSwap')
+    console.log(this.$route.query.search)
+    this.$store.dispatch('boardgames/getGamesForSale', this.$route.query.search)
+    this.$store.dispatch('boardgames/getGamesForSwap', this.$route.query.search)
   },
   computed: {
     getGamesForSale() {
@@ -46,6 +47,9 @@ export default {
     },
     getGamesForSwap() {
       return this.$store.state.boardgames.gamesForSwap
+    },
+    searchParam() {
+      return this.$route.query.search
     },
   },
 }
