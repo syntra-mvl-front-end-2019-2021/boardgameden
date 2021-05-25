@@ -53,7 +53,9 @@
                 class="c-autocomplete__dropdown-item"
                 type="button"
               >
-                {{ game.bg_name }}
+                <NuxtLink :to="'/game/' + gbId" @submit="submit">{{
+                  game.bg_name
+                }}</NuxtLink>
               </button>
             </div>
           </div>
@@ -66,7 +68,7 @@
         </form>
       </section>
       <section class="collection">
-        <ShopItem />
+        <CollectionItem />
       </section>
     </div>
   </section>

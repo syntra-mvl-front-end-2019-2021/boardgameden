@@ -27,6 +27,7 @@
             <button type="button" class="buy-btn button-link__orange">
               BUY!
             </button>
+            <a v-if="isLoggedIn" @click="addgame">Add Game to collection</a>
           </div>
         </div>
       </div>
@@ -42,6 +43,11 @@ export default {
       baseURL: 'https://api.boardgameatlas.com/api/',
       game: {},
     }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$auth.loggedIn
+    },
   },
   created() {
     this.$axios(this.$config.gbURL + '/search', {
@@ -63,6 +69,11 @@ export default {
       .finally(() => {
         this.loading = false
       })
+  },
+  methods: {
+    addgame() {
+      this.$auth.addgame()
+    },
   },
 }
 </script>
