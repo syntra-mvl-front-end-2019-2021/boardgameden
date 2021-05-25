@@ -12,8 +12,6 @@
 export default {
   name: 'CollectionItem',
   props: {
-    title: { type: String, required: true },
-    user: { type: String, required: true },
     gbId: { type: String, required: true },
   },
   data() {

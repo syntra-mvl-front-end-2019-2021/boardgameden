@@ -68,20 +68,28 @@
         </form>
       </section>
       <section class="collection">
-        <CollectionItem />
+        <CollectionItem
+          v-for="game in getBoardGames"
+          :key="game.id"
+          :title="game.boardgames_id.bg_name"
+          :gb-id="game.boardgames_id.bg_atlas_id"
+        />
       </section>
     </div>
   </section>
 </template>
 
 <script>
+import CollectionItem from '~/components/CollectionItem.vue'
 import Collection from '~/components/Collection'
 
 export default {
   name: 'ProfilePage',
-  components: { Collection },
+  components: { Collection, CollectionItem },
   middleware: ['auth'],
-
+  props: {
+    gbId: { type: String, required: true },
+  },
   data() {
     return {
       games: [],
@@ -93,6 +101,29 @@ export default {
   },
 
   computed: {},
+  getBoardGames() {
+    return this.$store.state.boardgames
+  },
+  created() {
+    this.$axios(this.$config.gbURL + '/search', {
+      params: {
+        client_id: this.$config.gbClientId,
+        ids: this.gbId,
+      },
+    })
+      .then((response) => {
+        if (!response.data.games) {
+          throw new Error('could not find game')
+        }
+        this.game = response.data.games[0]
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+      .finally(() => {
+        this.loading = false
+      })
+  },
   methods: {
     submit() {
       if (this.timeOut) {
