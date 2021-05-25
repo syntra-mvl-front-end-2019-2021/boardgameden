@@ -15,8 +15,8 @@
         'shop-modal': true,
         open: showModal,
       }"
-      =
-      <textarea>
+      ="<textarea"
+    >
       <textarea
         id=""
         name=""
