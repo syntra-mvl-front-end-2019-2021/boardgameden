@@ -3,7 +3,10 @@
     <section class="container gameden">
       <h2>EVENT</h2>
       <div v-for="game in results" :key="game.id" class="avent">
-        <p>attendees: {{ game.attendees }}</p>
+        <p>
+          attendees:
+          {{ game.attendees }}
+        </p>
 
         <p>boardgame: {{ game.boardgame.bg_name }}</p>
 
@@ -24,7 +27,6 @@ export default {
   data() {
     return {
       results: [],
-      attendees: [],
     }
   },
   computed: {
@@ -47,7 +49,9 @@ export default {
   },
   methods: {
     getAttendees(attendeesArray) {
-      return attendeesArray.map((attendee) => attendee.last_name).join(',')
+      return attendeesArray
+        .map((attendee) => attendee.userS_id.last_name)
+        .join(',')
     },
   },
 }
