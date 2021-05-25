@@ -25,12 +25,12 @@
           <GameComp
             v-for="game in games"
             :key="1 + game.bg_atlas_id"
-            :gb-id="game.bg_atlas_id"
+            :game="game"
           />
           <GameComp
             v-for="game in games"
             :key="2 + game.bg_atlas_id"
-            :gb-id="game.bg_atlas_id"
+            :game="game"
           />
         </div>
         <button

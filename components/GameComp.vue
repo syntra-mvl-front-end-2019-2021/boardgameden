@@ -1,11 +1,10 @@
 <template>
   <div class="game-comp">
     <div v-if="loading" class="game-comp__loading"></div>
-    <div v-if="!loading && game" class="game-comp__content">
-      <img class="game-img" :src="game.thumb_url" alt="game.name" />
-      <p class="game-title">{{ gbId }}</p>
-      <h3 class="game-title">{{ game.name }}</h3>
-      <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
+    <div v-if="!loading && atlasGame" class="game-comp__content">
+      <img class="game-img" :src="atlasGame.thumb_url" alt="game.name" />
+      <h3 class="game-title">{{ game.bg_name }}</h3>
+      <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
         More Info
       </NuxtLink>
     </div>
@@ -16,29 +15,29 @@
 export default {
   name: 'GameComp',
   props: {
-    gbId: {
-      type: String,
+    game: {
+      type: Object,
       required: true,
     },
   },
   data() {
     return {
       loading: true,
-      game: null,
+      atlasGame: null,
     }
   },
   created() {
     this.$axios(this.$config.gbURL + '/search', {
       params: {
         client_id: this.$config.gbClientId,
-        ids: this.gbId,
+        ids: this.game.bg_atlas_id,
       },
     })
       .then((response) => {
         if (!response.data.games) {
           throw new Error('could not find game')
         }
-        this.game = response.data.games[0]
+        this.atlasGame = response.data.games[0]
       })
       .catch((e) => {
         console.error(e)

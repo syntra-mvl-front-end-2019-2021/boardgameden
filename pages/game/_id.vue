@@ -1,13 +1,16 @@
 <template>
   <section class="game-page">
     <h2>Game Page</h2>
-    <div :key="game.id" class="game">
+    <div v-if="atlasGame" class="game">
       <div class="game-image">
-        <img :src="game.image_url" alt="" />
-        <p>Players &#128101; {{ game.min_players }} - {{ game.max_players }}</p>
+        <img :src="atlasGame.image_url" alt="" />
         <p>
-          Playtime &#128337; {{ game.min_playtime }} -
-          {{ game.max_playtime }} min
+          Players &#128101; {{ atlasGame.min_players }} -
+          {{ atlasGame.max_players }}
+        </p>
+        <p>
+          Playtime &#128337; {{ atlasGame.min_playtime }} -
+          {{ atlasGame.max_playtime }} min
         </p>
         <p>Rating &#127942;</p>
         <p>Username 💻</p>
@@ -15,7 +18,7 @@
       </div>
       <div class="game-details">
         <h3>{{ game.name }}</h3>
-        <p>{{ game.description_preview }}</p>
+        <p>{{ atlasGame.description_preview }}</p>
         <div class="game-btns">
           <button type="button" class="play-btn button-link__orange">
             PLAY
@@ -28,17 +31,18 @@
               BUY!
             </button>
             <button
-              v-if="isLoggedIn"
+              v-if="showAddToCollection"
               type="button"
               class="buy-btn button-link__orange"
               @click="addgame"
             >
-              Add Game to collection
+              {{ addingGame ? '....' : 'Add Game to collection' }}
             </button>
           </div>
         </div>
       </div>
     </div>
+    <div v-else>Fetching game....</div>
   </section>
 </template>
 
@@ -47,39 +51,93 @@ export default {
   name: 'GamePage',
   data() {
     return {
-      baseURL: 'https://api.boardgameatlas.com/api/',
-      game: {},
+      addingGame: false,
+      loading: false,
+      game: null,
+      atlasGame: null,
     }
   },
   computed: {
     isLoggedIn() {
       return this.$auth.loggedIn
     },
+    showAddToCollection() {
+      if (!this.isLoggedIn) {
+        return false
+      }
+
+      const filteredGames = this.$auth.user.boardgames.filter(
+        (bg) => bg.boardgames_id.id === parseInt(this.$route.params.id)
+      )
+      return filteredGames.length === 0
+    },
+    user() {
+      return this.$auth.user
+    },
   },
   created() {
-    this.$axios(this.$config.gbURL + '/search', {
-      params: {
-        client_id: this.$config.gbClientId,
-        ids: this.$route.params.id,
-      },
-    })
-      .then((response) => {
-        if (!response.data.games) {
-          throw new Error('could not find game')
-        }
-        this.game = response.data.games[0]
-        console.log('data=' + response.data.games[0])
-      })
-      .catch((e) => {
-        console.error(e)
-      })
-      .finally(() => {
-        this.loading = false
-      })
+    this.fetchGame()
   },
   methods: {
     addgame() {
-      this.$auth.addgame()
+      this.addingGame = true
+      this.$axios('/items/boardgames_directus_users', {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json',
+        },
+        data: {
+          boardgames_id: this.game.id,
+          users_id: this.$auth.user.id,
+          is_swappable: false,
+          is_for_sale: false,
+        },
+      })
+        .then(() => {
+          return this.resetUser()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        .finally(() => {
+          this.addingGame = false
+        })
+    },
+    resetUser() {
+      return this.$axios('/users/me?fields=*.*.*')
+        .then((response) => {
+          this.$auth.setUser(response.data.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
+    fetchGame() {
+      this.loading = true
+      this.$axios('/items/boardgames/' + this.$route.params.id)
+        .then((response) => {
+          this.game = response.data.data
+          return this.fetchAtlasGame(response.data.data.bg_atlas_id)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
+    fetchAtlasGame(id) {
+      return this.$axios(this.$config.gbURL + '/search', {
+        params: {
+          client_id: this.$config.gbClientId,
+          ids: id,
+        },
+      }).then((response) => {
+        if (!response.data.games) {
+          throw new Error('could not find game')
+        }
+        this.atlasGame = response.data.games[0]
+      })
     },
   },
 }
