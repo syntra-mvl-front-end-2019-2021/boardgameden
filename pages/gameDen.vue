@@ -9,7 +9,7 @@
 
         <p>Location: {{ game.location }}</p>
 
-        <p>user: {{ game.user.first_name }}</p>
+        <p>organizer: {{ game.user.first_name }}</p>
       </div>
 
       <NuxtLink class="button-link__orange" to="/event"
