@@ -6,7 +6,7 @@
       <div class="players_text">
         <h1>There are <span>#</span>in <span>City</span></h1>
       </div>
-      <button class="players_join">Join them!</button>
+      <button class="players_join" @click="notify">Join them!</button>
     </div>
     <GameOfTheMonth />
     <section class="c-collection">
@@ -98,6 +98,9 @@ export default {
     window.removeEventListener('resize', this.calcWidths)
   },
   methods: {
+    notify() {
+      this.$root.$emit('notify', 'Dit is een belangrijke melding')
+    },
     calcWidths() {
       if (this.$refs.slider.children[0]) {
         this.sliderWidth = this.$refs.slider.offsetWidth

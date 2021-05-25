@@ -5,7 +5,12 @@
       <div v-for="game in results" :key="game.id" class="avent">
         <p>
           attendees:
-          {{ game.attendees }}
+          <span
+            v-for="attendee in game.attendees"
+            :key="'at_' + attendee.users_id.last_name"
+          >
+            {{ attendee.users_id.last_name }},
+          </span>
         </p>
 
         <p>boardgame: {{ game.boardgame.bg_name }}</p>
@@ -29,11 +34,6 @@ export default {
       results: [],
     }
   },
-  computed: {
-    boardgameden() {
-      return this.$store.state['evenement/boardgamedens']
-    },
-  },
   created() {
     this.$axios
       .get(
@@ -48,11 +48,6 @@ export default {
       })
   },
   methods: {
-    getAttendees(attendeesArray) {
-      return attendeesArray
-        .map((attendee) => attendee.userS_id.last_name)
-        .join(',')
-    },
   },
 }
 </script>
@@ -72,7 +67,7 @@ section.gameden {
     justify-content: center;
     align-content: center;
     border-radius: 10px;
-    box-shadow: 1px 2px 2px 0px rgba(171, 171, 171, 0.87);
+    box-shadow: 1px 2px 2px 0 rgba(171, 171, 171, 0.87);
     // -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
     // -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
   }
