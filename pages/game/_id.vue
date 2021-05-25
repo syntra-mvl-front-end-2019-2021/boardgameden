@@ -27,7 +27,14 @@
             <button type="button" class="buy-btn button-link__orange">
               BUY!
             </button>
-            <a v-if="isLoggedIn" @click="addgame">Add Game to collection</a>
+            <button
+              v-if="isLoggedIn"
+              type="button"
+              class="buy-btn button-link__orange"
+              @click="addgame"
+            >
+              Add Game to collection
+            </button>
           </div>
         </div>
       </div>

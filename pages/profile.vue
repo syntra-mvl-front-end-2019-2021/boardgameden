@@ -27,7 +27,7 @@
               id="search"
               v-model="searchQuery"
               type="text"
-              placeholder="Zoek je avontuur"
+              placeholder="Search your game"
               name="search"
               @input="submit"
             />
