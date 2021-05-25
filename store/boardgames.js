@@ -51,7 +51,7 @@ export const actions = {
         console.error(err)
       })
   },
-  getGamesForSale(context) {
+  getGamesForSale(context, searchQuery) {
     if (context.state.gamesForSaleState.success) {
       return
     }
@@ -79,13 +79,13 @@ export const actions = {
         )
       })
   },
-  getGamesForSwap(context) {
+  getGamesForSwap(context, searchQuery) {
     if (context.state.gamesForSwapState.success) {
       return
     }
 
     context.commit('setGamesForSwapState', startFetchingState())
-    this.$axios('/items/boardgames_directus_users', {
+    return this.$axios('/items/boardgames_directus_users', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

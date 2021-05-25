@@ -5,7 +5,16 @@
         {{ title }}
       </NuxtLink>
       <p>image link id: {{ thumburl }}</p>
-      <img class="game-img" :src="thumburl" alt="game picture" />
+      <img
+        class="game-img"
+        :src="
+          $config.baseURL +
+          '/assets/' +
+          thumburl +
+          '?width=300&height=300&fit=cover'
+        "
+        alt="game picture"
+      />
       <button class="button-link__orange" @click="openModal">
         Buy or Swap
       </button>
@@ -16,17 +25,7 @@
         'shop-modal': true,
         open: showModal,
       }"
-      ="<textarea"
     >
-
-      <textarea
-        id=""
-        name=""
-        cols="30"
-        rows="10"
-        placeholder="Hey! I would like to purchase this item"
-      ></textarea>
-
       <p>
         Buy <strong> {{ title }} </strong> from <strong> {{ user }} </strong>
       </p>
@@ -96,7 +95,6 @@
           >Please log in first</NuxtLink
         >
       </div>
-
     </div>
   </div>
 </template>
@@ -253,7 +251,7 @@ export default {
   margin: 1em;
   flex: 1;
   border-radius: 10px;
-  box-shadow: 1px 1px 10px 0px rgba(171, 171, 171, 0.2);
+  box-shadow: 1px 1px 10px 0 rgba(171, 171, 171, 0.2);
   //-webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
   //-moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
   .button-link__orange {
