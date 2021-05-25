@@ -1,8 +1,4 @@
-import {
-  defaultFetchingState,
-  finishFetchingState,
-  startFetchingState,
-} from '@/utils/helperFunctions'
+import { defaultFetchingState } from '@/utils/helperFunctions'
 
 export const state = function () {
   return {
