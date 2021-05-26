@@ -29,10 +29,6 @@
       <p>
         Buy <strong> {{ title }} </strong> from <strong> {{ user }} </strong>
       </p>
-
-      <div v-if="submit">
-        <p>Your request has succesfully been sent.</p>
-      </div>
       <div
         v-if="$auth.loggedIn"
         :class="{
@@ -142,6 +138,9 @@ export default {
         this.formValues.email = this.$auth.user.email
       }
     },
+    notifyUser() {
+      this.$root.$emit('notify', 'Uw bericht werd met succes verzonden.')
+    },
     createQuestion() {
       this.$axios('/items/contact_form_item', {
         method: 'POST',
@@ -153,7 +152,9 @@ export default {
         .then((response) => {
           // TODO: notify user
           console.log(response.data)
-          this.submit = true
+          this.notifyUser()
+          this.formValues.message = ''
+          this.showModal = !this.showModal
         })
         .catch((err) => {
           alert(err)
@@ -228,9 +229,6 @@ export default {
           transform: rotate(90deg);
         }
       }
-    }
-    &--message {
-      color: white;
     }
     p {
       color: white;
