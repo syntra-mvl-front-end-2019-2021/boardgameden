@@ -1,12 +1,29 @@
 <template>
   <div>
-    <div v-for="game in results" :key="game.user" class="avent">
-      <span>attendees: {{ game.attendees }}</span> |
-      <span>boardgame: {{ game.boardgame.bg_name }}</span> |
-      <span>Location: {{ game.location }}</span> |
-      <span>user: {{ game.user.first_name }}</span>
-    </div>
-    <NuxtLink to="/event">register event</NuxtLink>
+    <section class="container gameden">
+      <h2>EVENT</h2>
+      <div v-for="game in results" :key="game.id" class="avent">
+        <p>
+          attendees:
+          <span
+            v-for="attendee in game.attendees"
+            :key="'at_' + attendee.users_id.last_name"
+          >
+            {{ attendee.users_id.last_name }},
+          </span>
+        </p>
+
+        <p>boardgame: {{ game.boardgame.bg_name }}</p>
+
+        <p>Location: {{ game.location }}</p>
+
+        <p>organizer: {{ game.user.first_name }}</p>
+      </div>
+
+      <NuxtLink class="button-link__orange" to="/event"
+        >register event</NuxtLink
+      >
+    </section>
   </div>
 </template>
 <script>
@@ -15,6 +32,7 @@ export default {
   data() {
     return {
       results: [],
+      attendees: [],
     }
   },
   computed: {
@@ -23,26 +41,47 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('evenement/getBoardgameden', {})
     this.$axios
       .get(
-        `/items/boardgame_dens?fields[]=user.first_name,location,boardgame.bg_name,attendees.id.first_name`,
+        `/items/boardgame_dens?fields[]=user.first_name,location,boardgame.bg_name,attendees.users_id.last_name`,
         {
           headers: { Authorization: '' },
         }
       )
       .then((response) => {
-        console.log(response)
+        console.log(this.results)
         this.results = response.data.data
       })
+  },
+  methods: {
+    getAttendees(attendeesArray) {
+      return attendeesArray.map((attendee) => attendee.last_name).join(',')
+    },
   },
 }
 </script>
 <style lang="scss">
-.avent {
-  padding-top: 6em;
-  justify-content: center;
-  align-content: center;
-  margin: auto;
+section.gameden {
+  h2 {
+    display: inline;
+  }
+  p {
+    box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+    -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+    -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+  }
+  .avent {
+    padding: 2em;
+    margin: 2em 0;
+    justify-content: center;
+    align-content: center;
+    border-radius: 10px;
+    box-shadow: 1px 2px 2px 0 rgba(171, 171, 171, 0.87);
+    // -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+    // -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+  }
+  .button-link__orange {
+    float: right;
+  }
 }
 </style>

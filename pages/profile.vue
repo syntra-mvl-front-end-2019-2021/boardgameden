@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="profile">
-      <img :src="$auth.user.avatar" />
+      <!--
+        <img
+        :src="$config.baseURL + '/assets/' + $auth.user.avatar.id"
+        alt="avatar"
+      />
+      -->
       <h2>Welcome, {{ $auth.user.user_name }}</h2>
       <ul v-if="$auth.user">
         <li>First name: {{ $auth.user.first_name }}</li>
@@ -32,7 +37,11 @@ export default {
       results: [],
     }
   },
-
+  computed: {
+    user() {
+      return this.$auth.user
+    },
+  },
   watch: {
     searchTerm(newSearchTerm) {
       if (newSearchTerm.length < 4) {

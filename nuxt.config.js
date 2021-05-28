@@ -1,4 +1,5 @@
 export default {
+  ssr: false,
   publicRuntimeConfig: {
     baseURL: process.env.BASE_URL,
     gbURL: process.env.GB_URL,

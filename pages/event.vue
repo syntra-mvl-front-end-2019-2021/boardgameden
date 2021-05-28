@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h2>Play!</h2>
-    <button @click="toggle = !toggle">Add boardgameden</button>
+    <h2>PLAY!</h2>
     <FormulateForm
       v-model="formData"
       :class="{ 'gameden-form--hidden': toggle }"
@@ -50,7 +49,6 @@ export default {
         attendees: '',
         user: '',
       },
-      toggle: false,
     }
   },
   computed: {
