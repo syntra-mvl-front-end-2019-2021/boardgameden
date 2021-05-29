@@ -8,7 +8,7 @@
           There are <span>#</span> players in <span>{{ location }}</span>
         </h1>
       </div>
-      <button class="players_join">Join them!</button>
+      <button class="players_join" @click="notify">Join them!</button>
     </div>
     <GameOfTheMonth />
     <section class="c-collection">
@@ -108,6 +108,9 @@ export default {
     window.removeEventListener('resize', this.calcWidths)
   },
   methods: {
+    notify() {
+      this.$root.$emit('notify', 'Dit is een belangrijke melding')
+    },
     calcWidths() {
       if (this.$refs.slider.children[0]) {
         this.sliderWidth = this.$refs.slider.offsetWidth
@@ -204,7 +207,6 @@ export default {
       scroll-snap-type: x mandatory;
       overflow: -moz-scrollbars-none;
       -ms-overflow-style: none;
-      scrollbar-color: transparent transparent;
       margin: auto;
 
       &::-webkit-scrollbar {
