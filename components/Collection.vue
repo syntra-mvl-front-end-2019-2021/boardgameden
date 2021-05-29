@@ -1,11 +1,7 @@
 <template>
   <div class="container">
     <h1>Collection</h1>
-    <CollectionItem
-      v-for="game in games"
-      :key="game.bg_atlas_id"
-      :game="game"
-    />
+    <CollectionItem v-for="game in games" :key="game.id" :game="game" />
   </div>
 </template>
 

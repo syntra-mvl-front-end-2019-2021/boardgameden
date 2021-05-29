@@ -33,16 +33,16 @@
         <h2>{{ $auth.user.user_name }}</h2>
         <ul v-if="$auth.user">
           <li>First name: {{ $auth.user.first_name }}</li>
+          <li>User ID: {{ $auth.user.id }}</li>
           <li>Last name: {{ $auth.user.last_name }}</li>
           <li>Email: {{ $auth.user.email }}</li>
           <li>Location: {{ $auth.user.location }}</li>
-          <NuxtLink to="/edit_profile">Edit Profile</NuxtLink>
         </ul>
       </div>
       <FormulateForm
         v-model="formData"
         :form-errors="formErrors"
-        @submit="submit"
+        @submit="saveProfile"
       >
         <div class="formulate-form__inputs">
           <div class="formulate-form__inputs__username">
@@ -50,21 +50,15 @@
               type="text"
               name="user_name"
               label="Username"
-              validation="required|alphanumeric"
+              validation="alphanumeric"
             />
 
-            <FormulateInput
-              type="password"
-              name="password"
-              label="Password"
-              validation="required"
-            />
+            <FormulateInput type="password" name="password" label="Password" />
             <FormulateInput
               type="password"
               name="passwordConfirm"
               label="Confirm Password"
               validation-name="Confirm Password"
-              validation="required|confirm:password"
             />
             <div class="addIMG"></div>
           </div>
@@ -74,31 +68,28 @@
               name="first_name"
               label="First Name"
               validation-name="First Name"
-              validation="required"
             />
             <FormulateInput
               type="text"
               name="last_name"
               label="Last Name"
               validation-name="Last Name"
-              validation="required"
             />
-            <FormulateInput
-              type="date"
-              name="birthdate"
-              label="Birthdate"
-              :validation="'required|before:' + minDate"
-            />
+            <FormulateInput type="date" name="birthdate" label="Birthdate" />
             <FormulateInput
               type="email"
               name="email"
               label="E-mailadres"
               validation-name="E-mailadres"
-              validation="required|email"
             />
             <FormulateInput type="hidden" name="role" />
             <FormulateErrors />
-            <FormulateInput type="submit" name="Submit" />
+            <FormulateInput
+              type="submit"
+              class="button-link__orange"
+              name="Save"
+              @click="saveProfile"
+            />
           </div>
         </div>
       </FormulateForm>
@@ -133,25 +124,39 @@ export default {
   },
   created() {},
   methods: {
-    submit(data) {
-      return this.$axios('/users', {
-        method: 'POST',
+    saveProfile(data) {
+      return this.$axios('/users/' + this.$auth.user.id, {
+        method: 'PATCH',
         data,
+        header: {
+          'Content-Type': 'application/json',
+        },
+        // data: {
+        //   user_name: this.$auth.user.user_name,
+        //   password: '',
+        //   first_name: '',
+        //   last_name: '',
+        //   birthdate: '',
+        //   email: '',
+        // },
       })
-        .then((response) => {
-          // TODO: notify user
-          this.$router.push('/thanks')
-          console.log(response.data)
+        .then(() => {
+          return this.resetUser()
         })
         .catch((error) => {
-          console.log(error.response)
-          if (error.response && error.response.data.errors) {
-            this.formErrors = error.response.data.errors.map(
-              (val) => val.message
-            )
-          }
-
-          this.formErrors = ['Could not save user, try again']
+          console.error(error)
+        })
+        .finally(() => {
+          this.addingGame = false
+        })
+    },
+    resetUser() {
+      return this.$axios('/users/me?fields=*.*.*')
+        .then((response) => {
+          this.$auth.setUser(response.data.data)
+        })
+        .catch((error) => {
+          console.error(error)
         })
     },
   },

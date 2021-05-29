@@ -11,6 +11,7 @@
         <h2>Welcome, {{ $auth.user.user_name }}</h2>
         <ul v-if="$auth.user">
           <li>First name: {{ $auth.user.first_name }}</li>
+          <li>User ID: {{ $auth.user.id }}</li>
           <li>Last name: {{ $auth.user.last_name }}</li>
           <li>Email: {{ $auth.user.email }}</li>
           <li>Location: {{ $auth.user.location }}</li>
@@ -87,9 +88,7 @@ export default {
   name: 'ProfilePage',
   components: { Collection, CollectionItem },
   middleware: ['auth'],
-  props: {
-    gbId: { type: String, required: true },
-  },
+  props: {},
   data() {
     return {
       games: [],

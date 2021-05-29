@@ -1,8 +1,8 @@
 <template>
   <div class="shop-item">
     <div>
-      <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
-        {{ title }}
+      <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
+        {{ game.name }}
       </NuxtLink>
     </div>
   </div>
@@ -11,13 +11,9 @@
 <script>
 export default {
   name: 'CollectionItem',
-  props: {
-    gbId: { type: String, required: true },
-  },
   data() {
     return {
-      baseURL: 'http://phpstack-266425-1848208.cloudwaysapps.com/api',
-      game: {},
+      game: [],
     }
   },
   created() {
