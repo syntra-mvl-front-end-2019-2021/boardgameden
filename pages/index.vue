@@ -2,9 +2,11 @@
   <div class="home-page">
     <Hero />
     <HomePageSearch />
-    <div class="players">
+    <div v-if="isLoggedIn" class="players">
       <div class="players_text">
-        <h1>There are <span>#</span>in <span>City</span></h1>
+        <h1>
+          There are <span>#</span> players in <span>{{ location }}</span>
+        </h1>
       </div>
       <button class="players_join" @click="notify">Join them!</button>
     </div>
@@ -26,11 +28,13 @@
             v-for="game in games"
             :key="1 + game.bg_atlas_id"
             :gb-id="game.bg_atlas_id"
+            :gb-name="game.bg_name"
           />
           <GameComp
             v-for="game in games"
             :key="2 + game.bg_atlas_id"
             :gb-id="game.bg_atlas_id"
+            :gb-name="game.bg_name"
           />
         </div>
         <button
@@ -53,7 +57,7 @@ export default {
   components: { GameComp, HomePageSearch, GameOfTheMonth, Hero },
   data() {
     return {
-      baseURL: 'https://api.boardgameatlas.com/api/',
+      // baseURL: 'https://api.boardgameatlas.com/api/',
       sliderWidth: 0,
       slideWidth: 0,
       currentSlide: 0,
@@ -61,6 +65,12 @@ export default {
     }
   },
   computed: {
+    location() {
+      return this.$auth.user.location
+    },
+    isLoggedIn() {
+      return this.$auth.loggedIn
+    },
     activeSlide() {
       return this.slides[this.currentSlide]
     },
@@ -83,7 +93,7 @@ export default {
   created() {
     this.$axios('/items/boardgames')
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         this.games = response.data.data
       })
 
@@ -164,6 +174,29 @@ export default {
     width: 100%;
     @include flexCenter();
     margin: 2rem 0 2rem;
+
+    .game-comp__loading {
+      position: relative;
+      height: 20rem;
+
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -1rem;
+        margin-left: -1rem;
+        border-top: 3px solid rgba(255, 255, 255, 0.2);
+        border-right: 3px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+        border-left: 3px solid $orange;
+        animation: load8 1.1s infinite linear;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+      }
+    }
 
     &--gameComponents {
       display: grid;
