@@ -37,20 +37,27 @@ export default {
   name: 'Shop',
   components: { ShopItem },
   fetch() {
-    console.log(this.$route.query.search)
+    // console.log(this.$route.query.search)
     this.$store.dispatch('boardgames/getGamesForSale', this.$route.query.search)
     this.$store.dispatch('boardgames/getGamesForSwap', this.$route.query.search)
   },
   computed: {
     getGamesForSale() {
-      return this.$store.state.boardgames.gamesForSale
+      return this.$store.state.boardgames.gamesForSale.filter((game) => {
+        return game.boardgames_id.bg_name.match(this.$route.query.search)
+      })
     },
     getGamesForSwap() {
-      return this.$store.state.boardgames.gamesForSwap
+      return this.$store.state.boardgames.gamesForSwap.filter((game) => {
+        return game.boardgames_id.bg_name.match(this.$route.query.search)
+      })
     },
-    searchParam() {
-      return this.$route.query.search
-    },
+    // searchParam() {
+    // return this.$store.state.boardgames.gamesForSwap.filter((game) => {
+    //   return game.boardgames_id.bg_name.match(this.$route.query.search)
+    // })
+    // return this.$route.query.search
+    // },
   },
 }
 </script>
