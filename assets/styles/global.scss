@@ -23,6 +23,24 @@ body {
       width: 90%;
     }
 
+    .button-link__black {
+      border: 2px solid $black;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      color: $black;
+      background-color: #fff;
+      transition: $transition-normal;
+    }
+
+    .button-link__black:hover{
+      background-color: $orange;
+    }
+
+    .button-link__black.active {
+      background-color: $black;
+      color: white;
+    }
+
     .button-link__orange {
       border: 2px solid $orange;
       padding: 0.5em 1em;

@@ -1,6 +1,33 @@
 <template>
   <section class="container">
     <h2>Shop</h2>
+    <button
+      :class="{
+        'button-link__black': true,
+        active: isActive,
+      }"
+      @click="toggleActive"
+    >
+      ALL
+    </button>
+    <button
+      :class="{
+        'button-link__black': true,
+        active: isActiveBuy,
+      }"
+      @click="toggleBuy"
+    >
+      BUY
+    </button>
+    <button
+      :class="{
+        'button-link__black': true,
+        active: isActiveSwap,
+      }"
+      @click="toggleSwap"
+    >
+      SWAP
+    </button>
     <div class="shop-wrapper">
       <div class="shop-wrapper__row">
         <h3>For sale:</h3>
@@ -36,6 +63,13 @@ import ShopItem from '@/components/ShopItem.vue'
 export default {
   name: 'Shop',
   components: { ShopItem },
+  data() {
+    return {
+      isActive: true,
+      isActiveBuy: false,
+      isActiveSwap: false,
+    }
+  },
   fetch() {
     // console.log(this.$route.query.search)
     this.$store.dispatch('boardgames/getGamesForSale', this.$route.query.search)
@@ -52,12 +86,23 @@ export default {
         return game.boardgames_id.bg_name.match(this.$route.query.search)
       })
     },
-    // searchParam() {
-    // return this.$store.state.boardgames.gamesForSwap.filter((game) => {
-    //   return game.boardgames_id.bg_name.match(this.$route.query.search)
-    // })
-    // return this.$route.query.search
-    // },
+  },
+  methods: {
+    toggleActive() {
+      this.isActive = !this.isActive
+      this.isActiveBuy = false
+      this.isActiveSwap = false
+    },
+    toggleBuy() {
+      this.isActiveBuy = !this.isActiveBuy
+      this.isActive = false
+      this.isActiveSwap = false
+    },
+    toggleSwap() {
+      this.isActiveSwap = !this.isActiveSwap
+      this.isActiveBuy = false
+      this.isActive = false
+    },
   },
 }
 </script>
