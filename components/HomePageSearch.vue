@@ -42,7 +42,9 @@
         </div>
       </div>
       <NuxtLink
-        :to="'/shop/' + gbId"
+        v-for="game in games"
+        :key="game.bg_name"
+        :to="'/shop?search=' + game.bg_name"
         class="c-autocomplete__submit"
         @submit="submit"
         >Search
@@ -122,6 +124,7 @@ export default {
   margin: auto;
   background: #ea5c30;
   border-radius: 15px;
+  padding: 2rem 1rem;
 
   box-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0,
     rgba(0, 0, 0, 0.05) 0 1px 1px 0;

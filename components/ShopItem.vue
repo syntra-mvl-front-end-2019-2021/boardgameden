@@ -4,7 +4,7 @@
       <NuxtLink :to="'/game/' + gbId" class="button-link__game">
         {{ title }}
       </NuxtLink>
-      <p>image link id: {{ thumburl }}</p>
+      <!-- <p>image link id: {{ thumburl }}</p> -->
       <img
         class="game-img"
         :src="
