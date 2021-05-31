@@ -243,6 +243,7 @@ export default {
 
 .shop-item {
   min-width: 300px;
+  height: 200px;
   position: relative;
   padding: 2em;
   margin: 1em;
@@ -255,6 +256,9 @@ export default {
   &:hover {
     img {
       opacity: 0.6;
+    }
+    .button-link__game {
+      font-size: 2.3em;
     }
   }
   img {
@@ -277,6 +281,7 @@ export default {
     margin: 0.7em 0;
     display: block;
     text-shadow: 3px 3px 3px $black;
+    transition: $transition-normal;
   }
 }
 </style>
