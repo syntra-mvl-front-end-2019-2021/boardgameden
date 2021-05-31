@@ -16,24 +16,17 @@
         label="boardgame"
       />
       <FormulateInput
-        type="group"
+        :options="usersOptions"
+        type="select"
+        placeholder="Select an attendees"
         name="attendees"
-        :repeatable="true"
-        label="Who is going to attend?"
-        add-label="+ Add Attendee"
-      >
-        <FormulateInput
-          :options="usersOptions"
-          type="select"
-          placeholder="Select an attendees"
-          name="attendees"
-          label="attendees"
-        />
-      </FormulateInput>
+        label="attendees"
+      />
       <FormulateInput name="user" type="hidden" />
       <FormulateErrors />
       <FormulateInput name="submit" type="submit" />
     </FormulateForm>
+    <button type="button" @click="addElement">add attendees</button>
   </div>
 </template>
 <script>
@@ -43,12 +36,14 @@ export default {
   data() {
     return {
       formErrors: [],
-      formData: {
-        location: '',
-        boardgame: '',
-        attendees: '',
-        user: '',
-      },
+      formData: [
+        {
+          location: '',
+          boardgame: '',
+          attendees: '',
+          user: '',
+        },
+      ],
     }
   },
   computed: {
@@ -79,15 +74,14 @@ export default {
   },
   methods: {
     addElement() {
-      this.attendees.push({
-        value: '',
+      this.formData.push({
+        attendees: '',
       })
     },
     submit(data) {
       // process...
       data.attendees = [{ users_id: data.attendees }]
       // process...
-
       return this.$axios('/items/boardgame_dens', {
         method: 'POST',
         data,

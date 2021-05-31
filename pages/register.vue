@@ -77,7 +77,7 @@
             <FormulateInput
               type="email"
               name="email"
-              label="E-mailadres"
+              label="email"
               validation-name="E-mailadres"
               validation="required|email"
             />

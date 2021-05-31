@@ -47,8 +47,7 @@ export default {
         this.results = response.data.data
       })
   },
-  methods: {
-  },
+  methods: {},
 }
 </script>
 <style lang="scss">
