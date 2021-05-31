@@ -39,7 +39,7 @@ export default {
   name: 'GamePage',
   data() {
     return {
-      baseURL: 'https://api.boardgameatlas.com/api/',
+      // baseURL: 'GB_URL',
       game: {},
     }
   },

@@ -9,8 +9,16 @@
           type="text"
           placeholder="Zoek je avontuur"
           name="search"
+          autocomplete="off"
           @input="submit"
         />
+        <div class="c-autocomplete__city">
+          <label for="city"></label>
+          <input id="city" type="text" placeholder="City" name="city" />
+        </div>
+        <div class="c-autocomplete__radius">
+          <label for="radius"></label>
+        </div>
         <div v-if="noResult" class="c-autocomplete__dropdown">
           <button class="c-autocomplete__dropdown-item" disabled type="button">
             No games found
@@ -23,20 +31,24 @@
             'c-autocomplete__dropdown--loading': searching,
           }"
         >
-          <button
+          <NuxtLink
             v-for="game in games"
             :key="game.id"
             class="c-autocomplete__dropdown-item"
-            type="button"
+            :to="'/game/' + game.bg_atlas_id"
           >
             {{ game.bg_name }}
-          </button>
+          </NuxtLink>
         </div>
       </div>
-      <NuxtLink :to="'/shop/'" class="c-autocomplete__submit" @submit="submit">
-        Search
+      <NuxtLink
+        v-for="game in games"
+        :key="game.bg_name"
+        :to="'/shop?search=' + game.bg_name"
+        class="c-autocomplete__submit"
+        @submit="submit"
+        >Search
       </NuxtLink>
-      <!-- <button type="submit" @submit="submit">zoek</button> -->
     </form>
   </section>
 </template>
@@ -55,7 +67,7 @@ export default {
       noResult: false,
     }
   },
-  computed: {},
+  created() {},
   methods: {
     submit() {
       if (this.timeOut) {
@@ -77,7 +89,15 @@ export default {
       this.searching = true
       this.$axios('/items/boardgames', {
         method: 'GET',
-        params: { filter: { bg_name: { _contains: this.searchQuery } } },
+        params: {
+          filter: {
+            bg_name: {
+              _contains:
+                this.searchQuery.charAt(0).toUpperCase() +
+                this.searchQuery.slice(1),
+            },
+          },
+        },
       })
         .then((result) => {
           this.games = result.data.data
@@ -93,67 +113,6 @@ export default {
         })
     },
   },
-  // mounted() {
-  //   this.$store.dispatch('GET_GAMES')
-  // },
-  // methods: {
-  // search() {
-  //   // todo search games
-  //   console.log(this.searchinput)
-  // },
-  //   submit(event) {
-  //     const id = this.get_game_id_user_search()
-  //     this.$router.push('shop/' + id)
-  //   },
-  // },
-  //   created() {
-  //     this.$axios(this.$config.baseURL + '/search', {
-  //       params: {
-  //         ids: this.board_games.bg_atlas_id,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         if (!response.data.games) {
-  //           throw new Error('could not find game')
-  //         }
-  //         this.board_games = response.data.games
-  //       })
-  //       .catch((e) => {
-  //         console.error(e)
-  //       })
-  //       .finally(() => {
-  //         this.loading = false
-  //       })
-  //   },
-  //   methods: {
-  //     submit(event) {
-  //       this.get_game_id_user_search()
-  //       this.$router.push('shop/' + this.id)
-  //     },
-
-  //     get_game_id_user_search() {
-  //       if (this.searchinput !== '') {
-  //         const result = this.board_games.find(
-  //           (item) => item.bg_name === this.searchinput
-  //         )
-  //         console.log(result.bg_atlas_id)
-  //         return this.id === result.bg_atlas_id
-  //       }
-  //     },
-
-  //     get_all_games_to_local_storage() {},
-  //   },
-  // }
-  // get_all_games_to_local_storage() {
-  //       axios
-  //         .get('http://206.81.26.160/items/boardgames')
-  //         .then((response) => {
-  //           this.board_games = response.data.data
-  //         })
-  //         .catch((error) => {
-  //           console.log(error)
-  //         })
-  //     },
 }
 </script>
 
@@ -165,6 +124,7 @@ export default {
   margin: auto;
   background: #ea5c30;
   border-radius: 15px;
+  padding: 2rem 1rem;
 
   box-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0,
     rgba(0, 0, 0, 0.05) 0 1px 1px 0;
@@ -174,19 +134,11 @@ export default {
     justify-content: space-around;
     height: 100%;
     padding: 0 1rem;
-    &__search {
-      width: 40%;
-    }
-    &__city,
-    &__radius {
-      width: 20%;
-    }
 
     input {
       padding: 0.2rem 0.2rem 0.2rem 0;
       border: none;
-      border-right: white 3px solid;
-      width: 100%;
+      max-width: 500px;
       color: white;
       outline: none;
       background: none;
@@ -201,6 +153,17 @@ export default {
 
 .c-autocomplete {
   position: relative;
+  @include flexCenter();
+  justify-content: space-evenly;
+  width: 100%;
+
+  &__search {
+    width: 40%;
+  }
+  &__city,
+  &__radius {
+    width: 20%;
+  }
   &__dropdown {
     position: absolute;
     top: 100%;
@@ -249,6 +212,7 @@ export default {
       text-align: left;
       border: none;
       border-bottom: 1px solid slategrey;
+      font-size: 1rem;
     }
   }
 
