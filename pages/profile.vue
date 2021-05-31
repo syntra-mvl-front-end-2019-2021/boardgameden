@@ -5,6 +5,8 @@
         <img
           :src="$config.baseURL + '/assets/' + $auth.user.avatar.id"
           alt="avatar"
+          width="250px"
+          height="300px"
         />
       </div>
       <div class="profile_content">
