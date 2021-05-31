@@ -6,18 +6,19 @@
     <img class="game-img" :src="game.thumb_url" alt="game.name" />
     <p class="game-title">{{ game.gbId }}</p>
     <h3 class="game-title">{{ game.name }}</h3>
-  <div class="shop-item">
-    <div>
-      <img
-        class="game-img"
-        :src="game.image_url"
-        alt="game picture"
-        width="300px"
-        height="300px"
-      />
-      <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
-        {{ game.name }}
-      </NuxtLink>
+    <div class="shop-item">
+      <div>
+        <img
+          class="game-img"
+          :src="game.image_url"
+          alt="game picture"
+          width="300px"
+          height="300px"
+        />
+        <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
+          {{ game.name }}
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
@@ -38,7 +39,7 @@ export default {
   },
   data() {
     return {
-      game: {},
+      games: [],
     }
   },
   created() {
