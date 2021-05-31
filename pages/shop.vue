@@ -1,35 +1,37 @@
 <template>
   <section class="container">
     <h2>Shop</h2>
-    <button
-      :class="{
-        'button-link__black': true,
-        active: isActive,
-      }"
-      @click="toggleActive"
-    >
-      ALL
-    </button>
-    <button
-      :class="{
-        'button-link__black': true,
-        active: isActiveBuy,
-      }"
-      @click="toggleBuy"
-    >
-      BUY
-    </button>
-    <button
-      :class="{
-        'button-link__black': true,
-        active: isActiveSwap,
-      }"
-      @click="toggleSwap"
-    >
-      SWAP
-    </button>
+    <div class="filter-buttons container">
+      <button
+        :class="{
+          'button-link__black': true,
+          active: isActive,
+        }"
+        @click="toggleActive"
+      >
+        ALL
+      </button>
+      <button
+        :class="{
+          'button-link__black': true,
+          active: isActiveBuy,
+        }"
+        @click="toggleBuy"
+      >
+        BUY
+      </button>
+      <button
+        :class="{
+          'button-link__black': true,
+          active: isActiveSwap,
+        }"
+        @click="toggleSwap"
+      >
+        SWAP
+      </button>
+    </div>
     <div class="shop-wrapper">
-      <div class="shop-wrapper__row">
+      <div v-if="isActive || isActiveBuy" class="shop-wrapper__row">
         <h3>For sale:</h3>
         <div class="shop-wrapper__row--grid">
           <ShopItem
@@ -42,7 +44,7 @@
           />
         </div>
       </div>
-      <div class="shop-wrapper__row">
+      <div v-if="isActive || isActiveSwap" class="shop-wrapper__row">
         <h3>For swap:</h3>
         <div class="shop-wrapper__row--grid">
           <ShopItem
@@ -107,6 +109,15 @@ export default {
 }
 </script>
 <style lang="scss">
+.filter-buttons {
+  display: flex;
+  margin-top: -2em;
+  flex-direction: row;
+  justify-content: center;
+  button {
+    margin: 0.5em;
+  }
+}
 .shop-wrapper {
   display: flex;
   flex-direction: column;
