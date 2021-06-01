@@ -1,22 +1,17 @@
 <template>
-  <!-- <div>
-    <strong>{{ game.bg_atlas_id }}</strong>
-  </div> -->
-  <div v-if="game">
-    <img class="game-img" :src="game.thumb_url" alt="game.name" />
-    <p class="game-title">{{ game.gbId }}</p>
-    <h3 class="game-title">{{ game.name }}</h3>
+  <div v-if="atlasGame">
+    <h3 class="game-title">{{ game.bg_name }}</h3>
     <div class="shop-item">
       <div>
         <img
           class="game-img"
-          :src="game.image_url"
+          :src="atlasGame.thumb_url"
           alt="game picture"
           width="300px"
           height="300px"
         />
         <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
-          {{ game.name }}
+          {{ game.bg_name }}
         </NuxtLink>
       </div>
     </div>
@@ -31,28 +26,24 @@ export default {
       type: Object,
       required: true,
     },
-    title: { type: String, required: true },
-    user: { type: String, required: true },
-    gbId: { type: String, required: true },
-    thumburl: { type: String, required: true },
   },
   data() {
     return {
-      games: [],
+      atlasGame: [],
     }
   },
   created() {
     this.$axios(this.$config.gbURL + '/search', {
       params: {
         client_id: this.$config.gbClientId,
-        ids: this.$route.params.id,
+        ids: this.game.bg_atlas_id,
       },
     })
       .then((response) => {
         if (!response.data.games) {
           throw new Error('could not find game')
         }
-        this.game = response.data.games[0]
+        this.atlasGame = response.data.games[0]
         console.log('data=' + response.data.games[0])
       })
       .catch((e) => {

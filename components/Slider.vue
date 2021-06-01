@@ -15,14 +15,14 @@
         :key="1 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
-        <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
+        <GameComp :game="game" />
       </div>
       <div
         v-for="game in games"
         :key="2 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
-        <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
+        <GameComp :game="game" />
       </div>
     </div>
     <button

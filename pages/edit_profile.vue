@@ -1,96 +1,53 @@
 <template>
   <main>
-    <svg
-      class="bigBlueBackground"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 377 435"
-      stroke-linejoin="round"
-    >
-      <path
-        class="blue"
-        d="M188.1 0l188.1 108.6 0 217.2 -188.1 108.6 -188.1-108.6 0-217.2 188.1-108.6Z"
-      />
-    </svg>
-    <svg
-      class="bigOrangeBackground"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 377 435"
-      stroke-linejoin="round"
-    >
-      <path
-        class="orange"
-        d="M188.1 0l188.1 108.6 0 217.2 -188.1 108.6 -188.1-108.6 0-217.2 188.1-108.6Z"
-      />
-    </svg>
     <div class="registerPage_form">
-      <div class="profile_avatar">
-        <img
-          :src="$config.baseURL + '/assets/' + $auth.user.avatar.id"
-          alt="avatar"
-        />
-      </div>
-      <div class="profile_content">
-        <h2>{{ $auth.user.user_name }}</h2>
-        <ul v-if="$auth.user">
-          <li>First name: {{ $auth.user.first_name }}</li>
-          <li>User ID: {{ $auth.user.id }}</li>
-          <li>Last name: {{ $auth.user.last_name }}</li>
-          <li>Email: {{ $auth.user.email }}</li>
-          <li>Location: {{ $auth.user.location }}</li>
-        </ul>
-      </div>
       <FormulateForm
         v-model="formData"
         :form-errors="formErrors"
         @submit="saveProfile"
       >
         <div class="formulate-form__inputs">
-          <div class="formulate-form__inputs__username">
-            <FormulateInput
-              type="text"
-              name="user_name"
-              label="Username"
-              validation="alphanumeric"
-            />
-
-            <FormulateInput type="password" name="password" label="Password" />
-            <FormulateInput
-              type="password"
-              name="passwordConfirm"
-              label="Confirm Password"
-              validation-name="Confirm Password"
-            />
-            <div class="addIMG"></div>
-          </div>
-          <div class="formulate-form__inputs__names">
-            <FormulateInput
-              type="text"
-              name="first_name"
-              label="First Name"
-              validation-name="First Name"
-            />
-            <FormulateInput
-              type="text"
-              name="last_name"
-              label="Last Name"
-              validation-name="Last Name"
-            />
-            <FormulateInput type="date" name="birthdate" label="Birthdate" />
-            <FormulateInput
-              type="email"
-              name="email"
-              label="E-mailadres"
-              validation-name="E-mailadres"
-            />
-            <FormulateInput type="hidden" name="role" />
-            <FormulateErrors />
-            <FormulateInput
-              type="submit"
-              class="button-link__orange"
-              name="Save"
-              @click="saveProfile"
-            />
-          </div>
+          <FormulateInput
+            type="text"
+            name="user_name"
+            label="Username"
+            validation-name="Username"
+            validation="required"
+          />
+          <FormulateInput
+            type="text"
+            name="first_name"
+            label="First Name"
+            validation-name="First Name"
+          />
+          <FormulateInput
+            type="text"
+            name="last_name"
+            label="Last Name"
+            validation-name="Last Name"
+          />
+          <FormulateInput type="date" name="birthdate" label="Birthdate" />
+          <FormulateInput
+            type="email"
+            name="email"
+            label="E-mailadres"
+            validation-name="E-mailadres"
+            validation="required|email"
+          />
+          <FormulateInput
+            type="image"
+            name="avatar"
+            label="Select an image to upload"
+            :uploader="uploader"
+            help="Select a png, jpg or gif to upload."
+          />
+          <FormulateErrors />
+          <FormulateInput
+            type="submit"
+            class="button-link__orange"
+            name="Save"
+            @click="saveProfile"
+          />
         </div>
       </FormulateForm>
     </div>
@@ -100,45 +57,94 @@
 <script>
 export default {
   name: 'EditProfile',
-
+  middleware: 'auth',
   data() {
     return {
       formErrors: [],
       formData: {
         user_name: '',
-        password: '',
         first_name: '',
         last_name: '',
         birthdate: '',
         email: '',
+        avatar: null,
       },
     }
   },
   computed: {
+    user() {
+      return this.$auth.user
+    },
     minDate() {
       const curDate = new Date()
       curDate.setFullYear(curDate.getFullYear() - 18)
 
       return curDate.toISOString().substr(0, 10)
     },
+    avatar() {
+      if (!this.user.avatar) {
+        return false
+      }
+
+      return this.avatarUrl(this.user.avatar.id)
+    },
   },
-  created() {},
+  created() {
+    this.formData = {
+      user_name: this.$auth.user.user_name,
+      first_name: this.$auth.user.first_name,
+      last_name: this.$auth.user.last_name,
+      birthdate: this.$auth.user.birthdate,
+      email: this.$auth.user.email,
+      avatar: this.avatar
+        ? [{ url: this.avatar, id: this.user.avatar.id }]
+        : [],
+    }
+  },
   methods: {
+    avatarUrl(id) {
+      return (
+        this.$config.baseURL +
+        '/assets/' +
+        id +
+        '?width=250&height=250&fit=cover'
+      )
+    },
+    uploader(file, progress, error) {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      return this.$axios('/files', {
+        method: 'POST',
+        data: formData,
+      })
+        .then((response) => {
+          console.log(response)
+          progress(100)
+
+          return {
+            url: this.avatarUrl(response.data.data.id),
+            id: response.data.data.id,
+          }
+        })
+        .catch((e) => {
+          console.error(e)
+          error(e.message)
+        })
+    },
     saveProfile(data) {
+      if (data.avatar) {
+        data.avatar = data.avatar[0]
+      } else {
+        data.avatar = null
+      }
+
       return this.$axios('/users/' + this.$auth.user.id, {
         method: 'PATCH',
         data,
         header: {
           'Content-Type': 'application/json',
         },
-        // data: {
-        //   user_name: this.$auth.user.user_name,
-        //   password: '',
-        //   first_name: '',
-        //   last_name: '',
-        //   birthdate: '',
-        //   email: '',
-        // },
       })
         .then(() => {
           return this.resetUser()
@@ -191,6 +197,7 @@ main {
         width: 100%;
         height: 100%;
         @include flexCenter();
+        flex-direction: column;
         justify-content: space-between;
         .addIMG {
           width: 100%;

@@ -3,20 +3,21 @@
     <div class="profile">
       <div class="profile_avatar">
         <img
-          :src="$config.baseURL + '/assets/' + $auth.user.avatar.id"
+          v-if="avatar"
+          :src="avatar"
           alt="avatar"
           width="250px"
           height="300px"
         />
       </div>
       <div class="profile_content">
-        <h2>Welcome, {{ $auth.user.user_name }}</h2>
-        <ul v-if="$auth.user">
-          <li>First name: {{ $auth.user.first_name }}</li>
-          <li>User ID: {{ $auth.user.id }}</li>
-          <li>Last name: {{ $auth.user.last_name }}</li>
-          <li>Email: {{ $auth.user.email }}</li>
-          <li>Location: {{ $auth.user.location }}</li>
+        <h2>Welcome, {{ user.user_name }}</h2>
+        <ul v-if="user">
+          <li>First name: {{ user.first_name }}</li>
+          <li>User ID: {{ user.id }}</li>
+          <li>Last name: {{ user.last_name }}</li>
+          <li>Email: {{ user.email }}</li>
+          <li>Location: {{ user.location }}</li>
           <NuxtLink to="/edit_profile">Edit Profile</NuxtLink>
         </ul>
       </div>
@@ -74,8 +75,7 @@
         <CollectionItem
           v-for="game in getBoardGames"
           :key="game.id"
-          :title="game.boardgames_id.bg_name"
-          :gb-id="game.boardgames_id.bg_atlas_id"
+          :game="game"
         />
       </section>
     </div>
@@ -100,8 +100,23 @@ export default {
       noResult: false,
     }
   },
+  computed: {
+    user() {
+      return this.$auth.user
+    },
+    avatar() {
+      if (!this.user.avatar) {
+        return false
+      }
 
-  computed: {},
+      return (
+        this.$config.baseURL +
+        '/assets/' +
+        this.user.avatar.id +
+        '?width=250&height=300&fit=cover'
+      )
+    },
+  },
   getBoardGames() {
     return this.$store.state.boardgames
   },
@@ -172,7 +187,7 @@ export default {
     position: absolute;
     display: block;
     #img {
-      border-radius: 50%x;
+      border-radius: 50%;
     }
   }
   .profile_content {
