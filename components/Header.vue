@@ -81,6 +81,11 @@ export default {
     },
     openDropDown() {
       this.dropDownOpen = !this.dropDownOpen
+      if (this.dropDownOpen) {
+        document.body.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = 'auto'
+      }
     },
   },
 }

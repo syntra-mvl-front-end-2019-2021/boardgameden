@@ -3,7 +3,6 @@
     <h2>PLAY!</h2>
     <FormulateForm
       v-model="formData"
-      :class="{ 'gameden-form--hidden': toggle }"
       :form-errors="formErrors"
       @submit="submit"
     >
@@ -26,11 +25,10 @@
           :options="usersOptions"
           type="select"
           placeholder="Select an attendees"
-          name="attendees"
+          name="users_id"
           label="attendees"
         />
       </FormulateInput>
-      <FormulateInput name="user" type="hidden" />
       <FormulateErrors />
       <FormulateInput name="submit" type="submit" />
     </FormulateForm>
@@ -47,7 +45,6 @@ export default {
         location: '',
         boardgame: '',
         attendees: '',
-        user: '',
       },
     }
   },
@@ -84,9 +81,7 @@ export default {
       })
     },
     submit(data) {
-      // process...
-      data.attendees = [{ users_id: data.attendees }]
-      // process...
+      data.user = this.currentUser.id
 
       return this.$axios('/items/boardgame_dens', {
         method: 'POST',
