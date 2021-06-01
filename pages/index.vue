@@ -200,10 +200,10 @@ export default {
 
     &--gameComponents {
       display: grid;
-      grid-template-columns: repeat(6, calc((100% - 3rem) / 4));
+      grid-template-columns: repeat(6, calc((100% - 3rem) / 3));
       grid-column-gap: 2rem;
       overflow-x: scroll;
-      width: 70%;
+      // width: 70%;
       scroll-snap-type: x mandatory;
       overflow: -moz-scrollbars-none;
       -ms-overflow-style: none;
@@ -230,15 +230,15 @@ export default {
       &--right {
         border-bottom: 6px solid;
         border-left: 6px solid;
-        transform: rotate(-135deg);
-        right: 2rem;
+        transform: rotate(-135deg) translateY(3rem);
+        right: 0;
       }
 
       &--left {
         border-bottom: 6px solid;
         border-left: 6px solid;
-        transform: rotate(45deg);
-        left: 2rem;
+        transform: rotate(45deg) translateX(-3rem);
+        left: 0;
       }
     }
   }
