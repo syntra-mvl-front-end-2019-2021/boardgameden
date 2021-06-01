@@ -3,7 +3,6 @@
     <h2>PLAY!</h2>
     <FormulateForm
       v-model="formData"
-      :class="{ 'gameden-form--hidden': toggle }"
       :form-errors="formErrors"
       @submit="submit"
     >
@@ -16,28 +15,20 @@
         label="boardgame"
       />
       <FormulateInput
-        type="email"
-        name="email"
-        validation="required|email"
-        label="Attendee’s email"
-      />
-      <FormulateInput
         type="group"
         name="attendees"
         :repeatable="true"
         label="Who is going to attend?"
         add-label="+ Add Attendee"
-        validation="required"
       >
         <FormulateInput
           :options="usersOptions"
           type="select"
           placeholder="Select an attendees"
-          name="attendees"
+          name="users_id"
           label="attendees"
         />
       </FormulateInput>
-      <FormulateInput name="user" type="hidden" />
       <FormulateErrors />
       <FormulateInput name="submit" type="submit" />
     </FormulateForm>
@@ -50,15 +41,11 @@ export default {
   data() {
     return {
       formErrors: [],
-      formData: [
-        {
-          location: '',
-          boardgame: '',
-          attendees: '',
-          user: '',
-          email: '',
-        },
-      ],
+      formData: {
+        location: '',
+        boardgame: '',
+        attendees: '',
+      },
     }
   },
   computed: {
@@ -88,10 +75,13 @@ export default {
     this.$store.dispatch('users/getUsers')
   },
   methods: {
+    addElement() {
+      this.attendees.push({
+        value: '',
+      })
+    },
     submit(data) {
-      // process...
-      data.attendees = [{ users_id: data.attendees }]
-      // process...
+      data.user = this.currentUser.id
       return this.$axios('/items/boardgame_dens', {
         method: 'POST',
         data,
@@ -108,6 +98,9 @@ export default {
           }
           this.formErrors = ['Could not save user, try again']
         })
+    },
+    resetForm(event) {
+      event.target.reset()
     },
   },
 }
