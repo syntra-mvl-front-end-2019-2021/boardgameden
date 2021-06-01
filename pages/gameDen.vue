@@ -9,7 +9,7 @@
             v-for="attendee in game.attendees"
             :key="'at_' + attendee.users_id.last_name"
           >
-            {{ attendee.users_id.last_name }},
+            {{ attendee.users_id.last_name }}
           </span>
         </p>
 
@@ -53,11 +53,7 @@ export default {
         this.results = response.data.data
       })
   },
-  methods: {
-    getAttendees(attendeesArray) {
-      return attendeesArray.map((attendee) => attendee.last_name).join(',')
-    },
-  },
+  methods: {},
 }
 </script>
 <style lang="scss">
