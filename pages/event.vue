@@ -16,17 +16,31 @@
         label="boardgame"
       />
       <FormulateInput
-        :options="usersOptions"
-        type="select"
-        placeholder="Select an attendees"
-        name="attendees"
-        label="attendees"
+        type="email"
+        name="email"
+        validation="required|email"
+        label="Attendee’s email"
       />
+      <FormulateInput
+        type="group"
+        name="attendees"
+        :repeatable="true"
+        label="Who is going to attend?"
+        add-label="+ Add Attendee"
+        validation="required"
+      >
+        <FormulateInput
+          :options="usersOptions"
+          type="select"
+          placeholder="Select an attendees"
+          name="attendees"
+          label="attendees"
+        />
+      </FormulateInput>
       <FormulateInput name="user" type="hidden" />
       <FormulateErrors />
       <FormulateInput name="submit" type="submit" />
     </FormulateForm>
-    <button type="button" @click="addElement">add attendees</button>
   </div>
 </template>
 <script>
@@ -42,6 +56,7 @@ export default {
           boardgame: '',
           attendees: '',
           user: '',
+          email: '',
         },
       ],
     }
@@ -73,11 +88,6 @@ export default {
     this.$store.dispatch('users/getUsers')
   },
   methods: {
-    addElement() {
-      this.formData.push({
-        attendees: '',
-      })
-    },
     submit(data) {
       // process...
       data.attendees = [{ users_id: data.attendees }]
@@ -98,9 +108,6 @@ export default {
           }
           this.formErrors = ['Could not save user, try again']
         })
-    },
-    resetForm(event) {
-      event.target.reset()
     },
   },
 }
