@@ -12,13 +12,6 @@
           autocomplete="off"
           @input="submit"
         />
-        <div class="c-autocomplete__city">
-          <label for="city"></label>
-          <input id="city" type="text" placeholder="City" name="city" />
-        </div>
-        <div class="c-autocomplete__radius">
-          <label for="radius"></label>
-        </div>
         <div v-if="noResult" class="c-autocomplete__dropdown">
           <button class="c-autocomplete__dropdown-item" disabled type="button">
             No games found
@@ -41,14 +34,15 @@
           </NuxtLink>
         </div>
       </div>
-      <NuxtLink
+      <button
         v-for="game in games"
         :key="game.bg_name"
         :to="'/shop?search=' + game.bg_name"
         class="c-autocomplete__submit"
         @submit="submit"
-        >Search
-      </NuxtLink>
+      >
+        Search
+      </button>
     </form>
   </section>
 </template>
@@ -124,21 +118,21 @@ export default {
   margin: auto;
   background: #ea5c30;
   border-radius: 15px;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
 
   box-shadow: rgba(50, 50, 105, 0.15) 0 2px 5px 0,
     rgba(0, 0, 0, 0.05) 0 1px 1px 0;
   .form {
     @include flexCenter();
     width: 100%;
-    justify-content: space-around;
+    // justify-content: space-around;
     height: 100%;
     padding: 0 1rem;
 
     input {
       padding: 0.2rem 0.2rem 0.2rem 0;
       border: none;
-      max-width: 500px;
+      width: 100%;
       color: white;
       outline: none;
       background: none;
@@ -156,9 +150,11 @@ export default {
   @include flexCenter();
   justify-content: space-evenly;
   width: 100%;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
 
   &__search {
-    width: 40%;
+    width: 100%;
   }
   &__city,
   &__radius {
@@ -211,8 +207,10 @@ export default {
       padding: 0.5rem 1rem;
       text-align: left;
       border: none;
-      border-bottom: 1px solid slategrey;
+      border-bottom: 1px solid $blue;
       font-size: 1rem;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
     }
   }
 
