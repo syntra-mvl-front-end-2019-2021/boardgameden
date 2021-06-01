@@ -30,7 +30,16 @@
             class="c-autocomplete__dropdown-item"
             :to="'/game/' + game.bg_atlas_id"
           >
-            <img :src="game.thumb_url" alt="" />
+            <img
+              class="game-img"
+              :src="
+                $config.baseURL +
+                '/assets/' +
+                game.bg_image +
+                '?width=200&height=100&fit=cover'
+              "
+              alt="game picture"
+            />
             {{ game.bg_name }}
           </NuxtLink>
         </div>
@@ -51,7 +60,6 @@
 <script>
 export default {
   name: 'HomepageSearch',
-  middleware: 'auth',
 
   data() {
     return {
@@ -114,6 +122,7 @@ export default {
 <style lang="scss" scoped>
 .s-search {
   @include flexCenter();
+  position: relative;
   max-width: 700px;
   height: 50px;
   margin: auto;
@@ -147,7 +156,6 @@ export default {
 }
 
 .c-autocomplete {
-  position: relative;
   @include flexCenter();
   justify-content: space-evenly;
   width: 100%;
@@ -207,7 +215,7 @@ export default {
       justify-content: first baseline;
       align-items: center;
       width: 100%;
-      padding: 0.5rem 1rem;
+      // padding: 0.5rem 1rem;
       text-align: left;
       border: none;
       border-bottom: 1px solid $orange;
@@ -216,9 +224,9 @@ export default {
       border-bottom-right-radius: 15px;
       img {
         margin-right: 10rem;
-        flex: 0 1 200px;
-        width: 100px;
-        height: 100px;
+        // width: 100px;
+        // height: 100px;
+        border-bottom-left-radius: 15px;
       }
     }
   }
