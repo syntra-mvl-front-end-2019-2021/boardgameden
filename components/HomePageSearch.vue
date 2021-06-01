@@ -30,11 +30,12 @@
             class="c-autocomplete__dropdown-item"
             :to="'/game/' + game.bg_atlas_id"
           >
+            <img :src="game.thumb_url" alt="" />
             {{ game.bg_name }}
           </NuxtLink>
         </div>
       </div>
-      <button
+      <nuxt-link
         v-for="game in games"
         :key="game.bg_name"
         :to="'/shop?search=' + game.bg_name"
@@ -42,7 +43,7 @@
         @submit="submit"
       >
         Search
-      </button>
+      </nuxt-link>
     </form>
   </section>
 </template>
@@ -211,6 +212,10 @@ export default {
       font-size: 1rem;
       border-bottom-left-radius: 15px;
       border-bottom-right-radius: 15px;
+      img {
+        width: 100px;
+        height: 100px;
+      }
     }
   }
 
