@@ -186,7 +186,7 @@ export default {
         content: '';
         display: block;
         position: absolute;
-        top: 50%;
+        bottom: 50%;
         left: 50%;
         margin-top: -0.75rem;
         margin-left: -0.75rem;
@@ -203,16 +203,20 @@ export default {
 
     &-item {
       color: black;
-      display: block;
+      display: flex;
+      justify-content: first baseline;
+      align-items: center;
       width: 100%;
       padding: 0.5rem 1rem;
       text-align: left;
       border: none;
-      border-bottom: 1px solid $blue;
+      border-bottom: 1px solid $orange;
       font-size: 1rem;
       border-bottom-left-radius: 15px;
       border-bottom-right-radius: 15px;
       img {
+        margin-right: 10rem;
+        flex: 0 1 200px;
         width: 100px;
         height: 100px;
       }
