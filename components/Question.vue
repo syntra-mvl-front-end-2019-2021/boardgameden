@@ -16,7 +16,7 @@
         active: isActive,
       }"
     >
-      <p v-if="answer">{{ answer }}</p>
+      <div v-if="answer" v-html="answer" />
     </div>
   </div>
 </template>
