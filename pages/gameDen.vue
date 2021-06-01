@@ -9,7 +9,7 @@
             v-for="attendee in game.attendees"
             :key="'at_' + attendee.users_id"
           >
-            {{ attendee.users_id.last_name }}
+            {{ attendee.users_id.last_name }},
           </span>
         </p>
 
