@@ -4,7 +4,7 @@
       <NuxtLink :to="'/game/' + gbId" class="button-link__game">
         {{ title }}
       </NuxtLink>
-      <p>image link id: {{ thumburl }}</p>
+      <!-- <p>image link id: {{ thumburl }}</p> -->
       <img
         class="game-img"
         :src="
@@ -15,9 +15,7 @@
         "
         alt="game picture"
       />
-      <button class="button-link__orange" @click="openModal">
-        Buy or Swap
-      </button>
+      <button class="button-link__orange" @click="openModal">Get it!</button>
     </div>
     <div
       id=""
@@ -26,22 +24,6 @@
         open: showModal,
       }"
     >
-      <textarea>
-      <textarea
-        id=""
-        name=""
-        cols="30"
-        rows="10"
-        placeholder="Hey! I would like to purchase this item"
-      ></textarea
-      >
-      <p>
-        Buy <strong> {{ title }} </strong> from <strong> {{ user }} </strong>
-      </p>
-
-      <div v-if="submit">
-        <p>Your request has succesfully been sent.</p>
-      </div>
       <div
         v-if="$auth.loggedIn"
         :class="{
@@ -151,6 +133,9 @@ export default {
         this.formValues.email = this.$auth.user.email
       }
     },
+    notifyUser() {
+      this.$root.$emit('notify', 'Uw bericht werd met succes verzonden.')
+    },
     createQuestion() {
       this.$axios('/items/contact_form_item', {
         method: 'POST',
@@ -162,7 +147,9 @@ export default {
         .then((response) => {
           // TODO: notify user
           console.log(response.data)
-          this.submit = true
+          this.notifyUser()
+          this.formValues.message = ''
+          this.showModal = !this.showModal
         })
         .catch((err) => {
           alert(err)
@@ -238,9 +225,6 @@ export default {
         }
       }
     }
-    &--message {
-      color: white;
-    }
     p {
       color: white;
       font-size: 2em;
@@ -255,24 +239,46 @@ export default {
 }
 
 .shop-item {
-  min-width: 400px;
+  min-width: 300px;
+  height: 200px;
+  position: relative;
   padding: 2em;
   margin: 1em;
   flex: 1;
   border-radius: 10px;
   box-shadow: 1px 1px 10px 0 rgba(171, 171, 171, 0.2);
-  //-webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-  //-moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+  -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.2);
+  -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.2);
+  overflow: hidden;
+  &:hover {
+    img {
+      opacity: 0.6;
+    }
+    .button-link__game {
+      font-size: 2.3em;
+    }
+  }
+  img {
+    display: inline-block;
+    position: absolute;
+    z-index: -5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: all 0.2s;
+  }
   .button-link__orange {
     display: block;
     margin: 2em 0 0 0;
   }
   .button-link__game {
-    color: $black;
-    font-size: 1.5em;
-    font-weight: $normal;
+    color: white;
+    font-size: 2em;
+    font-weight: $bold;
     margin: 0.7em 0;
     display: block;
+    text-shadow: 3px 3px 3px $black;
+    transition: $transition-normal;
   }
 }
 </style>

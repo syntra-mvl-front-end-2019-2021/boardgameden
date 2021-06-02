@@ -3,8 +3,9 @@
     <div v-if="loading" class="game-comp__loading"></div>
     <div v-if="!loading && game" class="game-comp__content">
       <img class="game-img" :src="game.thumb_url" alt="game.name" />
+
       <p class="game-title">{{ gbId }}</p>
-      <h3 class="game-title">{{ game.name }}</h3>
+      <h3 class="game-title">{{ gbName }}</h3>
       <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
         More Info
       </NuxtLink>
@@ -20,11 +21,15 @@ export default {
       type: String,
       required: true,
     },
+    gbName: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
       loading: true,
-      game: null,
+      game: {},
     }
   },
   created() {
@@ -35,6 +40,7 @@ export default {
       },
     })
       .then((response) => {
+        console.log(response)
         if (!response.data.games) {
           throw new Error('could not find game')
         }
@@ -58,14 +64,16 @@ export default {
     margin: auto;
     display: grid;
     place-items: center;
+    border-radius: 5px;
+    border: 1px solid $orange;
   }
 
   .game-img {
     height: 10rem;
-    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-      0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
-      0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-      0 100px 80px rgba(0, 0, 0, 0.12);
+    // box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    //   0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    //   0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    //   0 100px 80px rgba(0, 0, 0, 0.12);
   }
   .game-title {
     color: #549797;
