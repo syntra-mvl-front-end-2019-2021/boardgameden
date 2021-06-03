@@ -15,14 +15,22 @@
         :key="1 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
-        <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
+        <GameComp
+          :gb-id="game.bg_atlas_id"
+          :gb-name="game.bg_name"
+          :src="game.thumb_url"
+        />
       </div>
       <div
         v-for="game in games"
         :key="2 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
-        <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
+        <GameComp
+          :gb-id="game.bg_atlas_id"
+          :gb-name="game.bg_name"
+          :src="game.thumb_url"
+        />
       </div>
     </div>
     <button
@@ -73,6 +81,7 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.calcWidths)
+    console.log(this.games)
   },
   unmounted() {
     window.removeEventListener('resize', this.calcWidths)
@@ -112,8 +121,9 @@ export default {
 .c-slider {
   &__slides {
     position: relative;
-    width: 100%;
+    width: 80%;
     padding: 2rem;
+    transform: skewY(7deg);
 
     &-container {
       display: flex;
@@ -131,7 +141,7 @@ export default {
     &__btn {
       width: 30px;
       height: 30px;
-      color: $orange;
+      color: white;
       position: absolute;
       top: 50%;
       margin-top: -15px;
@@ -157,11 +167,19 @@ export default {
   &__slide-item {
     box-sizing: border-box;
     flex-shrink: 0;
-    width: calc(100% / 3);
+    width: calc(100% / 4);
     padding: 0 1rem;
 
-    @media screen and (max-width: $medium) {
+    @media screen and (max-width: $xl) {
+      width: calc(100% / 3);
+    }
+
+    @media screen and (max-width: $large) {
       width: calc(100% / 2);
+    }
+
+    @media screen and (max-width: $medium) {
+      width: calc(100%);
     }
 
     @media screen and (max-width: $small) {

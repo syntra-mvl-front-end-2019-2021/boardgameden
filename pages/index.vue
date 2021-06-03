@@ -79,12 +79,18 @@ export default {
   }
 }
 .c-collection {
-  width: 90%;
+  // width: 90%;
   @include flexCenter();
   flex-direction: column;
   justify-content: space-around;
   padding: 6rem 0;
-  height: 750px;
-  margin: auto;
+  // height: 750px;
+  margin: 10rem auto;
+  background-color: rgba($orange, 0.8);
+  transform: skewY(-7deg);
+
+  h2 {
+    transform: skewY(7deg);
+  }
 }
 </style>

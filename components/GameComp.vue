@@ -2,10 +2,8 @@
   <div class="game-comp">
     <div v-if="loading" class="game-comp__loading"></div>
     <div v-if="!loading && game" class="game-comp__content">
-      <img class="game-img" :src="game.thumb_url" alt="game.name" />
-
-      <p class="game-title">{{ gbId }}</p>
-      <h3 class="game-title">{{ gbName }}</h3>
+      <img class="game-img" :src="src" alt="game.name" />
+      <h4 class="game-title">{{ gbName }}</h4>
       <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
         More Info
       </NuxtLink>
@@ -25,6 +23,10 @@ export default {
       type: String,
       required: true,
     },
+    src: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -40,7 +42,7 @@ export default {
       },
     })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         if (!response.data.games) {
           throw new Error('could not find game')
         }
@@ -64,8 +66,8 @@ export default {
     margin: auto;
     display: grid;
     place-items: center;
-    border-radius: 5px;
-    border: 1px solid $orange;
+    background-color: white;
+    height: 25rem;
   }
 
   .game-img {
