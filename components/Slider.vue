@@ -15,22 +15,14 @@
         :key="1 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
-        <GameComp
-          :gb-id="game.bg_atlas_id"
-          :gb-name="game.bg_name"
-          :src="game.thumb_url"
-        />
+        <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
       </div>
       <div
         v-for="game in games"
         :key="2 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
-        <GameComp
-          :gb-id="game.bg_atlas_id"
-          :gb-name="game.bg_name"
-          :src="game.thumb_url"
-        />
+        <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
       </div>
     </div>
     <button
@@ -81,7 +73,6 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.calcWidths)
-    console.log(this.games)
   },
   unmounted() {
     window.removeEventListener('resize', this.calcWidths)

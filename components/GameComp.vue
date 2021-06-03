@@ -23,33 +23,41 @@ export default {
       type: String,
       required: true,
     },
-    src: {
-      type: String,
-      required: true,
-    },
   },
   data() {
     return {
       loading: true,
-      game: {},
+      games: null,
     }
   },
   created() {
-    this.$axios(this.$config.gbURL + '/search', {
-      params: {
-        client_id: this.$config.gbClientId,
-        ids: this.gbId,
-      },
-    })
+    // this.$axios(this.$config.gbURL + '/search/', {
+    //   params: {
+    //     client_id: this.$config.gbClientId,
+    //     ids: this.gbId,
+    //   },
+    // })
+    this.$axios(
+      'http://phpstack-266425-1848208.cloudwaysapps.com/api/search/',
+      {
+        params: {
+          client_id: this.$config.gbClientId,
+          // ids: this.gbId,
+          ids: this.$route.params.id,
+          // name: this.gbName,
+        },
+      }
+    )
       .then((response) => {
-        // console.log(response)
+        // console.log(response.data)
         if (!response.data.games) {
           throw new Error('could not find game')
         }
-        this.game = response.data.games[0]
+        this.games = response.data.games
+        console.log(this.games)
       })
       .catch((e) => {
-        console.error(e)
+        // console.error(e)
       })
       .finally(() => {
         this.loading = false

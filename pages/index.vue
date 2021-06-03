@@ -43,7 +43,6 @@ export default {
   created() {
     this.$axios('/items/boardgames')
       .then((response) => {
-        // console.log(response)
         this.games = response.data.data
       })
 
