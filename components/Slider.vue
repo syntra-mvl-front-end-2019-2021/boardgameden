@@ -51,6 +51,7 @@ export default {
       currentSlide: 0,
     }
   },
+
   computed: {
     activeSlide() {
       return this.slides[this.currentSlide]
@@ -62,6 +63,7 @@ export default {
       return this.slides.length + 1 - this.slidesPerPage
     },
   },
+
   watch: {
     games(newVal) {
       this.$nextTick(() => {
@@ -76,6 +78,33 @@ export default {
   },
   unmounted() {
     window.removeEventListener('resize', this.calcWidths)
+  },
+  created() {
+    this.$axios(
+      'http://phpstack-266425-1848208.cloudwaysapps.com/api/search/',
+      {
+        params: {
+          client_id: this.$config.gbClientId,
+          // ids: this.gbId,
+          ids: this.$route.params.id,
+          // name: this.gbName,
+        },
+      }
+    )
+      .then((response) => {
+        // console.log(response.data)
+        if (!response.data.games) {
+          throw new Error('could not find game')
+        }
+        this.atlasGames = response.data.games
+        console.log(this.atlasGames)
+      })
+      .catch((e) => {
+        // console.error(e)
+      })
+      .finally(() => {
+        this.loading = false
+      })
   },
   methods: {
     calcWidths() {
