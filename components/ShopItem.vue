@@ -24,9 +24,6 @@
         open: showModal,
       }"
     >
-      <p>
-        Buy <strong> {{ title }} </strong> from <strong> {{ user }} </strong>
-      </p>
       <div
         v-if="$auth.loggedIn"
         :class="{
