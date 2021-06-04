@@ -31,42 +31,12 @@
         </div>
       </div>
     </div>
-    <div class="shop-wrapper">
-      <div class="shop-wrapper__row">
-        <h3>For swap:</h3>
-        <div class="shop-wrapper__row--grid">
-          <ShopItem
-            v-for="games in getGamesForSwap"
-            :key="games.id"
-            :title="games.boardgames_id.bg_name"
-            :user="games.users_id.first_name"
-            :gb-id="games.boardgames_id.bg_atlas_id"
-            :thumburl="games.boardgames_id.bg_image"
-          />
-        </div>
-      </div>
-      <div class="shop-wrapper__row">
-        <h3>For sale:</h3>
-        <div class="shop-wrapper__row--grid">
-          <ShopItem
-            v-for="games in getGamesForSale"
-            :key="games.id"
-            :title="games.boardgames_id.bg_name"
-            :user="games.users_id.first_name"
-            :gb-id="games.boardgames_id.bg_atlas_id"
-            :thumburl="games.boardgames_id.bg_image"
-          />
-        </div>
-      </div>
-    </div>
   </section>
 </template>
 
 <script>
-import ShopItem from '@/components/ShopItem.vue'
 export default {
   name: 'GamePage',
-  components: { ShopItem },
 
   data() {
     return {
