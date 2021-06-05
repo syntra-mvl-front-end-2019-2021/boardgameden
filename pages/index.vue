@@ -43,7 +43,6 @@ export default {
   created() {
     this.$axios('/items/boardgames')
       .then((response) => {
-        // console.log(response)
         this.games = response.data.data
       })
 
@@ -79,12 +78,19 @@ export default {
   }
 }
 .c-collection {
-  width: 90%;
+  // width: 90%;
   @include flexCenter();
   flex-direction: column;
   justify-content: space-around;
-  padding: 6rem 0;
-  height: 750px;
-  margin: auto;
+  padding: 6rem 0 10rem;
+  // height: 750px;
+  margin: 10rem auto;
+  background-color: rgba($orange, 0.8);
+  transform: skewY(-7deg);
+
+  h2 {
+    transform: skewY(7deg);
+    color: $bluegreen;
+  }
 }
 </style>

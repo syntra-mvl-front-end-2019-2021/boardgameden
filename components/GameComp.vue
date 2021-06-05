@@ -1,12 +1,23 @@
 <template>
-  <div class="game-comp">
+  <!-- <div class="game-comp">
     <div v-if="loading" class="game-comp__loading"></div>
     <div v-if="!loading && game" class="game-comp__content">
-      <img class="game-img" :src="game.thumb_url" alt="game.name" />
-
-      <p class="game-title">{{ gbId }}</p>
-      <h3 class="game-title">{{ gbName }}</h3>
+      <img class="game-img" :src="src" alt="game.name" />
+      <h4 class="game-title">{{ gbName }}</h4>
+      <p>{{ gbId }}</p>
       <NuxtLink :to="'/game/' + gbId" class="button-link__orange">
+        More Info
+      </NuxtLink>
+    </div>
+  </div> -->
+  <div class="game-comp">
+    <!-- <div v-if="loading" class="game-comp__loading"></div> -->
+    <!-- <div v-if="!loading && atlasGame" class="game-comp__content"> -->
+    <div class="game-comp__content">
+      <img class="game-img" :src="atlasSource" alt="game.name" />
+      <h4 class="game-title">{{ atlasName }}</h4>
+      <p>{{ atlasId }}</p>
+      <NuxtLink :to="'/game/' + atlasId" class="button-link__orange">
         More Info
       </NuxtLink>
     </div>
@@ -16,12 +27,26 @@
 <script>
 export default {
   name: 'GameComp',
+  // props: {
+  //   gbId: {
+  //     type: String,
+  //     required: true,
+  //   },
+  //   gbName: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // },
   props: {
-    gbId: {
+    atlasId: {
       type: String,
       required: true,
     },
-    gbName: {
+    atlasName: {
+      type: String,
+      required: true,
+    },
+    atlasSource: {
       type: String,
       required: true,
     },
@@ -32,44 +57,50 @@ export default {
       game: {},
     }
   },
-  created() {
-    this.$axios(this.$config.gbURL + '/search', {
-      params: {
-        client_id: this.$config.gbClientId,
-        ids: this.gbId,
-      },
-    })
-      .then((response) => {
-        console.log(response)
-        if (!response.data.games) {
-          throw new Error('could not find game')
-        }
-        this.game = response.data.games[0]
-      })
-      .catch((e) => {
-        console.error(e)
-      })
-      .finally(() => {
-        this.loading = false
-      })
-  },
+  // created() {
+  //   this.$axios(this.$config.gbURL + '/search/', {
+  //     params: {
+  //       client_id: this.$config.gbClientId,
+  //       ids: this.gbId,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       console.log(response.data)
+  //       if (!response.data.games) {
+  //         throw new Error('could not find game')
+  //       }
+  //       this.game = response.data.game[0]
+  //       console.log(this.games)
+  //     })
+  //     .catch((e) => {
+  //       console.error(e)
+  //     })
+  //     .finally(() => {
+  //       this.loading = false
+  //     })
+  // },
   methods: {},
 }
 </script>
 
 <style lang="scss">
 .game-comp {
+  transition: all 0.5s ease-in-out;
   &__content {
     overflow: hidden;
     margin: auto;
     display: grid;
     place-items: center;
-    border-radius: 5px;
-    border: 1px solid $orange;
+    background-color: white;
+    height: 25rem;
   }
 
+  &:hover {
+    transform: translateY(-10px);
+  }
   .game-img {
-    height: 10rem;
+    height: 200px;
+    width: 100%;
     // box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     //   0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
     //   0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
@@ -82,28 +113,28 @@ export default {
     font-size: 0.6rem;
   }
 
-  &__loading {
-    position: relative;
-    height: 20rem;
+  // &__loading {
+  //   position: relative;
+  //   height: 20rem;
 
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: -1rem;
-      margin-left: -1rem;
-      border-top: 3px solid rgba(255, 255, 255, 0.2);
-      border-right: 3px solid rgba(255, 255, 255, 0.2);
-      border-bottom: 3px solid rgba(255, 255, 255, 0.2);
-      border-left: 3px solid $orange;
-      animation: load8 1.1s infinite linear;
-      border-radius: 50%;
-      width: 2rem;
-      height: 2rem;
-    }
-  }
+  //   &:before {
+  //     content: '';
+  //     display: block;
+  //     position: absolute;
+  //     top: 50%;
+  //     left: 50%;
+  //     margin-top: -1rem;
+  //     margin-left: -1rem;
+  //     border-top: 3px solid rgba(255, 255, 255, 0.2);
+  //     border-right: 3px solid rgba(255, 255, 255, 0.2);
+  //     border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+  //     border-left: 3px solid $orange;
+  //     animation: load8 1.1s infinite linear;
+  //     border-radius: 50%;
+  //     width: 2rem;
+  //     height: 2rem;
+  //   }
+  // }
 }
 
 @keyframes load8 {
