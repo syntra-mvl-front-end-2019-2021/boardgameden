@@ -65,7 +65,7 @@ export default {
     },
     usersOptions() {
       return this.users.map(function (users) {
-        return { label: users.first_name, value: users.id }
+        return { label: users.last_name, value: users.id }
       })
     },
   },

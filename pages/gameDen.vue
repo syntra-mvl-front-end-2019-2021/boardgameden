@@ -11,8 +11,26 @@
           >
             {{ attendee.users_id.last_name }},
           </span>
+          <FormulateForm :form-errors="formErrors" @submit="submit">
+            <FormulateInput
+              type="group"
+              name="attendees"
+              :repeatable="true"
+              label="Who is going to attend?"
+              add-label="+ Add Attendee"
+            >
+              <FormulateInput
+                :options="usersOptions"
+                type="select"
+                placeholder="Select an attendees"
+                name="users_id"
+                label="attendees"
+              />
+            </FormulateInput>
+            <FormulateErrors />
+            <FormulateInput name="submit" type="submit" />
+          </FormulateForm>
         </p>
-
         <p>boardgame: {{ game.boardgame.bg_name }}</p>
 
         <p>Location: {{ game.location }}</p>
@@ -29,18 +47,35 @@
 <script>
 export default {
   name: 'Gameden',
+  middleware: 'auth',
   data() {
     return {
+      formErrors: [],
       results: [],
       attendees: [],
+      formData: [
+        {
+          attendees: '',
+        },
+      ],
     }
   },
   computed: {
-    boardgameden() {
-      return this.$store.state['evenement/boardgamedens']
+    currentUser() {
+      return this.$auth.user
+    },
+    users() {
+      return this.$store.state.users.users
+    },
+    usersOptions() {
+      return this.users.map(function (users) {
+        return { label: users.last_name, value: users.id }
+      })
     },
   },
   created() {
+    this.formData.user = this.currentUser.id
+    this.$store.dispatch('users/getUsers')
     this.$axios
       .get(
         `/items/boardgame_dens?fields[]=user.first_name,location,boardgame.bg_name,attendees.users_id.last_name`,
@@ -53,7 +88,30 @@ export default {
         this.results = response.data.data
       })
   },
-  methods: {},
+  methods: {
+    submit(data) {
+      data.user = this.currentUser.id
+      return this.$axios(
+        '/items/boardgame_dens?fields[]=attendees.users_id.last_name',
+        {
+          method: 'PATCH',
+          data,
+        }
+      )
+        .then(() => {
+          //  TODO: do something
+        })
+        .catch((error) => {
+          console.log(error.response)
+          if (error.response && error.response.data.errors) {
+            this.formErrors = error.response.data.errors.map(
+              (val) => val.message
+            )
+          }
+          this.formErrors = ['Could not save user, try again']
+        })
+    },
+  },
 }
 </script>
 <style lang="scss">
