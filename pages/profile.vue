@@ -12,17 +12,16 @@
       </div>
       <div class="profile_content">
         <h2>Welcome, {{ user.user_name }}</h2>
-        <ul v-if="user">
-          <li>First name: {{ user.first_name }}</li>
-          <li>User ID: {{ user.id }}</li>
-          <li>Last name: {{ user.last_name }}</li>
-          <li>Email: {{ user.email }}</li>
-          <li>Location: {{ user.location }}</li>
-          <NuxtLink to="/edit_profile">Edit Profile</NuxtLink>
-        </ul>
+        <div v-if="user" class="profile_content_user">
+          <span>First name: {{ user.first_name }}</span>
+          <span>Last name: {{ user.last_name }}</span>
+          <span>Email: {{ user.email }}</span>
+          <span>Location: {{ user.location }}</span>
+          <NuxtLink to="/edit_profile" class="button-link__orange"
+            >Edit Profile</NuxtLink
+          >
+        </div>
       </div>
-      <Collection />
-
       <section class="s-search">
         <form class="form form__search" @submit.prevent="submit">
           <div class="c-autocomplete">
@@ -70,25 +69,26 @@
             >Search</NuxtLink
           >
         </form>
+        <Collection />
       </section>
-      <section class="collection">
+      <!-- <section class="collection">
         <CollectionItem
           v-for="game in getBoardGames"
           :key="game.id"
           :game="game"
         />
-      </section>
+      </section> -->
     </div>
   </section>
 </template>
 
 <script>
-import CollectionItem from '~/components/CollectionItem.vue'
+// import CollectionItem from '~/components/CollectionItem.vue'
 import Collection from '~/components/Collection'
 
 export default {
   name: 'ProfilePage',
-  components: { Collection, CollectionItem },
+  components: { Collection },
   middleware: ['auth'],
   props: {},
   data() {
@@ -183,16 +183,29 @@ export default {
 <style scoped lang="scss">
 .profile {
   margin: auto;
-  .profile_avatar {
+  &_avatar {
     position: absolute;
     display: block;
-    #img {
-      border-radius: 50%;
+    img {
+      border-radius: 10px;
     }
   }
-  .profile_content {
+  &_content {
+    width: 80%;
     position: relative;
     left: 400px;
+    h2 {
+      margin: 0;
+    }
+
+    &_user {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .button-link__orange {
+    margin-top: 20px;
+    width: 20%;
   }
 }
 </style>

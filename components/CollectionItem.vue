@@ -1,14 +1,14 @@
 <template>
   <div v-if="atlasGame">
     <h3 class="game-title">{{ game.bg_name }}</h3>
-    <div class="shop-item">
-      <div>
+    <div class="collection-item">
+      <div class="collection-item_card">
         <img
           class="game-img"
           :src="atlasGame.thumb_url"
           alt="game picture"
-          width="300px"
-          height="300px"
+          width="auto"
+          height="150px"
         />
         <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
           {{ game.bg_name }}
@@ -57,11 +57,17 @@ export default {
 </script>
 
 <style lang="scss">
-.shop-item {
+.collection-item {
   width: 200px;
   border: solid $orange 1px;
   border-radius: 10px;
   padding: 2em;
   margin: 1em;
+
+  &_card {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+  }
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
-  <div class="container">
+  <div class="collection">
     <h1>Collection</h1>
-    <CollectionItem v-for="game in games" :key="game.id" :game="game" />
+    <div class="collection_container">
+      <CollectionItem v-for="game in games" :key="game.id" :game="game" />
+    </div>
   </div>
 </template>
 
@@ -18,9 +20,14 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
+.collection {
   h1 {
     color: $blue;
+  }
+  &_container {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 1;
   }
 }
 </style>
