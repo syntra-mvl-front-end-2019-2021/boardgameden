@@ -7,7 +7,7 @@
           id="search"
           v-model="searchQuery"
           type="text"
-          placeholder="Search for adventure"
+          placeholder="Search your game"
           name="search"
           autocomplete="off"
           @input="submit"
@@ -28,38 +28,26 @@
             v-for="game in games"
             :key="game.id"
             class="c-autocomplete__dropdown-item"
-            :to="'/game/' + game.bg_atlas_id"
+            :to="'/game/' + game.id"
           >
             <img
               class="game-img"
-              :src="
-                $config.baseURL +
-                '/assets/' +
-                game.bg_image +
-                '?width=200&height=100&fit=cover'
-              "
+              :src="game.thumb_url"
               alt="game picture"
+              width="50px"
+              height="50px"
             />
-            {{ game.bg_name }}
+            {{ game.name }}
           </NuxtLink>
         </div>
       </div>
-      <nuxt-link
-        v-for="game in games"
-        :key="game.bg_name"
-        :to="'/shop?search=' + game.bg_name"
-        class="c-autocomplete__submit"
-        @submit="submit"
-      >
-        Search
-      </nuxt-link>
     </form>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'HomepageSearch',
+  name: 'AtlasSearch',
 
   data() {
     return {
@@ -90,20 +78,20 @@ export default {
 
     searchGames() {
       this.searching = true
-      this.$axios('/items/boardgames', {
-        method: 'GET',
-        params: {
-          filter: {
-            bg_name: {
-              _contains:
-                this.searchQuery.charAt(0).toUpperCase() +
-                this.searchQuery.slice(1),
-            },
+      this.$axios(
+        'http://phpstack-266425-1848208.cloudwaysapps.com/api/search',
+        {
+          method: 'GET',
+          params: {
+            name:
+              this.searchQuery.charAt(0).toUpperCase() +
+              this.searchQuery.slice(1),
+            client_id: 'KrUdcULOvp',
           },
-        },
-      })
+        }
+      )
         .then((result) => {
-          this.games = result.data.data
+          this.games = result.data.games
           this.noResult = this.games.length === 0
         })
         .catch((error) => {
@@ -237,7 +225,7 @@ export default {
     font-size: 1rem;
     cursor: pointer;
     border: none;
-    color: white;
+    color: black;
     outline: none;
     background: none;
   }

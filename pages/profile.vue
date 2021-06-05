@@ -2,13 +2,7 @@
   <section class="container">
     <div class="profile">
       <div class="profile_avatar">
-        <img
-          v-if="avatar"
-          :src="avatar"
-          alt="avatar"
-          width="250px"
-          height="300px"
-        />
+        <img v-if="avatar" :src="avatar" alt="avatar" />
       </div>
       <div class="profile_content">
         <h2>Welcome, {{ user.user_name }}</h2>
@@ -22,8 +16,8 @@
           >
         </div>
       </div>
-      <section class="s-search">
-        <form class="form form__search" @submit.prevent="submit">
+      <!-- <section class="s-search">
+        <form class="form__search__collection" @submit.prevent="submit">
           <div class="c-autocomplete">
             <label for="search"></label>
             <input
@@ -69,8 +63,9 @@
             >Search</NuxtLink
           >
         </form>
-        <Collection />
-      </section>
+      </section> -->
+      <AtlasSearch />
+      <Collection />
       <!-- <section class="collection">
         <CollectionItem
           v-for="game in getBoardGames"
@@ -83,12 +78,12 @@
 </template>
 
 <script>
-// import CollectionItem from '~/components/CollectionItem.vue'
+import AtlasSearch from '../components/AtlasSearch'
 import Collection from '~/components/Collection'
 
 export default {
   name: 'ProfilePage',
-  components: { Collection },
+  components: { AtlasSearch, Collection },
   middleware: ['auth'],
   props: {},
   data() {
@@ -181,6 +176,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.form__search__collection {
+  display: flex;
+  align-items: center;
+}
+
 .profile {
   margin: auto;
   &_avatar {
