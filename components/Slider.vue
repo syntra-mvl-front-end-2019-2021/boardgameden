@@ -5,24 +5,38 @@
       @click="clickLeft"
     ></button>
     <div
-      v-if="games"
+      v-if="atlasGames"
       ref="slider"
       class="c-slider__slides-container"
       @scroll="sliderScroll"
     >
-      <div
+      <!-- <div
         v-for="game in games"
         :key="1 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
         <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         v-for="game in games"
         :key="2 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
         <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
+      </div> -->
+      <div
+        v-for="atlasGame in atlasGames"
+        :key="atlasGame.id"
+        class="c-slider__slide-item"
+      >
+        <div v-if="loading" class="game-comp__loading"></div>
+        <div v-if="!loading && atlasGame">
+          <GameComp
+            :atlas-id="atlasGame.id"
+            :atlas-name="atlasGame.name"
+            :atlas-source="atlasGame.image_url"
+          />
+        </div>
       </div>
     </div>
     <button
@@ -38,17 +52,19 @@ import GameComp from '../components/GameComp.vue'
 export default {
   name: 'Slider',
   components: { GameComp },
-  props: {
-    games: {
-      type: Array,
-      required: true,
-    },
-  },
+  // props: {
+  //   games: {
+  //     type: Array,
+  //     required: true,
+  //   },
+  // },
   data() {
     return {
       sliderWidth: 0,
       slideWidth: 0,
       currentSlide: 0,
+      atlasGames: [],
+      loading: true,
     }
   },
 
@@ -98,12 +114,14 @@ export default {
         }
         this.atlasGames = response.data.games
         console.log(this.atlasGames)
+        console.log(this.loading)
       })
       .catch((e) => {
         // console.error(e)
       })
       .finally(() => {
         this.loading = false
+        console.log(this.loading)
       })
   },
   methods: {
@@ -139,6 +157,29 @@ export default {
 
 <style lang="scss">
 .c-slider {
+  .game-comp__loading {
+    position: relative;
+    height: 20rem;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -1rem;
+      margin-left: -1rem;
+      border-top: 3px solid rgba(255, 255, 255, 0.2);
+      border-right: 3px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+      border-left: 3px solid $orange;
+      animation: load8 1.1s infinite linear;
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
   &__slides {
     position: relative;
     width: 80%;
