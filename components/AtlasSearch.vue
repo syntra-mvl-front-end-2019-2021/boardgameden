@@ -24,9 +24,19 @@
             'c-autocomplete__dropdown--loading': searching,
           }"
         >
+          <button
+            v-for="game in games"
+            :key="game.id"
+            type="button"
+            class="add-btn button-link__orange"
+            @click="addgame"
+          >
+            {{ addingGame ? '....' : 'Add' }}
+          </button>
           <NuxtLink
             v-for="game in games"
             :key="game.id"
+            v-model="boardGameData"
             class="c-autocomplete__dropdown-item"
             :to="'/game/' + game.id"
           >
@@ -56,10 +66,39 @@ export default {
       timeOut: null,
       searching: false,
       noResult: false,
+      boardGameData: {
+        bg_atlas_id: '',
+        bg_name: '',
+      },
     }
   },
   created() {},
   methods: {
+    addgame() {
+      this.addingGame = true
+      return this.$axios('/items/boardgames', {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json',
+        },
+        boardGameData: {
+          bg_atlas_id: this.game.id,
+          bg_name: this.game.name,
+
+          is_swappable: false,
+          is_for_sale: false,
+        },
+      })
+        .then(() => {
+          return this.resetUser()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        .finally(() => {
+          this.addingGame = false
+        })
+    },
     submit() {
       if (this.timeOut) {
         clearTimeout(this.timeOut)
@@ -108,6 +147,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.add-btn {
+  margin-left: auto;
+}
 .s-search {
   @include flexCenter();
   position: relative;
@@ -206,7 +248,7 @@ export default {
       // padding: 0.5rem 1rem;
       text-align: left;
       border: none;
-      border-bottom: 1px solid $orange;
+      // border-bottom: 1px solid $orange;
       font-size: 1rem;
       border-bottom-left-radius: 15px;
       border-bottom-right-radius: 15px;

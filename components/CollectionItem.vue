@@ -1,8 +1,12 @@
 <template>
   <div v-if="atlasGame">
-    <h3 class="game-title">{{ game.bg_name }}</h3>
+    <!-- <h3 class="game-title">{{ game.bg_name }}</h3> -->
     <div class="collection-item">
+      <button type="button" class="remove_btn" @click="removeFromCollection">
+        X
+      </button>
       <div class="collection-item_card">
+        <h4 class="game-title">{{ game.bg_name }}</h4>
         <img
           class="game-img"
           :src="atlasGame.thumb_url"
@@ -11,7 +15,7 @@
           height="150px"
         />
         <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
-          {{ game.bg_name }}
+          More Info
         </NuxtLink>
       </div>
     </div>
@@ -53,10 +57,63 @@ export default {
         this.loading = false
       })
   },
+  methods: {
+    removeFromCollection() {
+      this.$axios(
+        '/item/' +
+          this.$auth.user.id +
+          '?fields=boardgames[' +
+          this.game.id +
+          ']',
+        {
+          method: 'DELETE',
+          header: {
+            'Content-Type': 'application/json',
+          },
+          data: {
+            boardgames_id: this.game.id,
+            users_id: this.$auth.user.id,
+            is_swappable: false,
+            is_for_sale: false,
+          },
+        }
+      )
+        .then(() => {
+          return this.resetUser()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        .finally(() => {
+          // this.addingGame = false
+        })
+    },
+    resetUser() {
+      return this.$axios('/users/me?fields=*.*.*')
+        .then((response) => {
+          this.$auth.setUser(response.data.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
+  },
 }
 </script>
 
 <style lang="scss">
+.remove_btn {
+  margin: -50px 130px;
+  padding: 0;
+  width: 10px;
+  height: 20px;
+  text-align: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: $orange;
+  font-size: 2em;
+}
 .collection-item {
   width: 200px;
   border: solid $orange 1px;
