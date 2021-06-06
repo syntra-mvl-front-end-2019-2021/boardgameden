@@ -5,12 +5,14 @@
       <div v-for="game in results" :key="game.id" class="avent">
         <p>
           attendees:
+          <!--
           <span
             v-for="attendee in game.attendees"
             :key="'at_' + attendee.users_id"
           >
-            {{ attendee.users_id.last_name }},
+            {{ attendee.users_id }},
           </span>
+          -->
           <FormulateForm :form-errors="formErrors" @submit="submit">
             <FormulateInput
               type="group"
@@ -18,17 +20,21 @@
               :repeatable="true"
               label="Who is going to attend?"
               add-label="+ Add Attendee"
+              :value="game.attendees"
             >
               <FormulateInput
                 :options="usersOptions"
                 type="select"
                 placeholder="Select an attendees"
                 name="users_id"
-                label="attendees"
+                label="attendee"
+                value="users_id"
               />
             </FormulateInput>
+            <FormulateInput :value="game.id" type="hidden" name="gameId" />
             <FormulateErrors />
             <FormulateInput name="submit" type="submit" />
+            <FormulateInput />
           </FormulateForm>
         </p>
         <p>boardgame: {{ game.boardgame.bg_name }}</p>
@@ -56,6 +62,7 @@ export default {
       formData: [
         {
           attendees: '',
+          gameId: '',
         },
       ],
     }
@@ -78,7 +85,7 @@ export default {
     this.$store.dispatch('users/getUsers')
     this.$axios
       .get(
-        `/items/boardgame_dens?fields[]=user.first_name,location,boardgame.bg_name,attendees.users_id.last_name`,
+        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id,boargame_dens.id`,
         {
           headers: { Authorization: '' },
         }
@@ -91,13 +98,10 @@ export default {
   methods: {
     submit(data) {
       data.user = this.currentUser.id
-      return this.$axios(
-        '/items/boardgame_dens?fields[]=attendees.users_id.last_name',
-        {
-          method: 'PATCH',
-          data,
-        }
-      )
+      return this.$axios('/items/boardgame_dens/' + data.gameId, {
+        method: 'PATCH',
+        data,
+      })
         .then(() => {
           //  TODO: do something
         })
