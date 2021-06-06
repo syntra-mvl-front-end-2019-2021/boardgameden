@@ -15,6 +15,7 @@
         "
         alt="game picture"
       />
+      <h1 v-if="$route.params.id">{{ user }}</h1>
       <button class="button-link__orange" @click="openModal">Get it!</button>
     </div>
     <div
