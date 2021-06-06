@@ -41,6 +41,24 @@ body {
       color: white;
     }
 
+    .button-link__blue {
+      border: 2px solid $blue;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      color: $black;
+      background-color: #fff;
+      transition: $transition-normal;
+    }
+
+    .button-link__blue:hover{
+      background-color: $orange;
+    }
+
+    .button-link__blue.active {
+      background-color: $blue;
+      color: white;
+    }
+
     .button-link__orange {
       border: 2px solid $orange;
       padding: 0.5em 1em;
