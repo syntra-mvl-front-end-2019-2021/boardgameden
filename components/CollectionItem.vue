@@ -60,11 +60,11 @@ export default {
   methods: {
     removeFromCollection() {
       this.$axios(
-        '/item/' +
-          this.$auth.user.id +
-          '?fields=boardgames[' +
-          this.game.id +
-          ']',
+        // '/users/' +
+        //   this.$auth.user.id +
+        //   '?fields=boardgames&id=' +
+        //   this.game.id,
+
         {
           method: 'DELETE',
           header: {

@@ -24,21 +24,12 @@
             'c-autocomplete__dropdown--loading': searching,
           }"
         >
-          <button
-            v-for="game in games"
-            :key="game.id"
-            type="button"
-            class="add-btn button-link__orange"
-            @click="addgame"
-          >
-            {{ addingGame ? '....' : 'Add' }}
-          </button>
           <NuxtLink
             v-for="game in games"
             :key="game.id"
-            v-model="boardGameData"
             class="c-autocomplete__dropdown-item"
             :to="'/game/' + game.id"
+            @click="addgame"
           >
             <img
               class="game-img"
@@ -48,6 +39,14 @@
               height="50px"
             />
             {{ game.name }}
+            <button
+              :key="game.id"
+              type="button"
+              class="add-btn button-link__orange"
+              @click="addgame"
+            >
+              {{ addingGame ? '....' : 'Add' }}
+            </button>
           </NuxtLink>
         </div>
       </div>
@@ -62,34 +61,29 @@ export default {
   data() {
     return {
       games: [],
+      bg_atlas_id: [],
+      bg_name: [],
       searchQuery: '',
       timeOut: null,
       searching: false,
       noResult: false,
-      boardGameData: {
-        bg_atlas_id: '',
-        bg_name: '',
-      },
     }
   },
   created() {},
   methods: {
     addgame() {
-      this.addingGame = true
       return this.$axios('/items/boardgames', {
         method: 'POST',
+        data: {
+          bg_atlas_id: '',
+          bg_name: '',
+        },
         header: {
           'Content-Type': 'application/json',
         },
-        boardGameData: {
-          bg_atlas_id: this.game.id,
-          bg_name: this.game.name,
-
-          is_swappable: false,
-          is_for_sale: false,
-        },
       })
         .then(() => {
+          // console.log(result)
           return this.resetUser()
         })
         .catch((error) => {
@@ -130,6 +124,7 @@ export default {
         }
       )
         .then((result) => {
+          // console.log(result.data.games)
           this.games = result.data.games
           this.noResult = this.games.length === 0
         })
