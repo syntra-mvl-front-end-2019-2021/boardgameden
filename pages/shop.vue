@@ -91,6 +91,19 @@ export default {
       })
     },
   },
+  created() {
+    this.$axios(this.$config.gbURL + '/search', {
+      params: {
+        client_id: this.$config.gbClientId,
+      },
+    })
+      .then((response) => {
+        console.log(response.data.games[2].categories)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+  },
   methods: {
     toggleAllItems() {
       this.isActive = true
