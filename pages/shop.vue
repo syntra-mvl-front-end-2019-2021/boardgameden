@@ -30,6 +30,16 @@
         SWAP
       </button>
     </div>
+    <div class="filter-buttons__categories">
+      <div v-for="game in atlasGames" :key="game.id">
+        <div>{{ game.id }}</div>
+        <div v-for="category in game.categories" :key="category.id">
+          <button @click="filteredItems(category.id)" class="button-link__blue">
+            {{ category.id }}
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="shop-wrapper">
       <div v-if="isActive || isActiveBuy" class="shop-wrapper__row">
         <div class="shop-wrapper__row--grid">
@@ -72,6 +82,9 @@ export default {
       isActive: true,
       isActiveBuy: false,
       isActiveSwap: false,
+      atlasGames: [],
+      newCategory: '',
+      filteredByCategory: [],
     }
   },
   fetch() {
@@ -91,6 +104,7 @@ export default {
       })
     },
   },
+  watch: {},
   created() {
     this.$axios(this.$config.gbURL + '/search', {
       params: {
@@ -98,7 +112,8 @@ export default {
       },
     })
       .then((response) => {
-        console.log(response.data.games[2].categories)
+        this.atlasGames = response.data.games
+        console.log(this.atlasGames)
       })
       .catch((e) => {
         console.error(e)
@@ -120,6 +135,28 @@ export default {
       this.isActiveBuy = false
       this.isActive = false
     },
+    filteredItems(newEl) {
+      this.newCategory = newEl
+      this.$axios(this.$config.gbURL + '/search', {
+        params: {
+          client_id: this.$config.gbClientId,
+          categories: this.newCategory,
+        },
+      })
+        .then((response) => {
+          const filtered = response.data.games
+          const boardgames = this.$store.state.boardgames.gamesForSale
+          const results = filtered.filter(
+            ({ id: id1 }) =>
+              !boardgames.every(({ boardgame_id: id2 }) => id2 === id1)
+          )
+          this.filteredByCategory = results
+          console.log(filtered)
+        })
+        .catch((e) => {
+          console.error(e)
+        })
+    },
   },
 }
 </script>
@@ -132,6 +169,9 @@ export default {
   button {
     margin: 0.5em;
   }
+}
+.filter-buttons__categories {
+  display: flex;
 }
 .shop-wrapper {
   display: flex;
