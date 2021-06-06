@@ -32,9 +32,13 @@
     </div>
     <div class="filter-buttons__categories">
       <div v-for="game in atlasGames" :key="game.id">
-        <div>{{ game.id }}</div>
-        <div v-for="category in game.categories" :key="category.id">
-          <button @click="filteredItems(category.id)" class="button-link__blue">
+        <div>{{ game.name }}</div>
+        <div
+          class="filter-buttons__categories-dropdown"
+          v-for="category in game.categories"
+          :key="category.id"
+        >
+          <button @click="filteredItems(category.id)">
             {{ category.id }}
           </button>
         </div>
@@ -140,18 +144,18 @@ export default {
       this.$axios(this.$config.gbURL + '/search', {
         params: {
           client_id: this.$config.gbClientId,
-          categories: this.newCategory,
+          categories: newEl,
         },
       })
         .then((response) => {
           const filtered = response.data.games
           const boardgames = this.$store.state.boardgames.gamesForSale
-          const results = filtered.filter(
+          const results = boardgames.filter(
             ({ id: id1 }) =>
-              !boardgames.every(({ boardgame_id: id2 }) => id2 === id1)
+              !filtered.every(({ boardgame_id: id2 }) => id2 === id1)
           )
           this.filteredByCategory = results
-          console.log(filtered)
+          console.log(results)
         })
         .catch((e) => {
           console.error(e)
@@ -171,7 +175,21 @@ export default {
   }
 }
 .filter-buttons__categories {
-  display: flex;
+  width: 200px;
+  margin: auto;
+  background-color: $bluegreen;
+  height: 300px;
+  overflow-y: scroll;
+  &-dropdown {
+    button {
+      background-color: white;
+      border: 1px solid $black;
+      margin: 0;
+      display: block;
+      width: 100%;
+      padding: 1em 0;
+    }
+  }
 }
 .shop-wrapper {
   display: flex;
