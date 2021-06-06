@@ -12,7 +12,7 @@
           Playtime &#128337; {{ atlasGame.min_playtime }} -
           {{ atlasGame.max_playtime }} min
         </p>
-        <p>Rating &#127942;</p>
+        <p>Rating: {{ atlasGame.rank }}</p>
         <p>Username 💻</p>
         <p>Location &#127969;</p>
       </div>
