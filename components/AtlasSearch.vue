@@ -48,7 +48,7 @@
                   game.id,
                   game.name,
                   game.thumb_url,
-                  game.description,
+                  game.description_preview,
                   game.min_players,
                   game.max_players,
                   game.min_playtime,

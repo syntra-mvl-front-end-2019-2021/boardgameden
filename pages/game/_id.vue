@@ -12,12 +12,12 @@
           Playtime &#128337; {{ atlasGame.min_playtime }} -
           {{ atlasGame.max_playtime }} min
         </p>
-        <p>Rating: {{ atlasGame.rank }}</p>
+        <p>Rating:</p>
         <p>Username 💻</p>
         <p>Location &#127969;</p>
       </div>
       <div class="game-details">
-        <h3>{{ game.name }}</h3>
+        <h3>{{ atlasGame.name }}</h3>
         <p>{{ atlasGame.description_preview }}</p>
         <div class="game-btns">
           <button type="button" class="play-btn button-link__orange">

@@ -5,12 +5,12 @@
       @click="clickLeft"
     ></button>
     <div
-      v-if="atlasGames"
+      v-if="games"
       ref="slider"
       class="c-slider__slides-container"
       @scroll="sliderScroll"
     >
-      <!-- <div
+      <div
         v-for="game in games"
         :key="1 + game.bg_atlas_id"
         class="c-slider__slide-item"
@@ -18,29 +18,11 @@
         <GameComp :game="game" />
       </div>
       <div
-        <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
-      </div> -->
-      <!-- <div
         v-for="game in games"
         :key="2 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
         <GameComp :game="game" />
-        <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
-      </div> -->
-      <div
-        v-for="atlasGame in atlasGames"
-        :key="atlasGame.id"
-        class="c-slider__slide-item"
-      >
-        <div v-if="loading" class="game-comp__loading"></div>
-        <div v-if="!loading && atlasGame">
-          <GameComp
-            :atlas-id="atlasGame.id"
-            :atlas-name="atlasGame.name"
-            :atlas-source="atlasGame.image_url"
-          />
-        </div>
       </div>
     </div>
     <button
@@ -56,22 +38,19 @@ import GameComp from '../components/GameComp.vue'
 export default {
   name: 'Slider',
   components: { GameComp },
-  // props: {
-  //   games: {
-  //     type: Array,
-  //     required: true,
-  //   },
-  // },
+  props: {
+    games: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       sliderWidth: 0,
       slideWidth: 0,
       currentSlide: 0,
-      atlasGames: [],
-      loading: true,
     }
   },
-
   computed: {
     activeSlide() {
       return this.slides[this.currentSlide]
@@ -83,7 +62,6 @@ export default {
       return this.slides.length + 1 - this.slidesPerPage
     },
   },
-
   watch: {
     games(newVal) {
       this.$nextTick(() => {
@@ -98,35 +76,6 @@ export default {
   },
   unmounted() {
     window.removeEventListener('resize', this.calcWidths)
-  },
-  created() {
-    this.$axios(
-      'http://phpstack-266425-1848208.cloudwaysapps.com/api/search/',
-      {
-        params: {
-          client_id: this.$config.gbClientId,
-          // ids: this.gbId,
-          ids: this.$route.params.id,
-          // name: this.gbName,
-        },
-      }
-    )
-      .then((response) => {
-        // console.log(response.data)
-        if (!response.data.games) {
-          throw new Error('could not find game')
-        }
-        this.atlasGames = response.data.games
-        console.log(this.atlasGames)
-        console.log(this.loading)
-      })
-      .catch((e) => {
-        // console.error(e)
-      })
-      .finally(() => {
-        this.loading = false
-        console.log(this.loading)
-      })
   },
   methods: {
     calcWidths() {
@@ -161,34 +110,10 @@ export default {
 
 <style lang="scss">
 .c-slider {
-  .game-comp__loading {
-    position: relative;
-    height: 20rem;
-
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: -1rem;
-      margin-left: -1rem;
-      border-top: 3px solid rgba(255, 255, 255, 0.2);
-      border-right: 3px solid rgba(255, 255, 255, 0.2);
-      border-bottom: 3px solid rgba(255, 255, 255, 0.2);
-      border-left: 3px solid $orange;
-      animation: load8 1.1s infinite linear;
-      border-radius: 50%;
-      width: 2rem;
-      height: 2rem;
-    }
-  }
-
   &__slides {
     position: relative;
-    width: 80%;
+    width: 100%;
     padding: 2rem;
-    transform: skewY(7deg);
 
     &-container {
       display: flex;
@@ -206,7 +131,7 @@ export default {
     &__btn {
       width: 30px;
       height: 30px;
-      color: white;
+      color: $orange;
       position: absolute;
       top: 50%;
       margin-top: -15px;
@@ -232,19 +157,11 @@ export default {
   &__slide-item {
     box-sizing: border-box;
     flex-shrink: 0;
-    width: calc(100% / 4);
+    width: calc(100% / 3);
     padding: 0 1rem;
 
-    @media screen and (max-width: $xl) {
-      width: calc(100% / 3);
-    }
-
-    @media screen and (max-width: $large) {
-      width: calc(100% / 2);
-    }
-
     @media screen and (max-width: $medium) {
-      width: calc(100%);
+      width: calc(100% / 2);
     }
 
     @media screen and (max-width: $small) {
