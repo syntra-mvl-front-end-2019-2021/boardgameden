@@ -21,7 +21,7 @@
           <button type="button" class="play-btn button-link__orange">
             PLAY
           </button>
-          <div class="collection-btns">
+          <!-- <div class="collection-btns">
             <button
               type="button"
               class="swap-btn button-link__orange"
@@ -36,21 +36,24 @@
             >
               BUY!
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
-    <UserSwaps v-if="isActiveSwap === true" />
-    <UserBuys v-if="isActiveBuy === true" />
+    <UserBuys v-if="$auth.loggedIn" />
+    <div v-else class="game-login__form">
+      <NuxtLink to="/login" class="game-login__form--message"
+        >log in to see who's selling</NuxtLink
+      >
+    </div>
   </section>
 </template>
 
 <script>
-import UserSwaps from '@/components/User_swaps.vue'
 import UserBuys from '@/components/User_buy.vue'
 export default {
   name: 'GamePage',
-  components: { UserSwaps, UserBuys },
+  components: { UserBuys },
   data() {
     return {
       isActive: true,

@@ -51,7 +51,7 @@ export const actions = {
         console.error(err)
       })
   },
-  getGamesForSale(context, searchQuery) {
+  getGamesForSale(context) {
     if (context.state.gamesForSaleState.success) {
       return
     }
@@ -79,7 +79,7 @@ export const actions = {
         )
       })
   },
-  getGamesForSwap(context, searchQuery) {
+  getGamesForSwap(context) {
     if (context.state.gamesForSwapState.success) {
       return
     }

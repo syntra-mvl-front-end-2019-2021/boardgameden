@@ -1,15 +1,28 @@
 <template>
-  <div class="shop-wrapper">
+  <div v-if="$auth.loggedIn" class="shop-wrapper">
     <div class="shop-wrapper__row">
-      <h3>For sale:</h3>
+      <h3>Buy:</h3>
       <div class="shop-wrapper__row--grid">
-        <ShopItem
+        <User
           v-for="games in getGamesForSale"
           :key="games.id"
           :title="games.boardgames_id.bg_name"
           :user="games.users_id.first_name"
           :gb-id="games.boardgames_id.bg_atlas_id"
-          :thumburl="games.boardgames_id.bg_image"
+          :avatar="games.users_id.avatar"
+        />
+      </div>
+    </div>
+    <div class="shop-wrapper__row">
+      <h3>Swap:</h3>
+      <div class="shop-wrapper__row--grid">
+        <User
+          v-for="games in getGamesForSwap"
+          :key="games.id"
+          :title="games.boardgames_id.bg_name"
+          :user="games.users_id.first_name"
+          :gb-id="games.boardgames_id.bg_atlas_id"
+          :avatar="games.users_id.avatar"
         />
       </div>
     </div>
@@ -17,11 +30,11 @@
 </template>
 
 <script>
-import ShopItem from '@/components/ShopItem.vue'
+import User from '@/components/User.vue'
 
 export default {
   name: 'UserSwaps',
-  components: { ShopItem },
+  components: { User },
 
   data() {
     return {
@@ -31,10 +44,16 @@ export default {
   },
   fetch() {
     this.$store.dispatch('boardgames/getGamesForSale')
+    this.$store.dispatch('boardgames/getGamesForSwap')
   },
   computed: {
     getGamesForSale() {
       return this.$store.state.boardgames.gamesForSale.filter((games) => {
+        return games.boardgames_id.bg_atlas_id.match(this.$route.params.id)
+      })
+    },
+    getGamesForSwap() {
+      return this.$store.state.boardgames.gamesForSwap.filter((games) => {
         return games.boardgames_id.bg_atlas_id.match(this.$route.params.id)
       })
     },
@@ -56,5 +75,11 @@ export default {
       flex-wrap: wrap;
     }
   }
+}
+.game-login__form {
+  padding: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
