@@ -1,6 +1,7 @@
 <template>
   <div class="shop-item">
     <div>
+      <span class="shop-item__label">{{ forSaleOrSwap }}</span>
       <NuxtLink :to="'/game/' + gbId" class="button-link__game">
         {{ title }}
       </NuxtLink>
@@ -35,7 +36,7 @@
           <span></span>
         </div>
         <p>
-          Buy <strong> {{ title }} </strong>
+          {{ buyOrSwap }} <strong> {{ title }} </strong>
         </p>
         <p>
           from <strong> {{ user }} </strong>
@@ -99,6 +100,8 @@ export default {
     user: { type: String, required: true },
     gbId: { type: String, required: true },
     thumburl: { type: String, required: true },
+    buyOrSwap: { type: String, required: true },
+    forSaleOrSwap: { type: String, required: true },
   },
   data() {
     return {
@@ -250,6 +253,17 @@ export default {
   -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.2);
   -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.2);
   overflow: hidden;
+  &__label {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5em;
+    background-color: $orange;
+    font-size: 1.2em;
+    font-weight: $normal;
+    line-height: 1em;
+  }
   &:hover {
     img {
       opacity: 0.6;
@@ -269,7 +283,6 @@ export default {
   }
   .button-link__orange {
     display: block;
-    margin: 2em 0 0 0;
   }
   .button-link__game {
     color: white;

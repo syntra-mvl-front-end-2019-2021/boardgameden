@@ -7,7 +7,7 @@
           'button-link__black': true,
           active: isActive,
         }"
-        @click="toggleActive"
+        @click="toggleAllItems"
       >
         ALL
       </button>
@@ -32,7 +32,6 @@
     </div>
     <div class="shop-wrapper">
       <div v-if="isActive || isActiveBuy" class="shop-wrapper__row">
-        <h3>For sale:</h3>
         <div class="shop-wrapper__row--grid">
           <ShopItem
             v-for="game in getGamesForSale"
@@ -41,11 +40,12 @@
             :user="game.users_id.first_name"
             :gb-id="game.boardgames_id.bg_atlas_id"
             :thumburl="game.boardgames_id.bg_image"
+            :buyOrSwap="'buy'"
+            :forSaleOrSwap="'For Sale'"
           />
         </div>
       </div>
       <div v-if="isActive || isActiveSwap" class="shop-wrapper__row">
-        <h3>For swap:</h3>
         <div class="shop-wrapper__row--grid">
           <ShopItem
             v-for="game in getGamesForSwap"
@@ -54,6 +54,8 @@
             :user="game.users_id.first_name"
             :gb-id="game.boardgames_id.bg_atlas_id"
             :thumburl="game.boardgames_id.bg_image"
+            :buyOrSwap="'swap'"
+            :forSaleOrSwap="'For swap'"
           />
         </div>
       </div>
@@ -90,8 +92,8 @@ export default {
     },
   },
   methods: {
-    toggleActive() {
-      this.isActive = !this.isActive
+    toggleAllItems() {
+      this.isActive = true
       this.isActiveBuy = false
       this.isActiveSwap = false
     },
