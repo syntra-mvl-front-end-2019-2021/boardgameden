@@ -41,7 +41,7 @@
       </div>
     </div>
     <UserSwaps v-if="isActiveSwap === true" />
-    <UserBuys v-if="isActiveBuy === true" :class="{ UserBuys: isActiveBuy }" />
+    <UserBuys v-if="isActiveBuy === true" />
   </section>
 </template>
 
