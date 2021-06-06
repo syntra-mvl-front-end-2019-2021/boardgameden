@@ -43,7 +43,19 @@
               :key="game.id"
               type="button"
               class="add-btn button-link__orange"
-              @click="addgame(game.id, game.name, game.thumb_url)"
+              @click="
+                addgame(
+                  game.id,
+                  game.name,
+                  game.thumb_url,
+                  game.description,
+                  game.min_players,
+                  game.max_players,
+                  game.min_playtime,
+                  game.max_playtime,
+                  game.rank
+                )
+              "
             >
               {{ addingGame ? '....' : 'Add' }}
             </button>
@@ -69,12 +81,28 @@ export default {
   },
   created() {},
   methods: {
-    addgame(id, name, thumb) {
+    addgame(
+      id,
+      name,
+      thumb,
+      description,
+      minPlayers,
+      maxPlayers,
+      minPlaytime,
+      maxPlaytime,
+      atlasRank
+    ) {
       return this.$axios('/items/boardgames', {
         method: 'POST',
         data: {
           bg_atlas_id: id,
           bg_name: name,
+          bg_description: description,
+          bg_min_players: minPlayers,
+          bg_max_players: maxPlayers,
+          bg_min_playtime: minPlaytime,
+          bg_max_playtime: maxPlaytime,
+          bg_atlas_rank: atlasRank,
           // bg_image: thumb,
         },
         header: {
