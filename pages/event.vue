@@ -1,38 +1,47 @@
 <template>
-  <div>
-    <h2>PLAY!</h2>
-    <FormulateForm
-      v-model="formData"
-      :form-errors="formErrors"
-      @submit="submit"
-    >
-      <FormulateInput type="text" name="location" label="location" />
-      <FormulateInput
-        :options="boardgameDensOptions"
-        type="select"
-        placeholder="Select an board game"
-        name="boardgame"
-        label="boardgame"
-      />
-      <FormulateInput
-        type="group"
-        name="attendees"
-        :repeatable="true"
-        label="Who is going to attend?"
-        add-label="+ Add Attendee"
+  <section class="event_page">
+    <div class="event_page__form">
+      <h1>PLAY!</h1>
+      <FormulateForm
+        v-model="formData"
+        :form-errors="formErrors"
+        @submit="submit"
       >
         <FormulateInput
-          :options="usersOptions"
-          type="select"
-          placeholder="Select an attendees"
-          name="users_id"
-          label="attendees"
+          class="round-input-decorator"
+          type="text"
+          name="location"
+          label="location"
         />
-      </FormulateInput>
-      <FormulateErrors />
-      <FormulateInput name="submit" type="submit" />
-    </FormulateForm>
-  </div>
+        <FormulateInput
+          :options="boardgameDensOptions"
+          type="select"
+          placeholder="Select an board game"
+          name="boardgame"
+          label="boardgame"
+        />
+        <FormulateInput
+          class="round-input-decorator"
+          type="group"
+          name="attendees"
+          :repeatable="true"
+          label=""
+          add-label="+ Add Attendee"
+        >
+          <FormulateInput
+            class="round-input-decorator"
+            :options="usersOptions"
+            type="select"
+            placeholder="Select an attendees"
+            name="users_id"
+            label="attendees"
+          />
+        </FormulateInput>
+        <FormulateErrors />
+        <FormulateInput name="submit" type="submit" />
+      </FormulateForm>
+    </div>
+  </section>
 </template>
 <script>
 export default {
@@ -107,6 +116,33 @@ export default {
 </script>
 
 <style lang="scss">
+.event_page {
+  @include flexCenter();
+  max-width: 100%;
+  height: 100vh;
+  margin: auto;
+  background: linear-gradient(rgba(129, 203, 235, 0.767), #ffffff 100%);
+  &__form {
+    @include flexCenter();
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    h1 {
+      color: #ea5d30;
+    }
+  }
+  label {
+    font-size: 0.8em;
+    color: rgb(98, 196, 238);
+    padding: 0 4px;
+    transform: translate(0, -8px);
+    white-space: nowrap;
+  }
+}
+
 .gameden-form--hidden {
   display: none;
 }
