@@ -66,23 +66,30 @@ export default {
   background-color: white;
   height: 25rem;
   transition: all 0.5s ease-in-out;
+  border-radius: 4px;
+
   &__content {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    h4 {
+      margin-bottom: 1.5rem;
+    }
   }
 
   &:hover {
     transform: translateY(-10px);
-    outline: 0.5rem solid $green;
+    outline: 0.5rem solid $orange;
+    border: none;
   }
   .game-img {
     height: 100%;
     width: 100%;
     max-width: 250px;
     max-height: 250px;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   @media screen and (max-width: $medium) {
