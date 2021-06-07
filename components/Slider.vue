@@ -10,33 +10,16 @@
       class="c-slider__slides-container"
       @scroll="sliderScroll"
     >
-      <!-- <div
-        v-for="game in games"
-        :key="1 + game.bg_atlas_id"
-        class="c-slider__slide-item"
-      >
-        <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
-      </div> -->
-      <!-- <div
-        v-for="game in games"
-        :key="2 + game.bg_atlas_id"
-        class="c-slider__slide-item"
-      >
-        <GameComp :gb-id="game.bg_atlas_id" :gb-name="game.bg_name" />
-      </div> -->
       <div
         v-for="atlasGame in atlasGames"
         :key="atlasGame.id"
         class="c-slider__slide-item"
       >
-        <div v-if="loading" class="game-comp__loading"></div>
-        <div v-if="!loading && atlasGame">
-          <GameComp
-            :atlas-id="atlasGame.id"
-            :atlas-name="atlasGame.name"
-            :atlas-source="atlasGame.image_url"
-          />
-        </div>
+        <GameComp
+          :atlas-id="atlasGame.id"
+          :atlas-name="atlasGame.name"
+          :atlas-source="atlasGame.image_url"
+        />
       </div>
     </div>
     <button
@@ -52,12 +35,6 @@ import GameComp from '../components/GameComp.vue'
 export default {
   name: 'Slider',
   components: { GameComp },
-  // props: {
-  //   games: {
-  //     type: Array,
-  //     required: true,
-  //   },
-  // },
   data() {
     return {
       sliderWidth: 0,
@@ -101,9 +78,7 @@ export default {
       {
         params: {
           client_id: this.$config.gbClientId,
-          // ids: this.gbId,
           ids: this.$route.params.id,
-          // name: this.gbName,
         },
       }
     )
@@ -157,29 +132,6 @@ export default {
 
 <style lang="scss">
 .c-slider {
-  .game-comp__loading {
-    position: relative;
-    height: 20rem;
-
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: -1rem;
-      margin-left: -1rem;
-      border-top: 3px solid rgba(255, 255, 255, 0.2);
-      border-right: 3px solid rgba(255, 255, 255, 0.2);
-      border-bottom: 3px solid rgba(255, 255, 255, 0.2);
-      border-left: 3px solid $orange;
-      animation: load8 1.1s infinite linear;
-      border-radius: 50%;
-      width: 2rem;
-      height: 2rem;
-    }
-  }
-
   &__slides {
     position: relative;
     width: 80%;
@@ -187,6 +139,7 @@ export default {
     transform: skewY(7deg);
 
     &-container {
+      padding: 5rem 0;
       display: flex;
       overflow-x: scroll;
       scroll-snap-type: x mandatory;
