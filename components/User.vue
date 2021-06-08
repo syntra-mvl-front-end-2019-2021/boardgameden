@@ -1,20 +1,24 @@
 <template>
   <div class="user-item">
-    <div>
+    <div class="user-item__avatar">
       <!-- <p>image link id: {{ thumburl }}</p> -->
       <img
-        class="game-img"
+        class="user-img"
         :src="
           !avatar
             ? require('@/assets/images/Bedachtzame.jpeg')
             : $config.baseURL + '/assets/' + avatar
         "
       />
-
-      <h2>get it from</h2>
-      <h1>{{ user }}</h1>
-      <button class="button-link__orange" @click="openModal">Get it!</button>
     </div>
+    <div class="user-item__get">
+      <button class="button-link__orange" @click="openModal">
+        Get it from
+      </button>
+
+      <h1>{{ user }}</h1>
+    </div>
+
     <div
       id=""
       :class="{
@@ -233,8 +237,8 @@ export default {
 }
 
 .user-item {
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   position: relative;
   padding: 2em;
   margin: 1em;
@@ -244,6 +248,10 @@ export default {
   -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.2);
   -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.2);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   &:hover {
     img {
       opacity: 0.6;
@@ -252,7 +260,7 @@ export default {
       font-size: 2.3em;
     }
   }
-  .game-img {
+  .user-img {
     display: inline-block;
     position: absolute;
     z-index: -5;
@@ -262,18 +270,24 @@ export default {
     transition: all 0.2s;
     object-fit: fit;
   }
-  .button-link__orange {
-    display: block;
-    margin: 2em 0 0 0;
-  }
-  .button-link__game {
-    color: white;
-    font-size: 2em;
-    font-weight: $bold;
-    margin: 0.7em 0;
-    display: block;
-    text-shadow: 3px 3px 3px $black;
-    transition: $transition-normal;
+  &__get {
+    h1 {
+      font-size: 1.5em;
+      color: $orange;
+    }
+    .button-link__orange {
+      display: block;
+      margin: 2em auto 0;
+    }
+    .button-link__game {
+      color: white;
+      font-size: 2em;
+      font-weight: $bold;
+      margin: 0.7em 0;
+      display: block;
+      text-shadow: 3px 3px 3px $black;
+      transition: $transition-normal;
+    }
   }
 }
 </style>

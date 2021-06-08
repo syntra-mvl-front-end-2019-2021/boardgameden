@@ -65,11 +65,12 @@ export default {
 .shop-wrapper {
   display: flex;
   flex-direction: column;
-  margin: 3em 0;
+
+  margin: 3em;
   &__row {
     width: 100%;
     &--grid {
-      display: flex;
+      @include flexCenter;
       width: 100%;
       margin: 2em 0;
       flex-wrap: wrap;
