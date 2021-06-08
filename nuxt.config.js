@@ -1,5 +1,10 @@
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
+  ssr: false,
+  publicRuntimeConfig: {
+    baseURL: process.env.BASE_URL,
+    gbURL: process.env.GB_URL,
+    gbClientId: process.env.GB_CLIENT_ID,
+  },
   head: {
     title: 'boardgameden',
     htmlAttrs: {
@@ -26,6 +31,7 @@ export default {
         href: '/favicon.ico',
       },
     ],
+    script: [],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -39,18 +45,51 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
+    '@braid/vue-formulate/nuxt',
     '@nuxtjs/eslint-module',
-    '@nuxtjs/style-resources',
+    '@nuxtjs/html-validator',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/style-resources'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/auth-next'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: { vendor: ['scrollmagic'] },
   styleResources: {
     // your settings here
     scss: ['./assets/styles/resources.scss'],
+  },
+
+  axios: {
+    baseUrl: process.env.BASE_URL,
+  },
+
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/profile',
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'data.access_token',
+        },
+        refreshToken: {
+          property: 'data.refresh_token',
+          data: 'refresh_token',
+        },
+        user: {
+          property: 'data',
+        },
+        endpoints: {
+          login: { url: '/auth/login', method: 'post' },
+          refresh: { url: '/auth/refresh', method: 'post' },
+          logout: false,
+          user: { url: '/users/me?fields=*.*.*', method: 'get' },
+        },
+      },
+    },
   },
 }

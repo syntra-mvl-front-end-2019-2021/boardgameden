@@ -2,26 +2,20 @@
   <div>
     <Header />
     <Nuxt />
+    <Footer />
+    <Notify />
   </div>
 </template>
 
 <script>
+import Header from '~/components/Header'
+import Footer from '~/components/Footer'
+
 export default {
   name: 'DefaultLayout',
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters['auth/isLoggedIn']
-    },
-  },
-  watch: {
-    isLoggedIn(newValue) {
-      if (newValue) {
-        this.$router.push('/profile')
-        return
-      }
-
-      this.$router.push('/login')
-    },
+  components: {
+    Header,
+    Footer,
   },
 }
 </script>
