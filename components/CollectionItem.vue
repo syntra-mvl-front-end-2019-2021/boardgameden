@@ -1,5 +1,5 @@
 <template>
-  <div v-if="atlasGame">
+  <div>
     <!-- <h3 class="game-title">{{ game.bg_name }}</h3> -->
     <div class="collection-item">
       <button type="button" class="remove_btn" @click="removeFromCollection">
@@ -9,7 +9,7 @@
         <h4 class="game-title">{{ game.bg_name }}</h4>
         <img
           class="game-img"
-          :src="atlasGame.thumb_url"
+          :src="game.bg_thumb_url"
           alt="game picture"
           width="auto"
           height="150px"
@@ -30,54 +30,19 @@ export default {
       type: Object,
       required: true,
     },
+    userGameId: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
-    return {
-      atlasGame: [],
-    }
-  },
-  created() {
-    this.$axios(this.$config.gbURL + '/search', {
-      params: {
-        client_id: this.$config.gbClientId,
-        ids: this.game.bg_atlas_id,
-      },
-    })
-      .then((response) => {
-        if (!response.data.games) {
-          throw new Error('could not find game')
-        }
-        this.atlasGame = response.data.games[0]
-        console.log('data=' + response.data.games[0])
-      })
-      .catch((e) => {
-        console.error(e)
-      })
-      .finally(() => {
-        this.loading = false
-      })
+    return {}
   },
   methods: {
     removeFromCollection() {
-      this.$axios(
-        // '/users/' +
-        //   this.$auth.user.id +
-        //   '?fields=boardgames&id=' +
-        //   this.game.id,
-
-        {
-          method: 'DELETE',
-          header: {
-            'Content-Type': 'application/json',
-          },
-          data: {
-            boardgames_id: this.game.id,
-            users_id: this.$auth.user.id,
-            is_swappable: false,
-            is_for_sale: false,
-          },
-        }
-      )
+      this.$axios('items/boardgames_directus_users/' + this.userGameId, {
+        method: 'DELETE',
+      })
         .then(() => {
           return this.resetUser()
         })

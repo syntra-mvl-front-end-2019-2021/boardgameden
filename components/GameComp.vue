@@ -3,9 +3,9 @@
     <div v-if="loading" class="game-comp__loading"></div>
     <div v-if="!loading && atlasGame" class="game-comp__content">
       <div class="game-comp__content">
-        <img class="game-img" :src="atlasSource" alt="game.name" />
-        <h4 class="game-title">{{ atlasName }}</h4>
-        <NuxtLink :to="'/game/' + atlasId" class="button-link__orange">
+        <img class="game-img" :src="atlasGame.thumb_url" alt="game.name" />
+        <h4 class="game-title">{{ game.bg_name }}</h4>
+        <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
           More Info
         </NuxtLink>
       </div>

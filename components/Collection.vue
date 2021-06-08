@@ -2,7 +2,12 @@
   <div class="collection">
     <h1>Your collection</h1>
     <div class="collection_container">
-      <CollectionItem v-for="game in games" :key="game.id" :game="game" />
+      <CollectionItem
+        v-for="game in games"
+        :key="game.id"
+        :game="game.boardgames_id"
+        :user-game-id="game.id"
+      />
     </div>
   </div>
 </template>
@@ -13,7 +18,7 @@ export default {
   components: { CollectionItem },
   computed: {
     games() {
-      return this.$auth.user.boardgames.map((val) => val.boardgames_id)
+      return this.$auth.user.boardgames
     },
   },
 }

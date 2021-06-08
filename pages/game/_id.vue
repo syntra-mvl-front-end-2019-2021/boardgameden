@@ -1,50 +1,46 @@
 <template>
   <section class="game-page">
     <h2>Game Page</h2>
-    <div v-if="atlasGame" class="game">
-      <div class="game-image">
-        <img :src="atlasGame.image_url" alt="" />
-        <p>
-          Players &#128101; {{ atlasGame.min_players }} -
-          {{ atlasGame.max_players }}
-        </p>
-        <p>
-          Playtime &#128337; {{ atlasGame.min_playtime }} -
-          {{ atlasGame.max_playtime }} min
-        </p>
-        <p>Rating:</p>
-        <p>Username 💻</p>
-        <p>Location &#127969;</p>
-      </div>
-      <div class="game-details">
-        <h3>{{ atlasGame.name }}</h3>
-        <p>{{ atlasGame.description_preview }}</p>
-        <div class="game-btns">
-          <button type="button" class="play-btn button-link__orange">
-            PLAY
-          </button>
-          <div class="collection-btns">
-            <button type="button" class="swap-btn button-link__orange">
-              SWAP!
+    <div v-if="atlasGame">
+      <div class="game">
+        <div class="game-image">
+          <img :src="atlasGame.image_url" alt="" />
+          <p>
+            Players &#128101; {{ atlasGame.min_players }} -
+            {{ atlasGame.max_players }}
+          </p>
+          <p>
+            Playtime &#128337; {{ atlasGame.min_playtime }} -
+            {{ atlasGame.max_playtime }} min
+          </p>
+          <p>Rating:</p>
+          <p>Username 💻</p>
+          <p>Location &#127969;</p>
+        </div>
+        <div class="game-details">
+          <h3>{{ atlasGame.name }}</h3>
+          <p>{{ atlasGame.description_preview }}</p>
+          <div class="game-btns">
+            <button type="button" class="play-btn button-link__orange">
+              PLAY
             </button>
-            <button type="button" class="buy-btn button-link__orange">
-              BUY!
-            </button>
-            <button
-              v-if="showAddToCollection"
-              type="button"
-              class="buy-btn button-link__orange"
-              @click="addgame"
-            >
-              {{ addingGame ? '....' : 'Add Game to collection' }}
-            </button>
+            <div class="collection-btns">
+              <button
+                v-if="showAddToCollection"
+                type="button"
+                class="buy-btn button-link__orange"
+                @click="addgame"
+              >
+                {{ addingGame ? '....' : 'Add Game to collection' }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
       <UserBuys v-if="$auth.loggedIn" />
       <div v-else class="game-login__form">
         <NuxtLink to="/login" class="game-login__form--message"
-        >log in to see who's selling</NuxtLink
+          >log in to see who's selling</NuxtLink
         >
       </div>
     </div>

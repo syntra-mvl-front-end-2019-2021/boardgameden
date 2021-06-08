@@ -49,12 +49,12 @@ export default {
   computed: {
     getGamesForSale() {
       return this.$store.state.boardgames.gamesForSale.filter((games) => {
-        return games.boardgames_id.bg_atlas_id.match(this.$route.params.id)
+        return games.id === parseInt(this.$route.params.id)
       })
     },
     getGamesForSwap() {
       return this.$store.state.boardgames.gamesForSwap.filter((games) => {
-        return games.boardgames_id.bg_atlas_id.match(this.$route.params.id)
+        return games.id === parseInt(this.$route.params.id)
       })
     },
   },

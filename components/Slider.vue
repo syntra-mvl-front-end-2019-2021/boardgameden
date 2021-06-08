@@ -4,12 +4,7 @@
       class="c-slider__slides__btn c-slider__slides__btn--left"
       @click="clickLeft"
     ></button>
-    <div
-      v-if="atlasGames"
-      ref="slider"
-      class="c-slider__slides-container"
-      @scroll="sliderScroll"
-    >
+    <div ref="slider" class="c-slider__slides-container" @scroll="sliderScroll">
       <div
         v-for="game in games"
         :key="1 + game.bg_atlas_id"
@@ -26,7 +21,7 @@
 </template>
 
 <script>
-import GameComp from '../components/GameComp.vue'
+import GameComp from '~/components/GameComp.vue'
 
 export default {
   name: 'Slider',

@@ -24,12 +24,11 @@
             'c-autocomplete__dropdown--loading': searching,
           }"
         >
-          <NuxtLink
+          <div
             v-for="game in games"
             :key="game.id"
             class="c-autocomplete__dropdown-item"
-            :to="'/game/' + game.id"
-            @click="addgame"
+            @click="addgame(game)"
           >
             <img
               class="game-img"
@@ -43,23 +42,10 @@
               :key="game.id"
               type="button"
               class="add-btn button-link__orange"
-              @click="
-                addgame(
-                  game.id,
-                  game.name,
-                  game.thumb_url,
-                  game.description_preview,
-                  game.min_players,
-                  game.max_players,
-                  game.min_playtime,
-                  game.max_playtime,
-                  game.rank
-                )
-              "
             >
               {{ addingGame ? '....' : 'Add' }}
             </button>
-          </NuxtLink>
+          </div>
         </div>
       </div>
     </form>
@@ -73,6 +59,7 @@ export default {
   data() {
     return {
       games: [],
+      addingGame: false,
       searchQuery: '',
       timeOut: null,
       searching: false,
@@ -81,43 +68,51 @@ export default {
   },
   created() {},
   methods: {
-    addgame(
-      id,
-      name,
-      thumb,
-      description,
-      minPlayers,
-      maxPlayers,
-      minPlaytime,
-      maxPlaytime,
-      atlasRank
-    ) {
+    addgame(game) {
       return this.$axios('/items/boardgames', {
-        method: 'POST',
-        data: {
-          bg_atlas_id: id,
-          bg_name: name,
-          bg_description: description,
-          bg_min_players: minPlayers,
-          bg_max_players: maxPlayers,
-          bg_min_playtime: minPlaytime,
-          bg_max_playtime: maxPlaytime,
-          bg_atlas_rank: atlasRank,
-          // bg_image: thumb,
-        },
-        header: {
-          'Content-Type': 'application/json',
+        method: 'GET',
+        params: {
+          filter: {
+            bg_atlas_id: {
+              _eq: game.id,
+            },
+          },
         },
       })
-        .then(() => {
-          // console.log(result)
-          return this.resetUser()
+        .then((response) => {
+          if (response.data.data.length > 0) {
+            return response.data.data[0].id
+          }
+
+          return this.$axios('/items/boardgames', {
+            method: 'POST',
+            data: {
+              bg_atlas_id: game.id,
+              bg_name: game.name,
+              bg_description: game.description_preview,
+              bg_min_players: game.min_players,
+              bg_max_players: game.max_players,
+              bg_min_playtime: game.min_playtime,
+              bg_max_playtime: game.max_playtime,
+              bg_atlas_rank: game.rank,
+              bg_thumb_url: game.thumb_url,
+            },
+            header: {
+              'Content-Type': 'application/json',
+            },
+          }).then((response) => {
+            // console.log(result)
+            return response.data.data.id
+          })
+        })
+        .then((directusId) => {
+          this.addingGame = false
+          console.log(directusId)
+          this.$router.push('/game/' + directusId)
         })
         .catch((error) => {
-          console.error(error)
-        })
-        .finally(() => {
           this.addingGame = false
+          console.error(error)
         })
     },
     submit() {
@@ -143,10 +138,10 @@ export default {
         {
           method: 'GET',
           params: {
-            name:
-              this.searchQuery.charAt(0).toUpperCase() +
-              this.searchQuery.slice(1),
+            name: this.searchQuery,
             client_id: 'KrUdcULOvp',
+            limit: 15,
+            fuzzy_match: true,
           },
         }
       )
@@ -227,6 +222,8 @@ export default {
     left: 0;
     right: 0;
     background-color: white;
+    max-height: 400px;
+    overflow-y: auto;
 
     &--loading {
       min-height: 2rem;

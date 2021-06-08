@@ -28,30 +28,13 @@
             v-for="game in games"
             :key="game.id"
             class="c-autocomplete__dropdown-item"
-            :to="'/game/' + game.bg_atlas_id"
+            :to="'/game/' + game.id"
           >
-            <img
-              class="game-img"
-              :src="
-                $config.baseURL +
-                '/assets/' +
-                game.bg_image +
-                '?width=200&height=100&fit=cover'
-              "
-              alt="game picture"
-            />
+            <img class="game-img" :src="game.bg_thumb_url" alt="game picture" />
             {{ game.bg_name }}
           </NuxtLink>
         </div>
       </div>
-      <!-- <NuxtLink
-        v-for="game in games"
-        :key="game.bg_name"
-        :to="'/shop?search=' + game.bg_name"
-        class="c-autocomplete__submit"
-        @submit="submit"
-      >
-      </NuxtLink> -->
     </form>
   </section>
 </template>
