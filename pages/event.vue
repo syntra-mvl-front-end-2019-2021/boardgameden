@@ -141,9 +141,8 @@ export default {
     transform: translate(0, -8px);
     white-space: nowrap;
   }
-}
-
-.gameden-form--hidden {
-  display: none;
+  .gameden-form--hidden {
+    display: none;
+  }
 }
 </style>

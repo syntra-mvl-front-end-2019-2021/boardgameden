@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <section class="container gameden">
+  <section class="container_gameden">
+    <div class="event_page__form">
       <h2>EVENT</h2>
       <div v-for="game in results" :key="game.id" class="avent">
         <p>
-          attendees:
           <!--
           <span
             v-for="attendee in game.attendees"
@@ -18,7 +17,7 @@
               type="group"
               name="attendees"
               :repeatable="true"
-              label="Who is going to attend?"
+              label=""
               add-label="+ Add Attendee"
               :value="game.attendees"
             >
@@ -47,8 +46,8 @@
       <NuxtLink class="button-link__orange" to="/event"
         >register event</NuxtLink
       >
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
 <script>
 export default {
@@ -119,14 +118,35 @@ export default {
 }
 </script>
 <style lang="scss">
-section.gameden {
-  h2 {
-    display: inline;
+.container_gameden {
+  max-width: 100%;
+  height: 100%;
+  margin: auto;
+  background: linear-gradient(rgba(129, 203, 235, 0.767), #ffffff 100%);
+  .button-link__orange {
+    float: right;
+    border: 2px solid $orange;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    color: $orange;
+    transition: $transition-normal;
   }
-  p {
-    box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-    -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-    -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+  &__form {
+    @include flexCenter();
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    h2 {
+      display: inline;
+    }
+    p {
+      box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+      -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+      -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+    }
   }
   .avent {
     padding: 2em;
@@ -137,9 +157,6 @@ section.gameden {
     box-shadow: 1px 2px 2px 0 rgba(171, 171, 171, 0.87);
     // -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
     // -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-  }
-  .button-link__orange {
-    float: right;
   }
 }
 </style>
