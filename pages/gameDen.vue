@@ -125,11 +125,6 @@ export default {
   background: linear-gradient(rgba(129, 203, 235, 0.767), #ffffff 100%);
   .button-link__orange {
     float: right;
-    border: 2px solid $orange;
-    padding: 0.5em 1em;
-    border-radius: 5px;
-    color: $orange;
-    transition: $transition-normal;
   }
   &__form {
     @include flexCenter();
