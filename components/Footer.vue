@@ -55,7 +55,7 @@ export default {
   &__nav {
     @include flexCenter;
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     width: 100%;
     max-width: 1000px;
     margin-bottom: 3rem;
@@ -64,8 +64,8 @@ export default {
       padding: 1rem 0;
       width: 500px;
       color: $orange;
+      color: black;
       font-weight: 600;
-      border-bottom: solid 1px $bluegreen;
 
       &:last-child {
         border: none;
