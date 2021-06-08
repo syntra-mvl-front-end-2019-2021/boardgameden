@@ -1,11 +1,11 @@
 <template>
   <div class="game-comp">
     <div v-if="loading" class="game-comp__loading"></div>
-    <div v-if="!loading" class="game-comp__content">
+    <div v-if="!loading && atlasGame" class="game-comp__content">
       <div class="game-comp__content">
-        <img class="game-img" :src="atlasSource" alt="game.name" />
-        <h4 class="game-title">{{ atlasName }}</h4>
-        <NuxtLink :to="'/game/' + atlasId" class="button-link__orange">
+        <img class="game-img" :src="atlasGame.thumb_url" alt="game.name" />
+        <h4 class="game-title">{{ game.bg_name }}</h4>
+        <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
           More Info
         </NuxtLink>
       </div>
@@ -17,37 +17,29 @@
 export default {
   name: 'GameComp',
   props: {
-    atlasId: {
-      type: String,
-      required: true,
-    },
-    atlasName: {
-      type: String,
-      required: true,
-    },
-    atlasSource: {
-      type: String,
+    game: {
+      type: Object,
       required: true,
     },
   },
   data() {
     return {
       loading: true,
-      game: {},
+      atlasGame: null,
     }
   },
   created() {
-    this.$axios(this.$config.gbURL + '/search/', {
+    this.$axios(this.$config.gbURL + '/search', {
       params: {
         client_id: this.$config.gbClientId,
-        ids: this.gbId,
+        ids: this.game.bg_atlas_id,
       },
     })
       .then((response) => {
-        console.log(response.data)
         if (!response.data.games) {
           throw new Error('could not find game')
         }
+        this.atlasGame = response.data.games[0]
       })
       .catch((e) => {
         console.error(e)

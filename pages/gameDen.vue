@@ -3,7 +3,7 @@
     <div class="event_page__form">
       <h2>EVENT</h2>
       <div v-for="game in results" :key="game.id" class="avent">
-        <p>
+        <div>
           <!--
           <span
             v-for="attendee in game.attendees"
@@ -12,6 +12,9 @@
             {{ attendee.users_id }},
           </span>
           -->
+
+          <button type="button" @click="attend(game)">Attend</button>
+
           <FormulateForm :form-errors="formErrors" @submit="submit">
             <FormulateInput
               type="group"
@@ -33,9 +36,8 @@
             <FormulateInput :value="game.id" type="hidden" name="gameId" />
             <FormulateErrors />
             <FormulateInput name="submit" type="submit" />
-            <FormulateInput />
           </FormulateForm>
-        </p>
+        </div>
         <p>boardgame: {{ game.boardgame.bg_name }}</p>
 
         <p>Location: {{ game.location }}</p>
@@ -95,6 +97,24 @@ export default {
       })
   },
   methods: {
+    attend(game) {
+      return this.$axios('/items/boardgame_dens/' + game.id, {
+        method: 'PATCH',
+        data: { attendees: { create: [{ users_id: this.$auth.user.id }] } },
+      })
+        .then(() => {
+          //  TODO: do something
+        })
+        .catch((error) => {
+          console.log(error.response)
+          if (error.response && error.response.data.errors) {
+            this.formErrors = error.response.data.errors.map(
+              (val) => val.message
+            )
+          }
+          this.formErrors = ['Could not save user, try again']
+        })
+    },
     submit(data) {
       data.user = this.currentUser.id
       return this.$axios('/items/boardgame_dens/' + data.gameId, {
