@@ -1,6 +1,7 @@
 <template>
   <section class="game-page">
-    <h2>Game Page</h2>
+    <!-- <h2>Game Page</h2> -->
+
     <div :key="game.id" class="game">
       <div class="game-image">
         <img :src="game.image_url" alt="" />
@@ -20,75 +21,47 @@
           <button type="button" class="play-btn button-link__orange">
             PLAY
           </button>
-          <div class="collection-btns">
-            <button type="button" class="swap-btn button-link__orange">
+          <!-- <div class="collection-btns">
+            <button
+              type="button"
+              class="swap-btn button-link__orange"
+              @click="toggleSwap"
+            >
               SWAP!
             </button>
-            <button type="button" class="buy-btn button-link__orange">
+            <button
+              type="button"
+              class="buy-btn button-link__orange"
+              @click="toggleBuy"
+            >
               BUY!
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
-    <div class="shop-wrapper">
-      <div class="shop-wrapper__row">
-        <h3>For swap:</h3>
-        <div class="shop-wrapper__row--grid">
-          <ShopItem
-            v-for="games in getGamesForSwap"
-            :key="games.id"
-            :title="games.boardgames_id.bg_name"
-            :user="games.users_id.first_name"
-            :gb-id="games.boardgames_id.bg_atlas_id"
-            :thumburl="games.boardgames_id.bg_image"
-          />
-        </div>
-      </div>
-      <div class="shop-wrapper__row">
-        <h3>For sale:</h3>
-        <div class="shop-wrapper__row--grid">
-          <ShopItem
-            v-for="games in getGamesForSale"
-            :key="games.id"
-            :title="games.boardgames_id.bg_name"
-            :user="games.users_id.first_name"
-            :gb-id="games.boardgames_id.bg_atlas_id"
-            :thumburl="games.boardgames_id.bg_image"
-          />
-        </div>
-      </div>
+    <UserBuys v-if="$auth.loggedIn" />
+    <div v-else class="game-login__form">
+      <NuxtLink to="/login" class="game-login__form--message"
+        >log in to see who's selling</NuxtLink
+      >
     </div>
   </section>
 </template>
 
 <script>
-import ShopItem from '@/components/ShopItem.vue'
+import UserBuys from '@/components/User_buy.vue'
 export default {
   name: 'GamePage',
-  components: { ShopItem },
-
+  components: { UserBuys },
   data() {
     return {
-      // baseURL: 'GB_URL',
+      isActive: true,
+      isActiveBuy: false,
+      isActiveSwap: false,
+
       game: {},
     }
-  },
-  fetch() {
-    this.$store.dispatch('boardgames/getGamesForSale')
-    this.$store.dispatch('boardgames/getGamesForSwap')
-  },
-  computed: {
-    getGamesForSale() {
-      return this.$store.state.boardgames.gamesForSale.filter((games) => {
-        return games.boardgames_id.bg_atlas_id.match(this.$route.params.id)
-      })
-    },
-    getGamesForSwap() {
-      return this.$store.state.boardgames.gamesForSwap.filter((games) => {
-        return games.boardgames_id.bg_atlas_id.match(this.$route.params.id)
-      })
-    },
   },
   created() {
     this.$axios(this.$config.gbURL + '/search', {
@@ -111,13 +84,29 @@ export default {
         this.loading = false
       })
   },
+  methods: {
+    toggleActive() {
+      this.isActive = !this.isActive
+      this.isActiveBuy = false
+      this.isActiveSwap = false
+    },
+    toggleBuy() {
+      this.isActiveBuy = !this.isActiveBuy
+      this.isActive = false
+      this.isActiveSwap = false
+    },
+    toggleSwap() {
+      this.isActiveSwap = !this.isActiveSwap
+      this.isActiveBuy = false
+      this.isActive = false
+    },
+  },
 }
 </script>
 
 <style lang="scss">
 .game-page {
   text-align: center;
-
   h2 {
     margin-bottom: 3rem;
     animation: moveIn 5s;
@@ -132,6 +121,7 @@ export default {
   padding: 2rem;
   border: solid 3px $bluegreen;
   border-radius: 20px;
+  position: relative;
 
   .game-image {
     width: 35%;
@@ -203,19 +193,5 @@ export default {
 .button-link__orange:hover {
   background-color: $orange;
   color: white;
-}
-.shop-wrapper {
-  display: flex;
-  flex-direction: column;
-  margin: 3em 0;
-  &__row {
-    width: 100%;
-    &--grid {
-      display: flex;
-      width: 100%;
-      margin: 2em 0;
-      flex-wrap: wrap;
-    }
-  }
 }
 </style>
