@@ -148,14 +148,7 @@ export default {
         },
       })
         .then((response) => {
-          const filtered = response.data.games
-          const boardgames = this.$store.state.boardgames.gamesForSale
-          const results = boardgames.filter(
-            ({ id: id1 }) =>
-              !filtered.every(({ boardgame_id: id2 }) => id2 === id1)
-          )
-          this.filteredByCategory = results
-          console.log(results)
+          console.log(response)
         })
         .catch((e) => {
           console.error(e)
