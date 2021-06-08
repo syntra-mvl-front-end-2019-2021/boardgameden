@@ -128,7 +128,6 @@ export default {
     form {
       height: 75%;
       margin-left: auto;
-
       width: 75%;
       @include flexCenter();
       flex-direction: column;
