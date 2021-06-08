@@ -41,20 +41,31 @@
           </div>
         </div>
       </div>
+      <UserBuys v-if="$auth.loggedIn" />
+      <div v-else class="game-login__form">
+        <NuxtLink to="/login" class="game-login__form--message"
+        >log in to see who's selling</NuxtLink
+        >
+      </div>
     </div>
     <div v-else>Fetching game....</div>
   </section>
 </template>
 
 <script>
+import UserBuys from '@/components/User_buy.vue'
 export default {
   name: 'GamePage',
+  components: { UserBuys },
   data() {
     return {
       addingGame: false,
       loading: false,
       game: null,
       atlasGame: null,
+      isActive: true,
+      isActiveBuy: false,
+      isActiveSwap: false,
     }
   },
   computed: {
@@ -146,7 +157,6 @@ export default {
 <style lang="scss">
 .game-page {
   text-align: center;
-
   h2 {
     margin-bottom: 3rem;
     animation: moveIn 5s;
@@ -161,6 +171,7 @@ export default {
   padding: 2rem;
   border: solid 3px $bluegreen;
   border-radius: 20px;
+  position: relative;
 
   .game-image {
     width: 35%;

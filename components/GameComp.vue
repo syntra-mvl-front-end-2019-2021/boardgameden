@@ -2,11 +2,13 @@
   <div class="game-comp">
     <div v-if="loading" class="game-comp__loading"></div>
     <div v-if="!loading && atlasGame" class="game-comp__content">
-      <img class="game-img" :src="atlasGame.thumb_url" alt="game.name" />
-      <h3 class="game-title">{{ game.bg_name }}</h3>
-      <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
-        More Info
-      </NuxtLink>
+      <div class="game-comp__content">
+        <img class="game-img" :src="atlasSource" alt="game.name" />
+        <h4 class="game-title">{{ atlasName }}</h4>
+        <NuxtLink :to="'/game/' + atlasId" class="button-link__orange">
+          More Info
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
@@ -52,22 +54,43 @@ export default {
 
 <style lang="scss">
 .game-comp {
+  padding-top: 1rem;
+  background-color: white;
+  height: 25rem;
+  transition: all 0.5s ease-in-out;
+  border-radius: 4px;
+
   &__content {
-    overflow: hidden;
-    margin: auto;
-    display: grid;
-    place-items: center;
-    border-radius: 5px;
-    border: 1px solid $orange;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h4 {
+      margin-bottom: 1.5rem;
+    }
   }
 
-  .game-img {
-    height: 10rem;
-    // box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-    //   0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
-    //   0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-    //   0 100px 80px rgba(0, 0, 0, 0.12);
+  &:hover {
+    transform: translateY(-10px);
+    outline: 0.5rem solid $orange;
+    border: none;
   }
+  .game-img {
+    height: 100%;
+    width: 100%;
+    max-width: 250px;
+    max-height: 250px;
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (max-width: $medium) {
+    .game-img {
+      max-width: 300px;
+      max-height: 300px;
+    }
+  }
+
   .game-title {
     color: #549797;
   }

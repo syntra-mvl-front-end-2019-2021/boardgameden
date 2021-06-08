@@ -44,15 +44,14 @@
           </NuxtLink>
         </div>
       </div>
-      <nuxt-link
+      <!-- <NuxtLink
         v-for="game in games"
         :key="game.bg_name"
         :to="'/shop?search=' + game.bg_name"
         class="c-autocomplete__submit"
         @submit="submit"
       >
-        Search
-      </nuxt-link>
+      </NuxtLink> -->
     </form>
   </section>
 </template>

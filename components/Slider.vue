@@ -5,7 +5,7 @@
       @click="clickLeft"
     ></button>
     <div
-      v-if="games"
+      v-if="atlasGames"
       ref="slider"
       class="c-slider__slides-container"
       @scroll="sliderScroll"
@@ -13,13 +13,6 @@
       <div
         v-for="game in games"
         :key="1 + game.bg_atlas_id"
-        class="c-slider__slide-item"
-      >
-        <GameComp :game="game" />
-      </div>
-      <div
-        v-for="game in games"
-        :key="2 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
         <GameComp :game="game" />
@@ -112,10 +105,12 @@ export default {
 .c-slider {
   &__slides {
     position: relative;
-    width: 100%;
+    width: 80%;
     padding: 2rem;
+    transform: skewY(7deg);
 
     &-container {
+      padding: 5rem 0;
       display: flex;
       overflow-x: scroll;
       scroll-snap-type: x mandatory;
@@ -131,7 +126,7 @@ export default {
     &__btn {
       width: 30px;
       height: 30px;
-      color: $orange;
+      color: white;
       position: absolute;
       top: 50%;
       margin-top: -15px;
@@ -157,11 +152,19 @@ export default {
   &__slide-item {
     box-sizing: border-box;
     flex-shrink: 0;
-    width: calc(100% / 3);
+    width: calc(100% / 4);
     padding: 0 1rem;
 
-    @media screen and (max-width: $medium) {
+    @media screen and (max-width: $xl) {
+      width: calc(100% / 3);
+    }
+
+    @media screen and (max-width: $large) {
       width: calc(100% / 2);
+    }
+
+    @media screen and (max-width: $medium) {
+      width: calc(100%);
     }
 
     @media screen and (max-width: $small) {

@@ -1,24 +1,24 @@
 <template>
-  <div class="shop-item">
-    <div>
-      <span class="shop-item__label">{{ forSaleOrSwap }}</span>
-      <NuxtLink :to="'/game/' + gbId" class="button-link__game">
-        {{ title }}
-      </NuxtLink>
+  <div class="user-item">
+    <div class="user-item__avatar">
       <!-- <p>image link id: {{ thumburl }}</p> -->
       <img
-        class="game-img"
+        class="user-img"
         :src="
-          $config.baseURL +
-          '/assets/' +
-          thumburl +
-          '?width=300&height=300&fit=cover'
+          !avatar
+            ? require('@/assets/images/Bedachtzame.jpeg')
+            : $config.baseURL + '/assets/' + avatar
         "
-        alt="game picture"
       />
-      <h1 v-if="$route.params.id">{{ user }}</h1>
-      <button class="button-link__orange" @click="openModal">Get it!</button>
     </div>
+    <div class="user-item__get">
+      <button class="button-link__orange" @click="openModal">
+        Get it from
+      </button>
+
+      <h1>{{ user }}</h1>
+    </div>
+
     <div
       id=""
       :class="{
@@ -37,7 +37,7 @@
           <span></span>
         </div>
         <p>
-          {{ buyOrSwap }} <strong> {{ title }} </strong>
+          Buy <strong> {{ title }} </strong>
         </p>
         <p>
           from <strong> {{ user }} </strong>
@@ -80,29 +80,23 @@
           <FormulateErrors />
         </FormulateForm>
       </div>
-      <div v-else class="shop-modal__form">
-        <div class="shop-modal__form--close" @click="openModal">
-          <span></span>
-        </div>
-        <NuxtLink to="/login" class="shop-modal__form--message"
-          >Please log in first</NuxtLink
-        >
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ShopItem',
+  name: 'User',
   middleware: 'auth',
   props: {
     title: { type: String, required: true },
     user: { type: String, required: true },
     gbId: { type: String, required: true },
-    thumburl: { type: String, required: true },
-    buyOrSwap: { type: String, required: true },
-    forSaleOrSwap: { type: String, required: true },
+    avatar: {
+      type: String,
+      // required: true,
+      default: '',
+    },
   },
   data() {
     return {
@@ -163,7 +157,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .shop-modal {
   display: none;
   position: fixed;
@@ -242,29 +236,22 @@ export default {
   justify-content: center;
 }
 
-.shop-item {
-  min-width: 300px;
+.user-item {
+  width: 200px;
   height: 200px;
   position: relative;
   padding: 2em;
   margin: 1em;
-  flex: 1;
+  // flex: 1;
   border-radius: 10px;
   box-shadow: 1px 1px 10px 0 rgba(171, 171, 171, 0.2);
   -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.2);
   -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.2);
   overflow: hidden;
-  &__label {
-    color: white;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0.5em;
-    background-color: $orange;
-    font-size: 1.2em;
-    font-weight: $normal;
-    line-height: 1em;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   &:hover {
     img {
       opacity: 0.6;
@@ -273,26 +260,34 @@ export default {
       font-size: 2.3em;
     }
   }
-  img {
+  .user-img {
     display: inline-block;
     position: absolute;
     z-index: -5;
     top: 0;
     left: 0;
-    width: 100%;
+    max-width: 100%;
     transition: all 0.2s;
+    object-fit: fit;
   }
-  .button-link__orange {
-    display: block;
-  }
-  .button-link__game {
-    color: white;
-    font-size: 2em;
-    font-weight: $bold;
-    margin: 0.7em 0;
-    display: block;
-    text-shadow: 3px 3px 3px $black;
-    transition: $transition-normal;
+  &__get {
+    h1 {
+      font-size: 1.5em;
+      color: $orange;
+    }
+    .button-link__orange {
+      display: block;
+      margin: 2em auto 0;
+    }
+    .button-link__game {
+      color: white;
+      font-size: 2em;
+      font-weight: $bold;
+      margin: 0.7em 0;
+      display: block;
+      text-shadow: 3px 3px 3px $black;
+      transition: $transition-normal;
+    }
   }
 }
 </style>
