@@ -8,32 +8,11 @@
             v-for="attendee in game.attendees"
             :key="'at_' + attendee.users_id"
           >
-            {{ attendee.attendees.users_id }},
+            {{ attendee.users_id.last_name }},
           </span>
-
           <button type="button" @click="attend(game)">Attend</button>
-
-          <FormulateForm :form-errors="formErrors" @submit="submit">
-            <FormulateInput
-              type="group"
-              name="attendees"
-              :repeatable="true"
-              label=""
-              add-label="+ Add Attendee"
-              :value="game.attendees"
-            >
-              <FormulateInput
-                :options="usersOptions"
-                type="select"
-                placeholder="Select an attendees"
-                name="users_id"
-                label="attendee"
-                value="users_id"
-              />
-            </FormulateInput>
-            <FormulateInput :value="game.id" type="hidden" name="gameId" />
+          <FormulateForm>
             <FormulateErrors />
-            <FormulateInput name="submit" type="submit" />
           </FormulateForm>
         </div>
         <p>boardgame: {{ game.boardgame.bg_name }}</p>
@@ -61,7 +40,6 @@ export default {
       formData: [
         {
           attendees: '',
-          gameId: '',
         },
       ],
     }
@@ -84,7 +62,7 @@ export default {
     this.$store.dispatch('users/getUsers')
     this.$axios
       .get(
-        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id,boargame_dens.id`,
+        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id.last_name,boargame_dens.id`,
         {
           headers: { Authorization: '' },
         }
@@ -99,7 +77,7 @@ export default {
       return this.$axios('/items/boardgame_dens/' + game.id, {
         method: 'PATCH',
         data: {
-          attendees: { create: [{ users_id: this.$auth.user.id.last_name }] },
+          attendees: { create: [{ users_id: this.$auth.user.id }] },
         },
       })
         .then(() => {
@@ -117,7 +95,7 @@ export default {
     },
     submit(data) {
       data.user = this.currentUser.id
-      return this.$axios('/items/boardgame_dens/' + data.gameId, {
+      return this.$axios('/items/boardgame_dens/' + game.id, {
         method: 'PATCH',
         data,
       })
