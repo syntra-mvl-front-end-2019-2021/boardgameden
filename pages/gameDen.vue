@@ -4,14 +4,12 @@
       <h2>EVENT</h2>
       <div v-for="game in results" :key="game.id" class="avent">
         <div>
-          <!--
           <span
             v-for="attendee in game.attendees"
             :key="'at_' + attendee.users_id"
           >
-            {{ attendee.users_id }},
+            {{ attendee.attendees.users_id }},
           </span>
-          -->
 
           <button type="button" @click="attend(game)">Attend</button>
 
@@ -100,7 +98,9 @@ export default {
     attend(game) {
       return this.$axios('/items/boardgame_dens/' + game.id, {
         method: 'PATCH',
-        data: { attendees: { create: [{ users_id: this.$auth.user.id }] } },
+        data: {
+          attendees: { create: [{ users_id: this.$auth.user.id.last_name }] },
+        },
       })
         .then(() => {
           //  TODO: do something
