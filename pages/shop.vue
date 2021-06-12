@@ -31,20 +31,30 @@
       </button>
     </div>
     <div class="filter-buttons__categories">
-      <div v-for="game in atlasGames" :key="game.id">
-        <div>{{ game.name }}</div>
-        <div
-          class="filter-buttons__categories-dropdown"
-          v-for="category in game.categories"
-          :key="category.id"
-        >
-          <button @click="filteredItems(category.id)">
-            {{ category.id }}
-          </button>
-        </div>
+      <div
+        v-for="game in categories"
+        :key="game.id"
+        class="filter-buttons__categories-dropdown"
+      >
+        <button @click="filterBy(game.bg_atlas_id)">{{ game.name }}</button>
       </div>
     </div>
     <div class="shop-wrapper">
+      <div v-if="filtering" class="shop-wrapper__row">
+        <div class="shop-wrapper__row--grid">
+          filter:
+          <ShopItem
+            v-for="game in filteredForSale"
+            :key="game.id"
+            :title="game.boardgames_id.bg_name"
+            :user="game.users_id.first_name"
+            :gb-id="game.boardgames_id.bg_atlas_id"
+            :thumburl="game.boardgames_id.bg_image"
+            :buyOrSwap="'buy'"
+            :forSaleOrSwap="'For Sale'"
+          />
+        </div>
+      </div>
       <div v-if="isActive || isActiveBuy" class="shop-wrapper__row">
         <div class="shop-wrapper__row--grid">
           <ShopItem
@@ -86,9 +96,10 @@ export default {
       isActive: true,
       isActiveBuy: false,
       isActiveSwap: false,
-      atlasGames: [],
       newCategory: '',
-      filteredByCategory: [],
+      categories: [],
+      filteredForSale: [],
+      filtering: false,
     }
   },
   fetch() {
@@ -110,6 +121,7 @@ export default {
   },
   watch: {},
   created() {
+    /*
     this.$axios(this.$config.gbURL + '/search', {
       params: {
         client_id: this.$config.gbClientId,
@@ -118,6 +130,15 @@ export default {
       .then((response) => {
         this.atlasGames = response.data.games
         console.log(this.atlasGames)
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+    */
+    this.$axios('/items/category')
+      .then((response) => {
+        this.categories = response.data.data
+        console.log(response.data.data)
       })
       .catch((e) => {
         console.error(e)
@@ -139,16 +160,22 @@ export default {
       this.isActiveBuy = false
       this.isActive = false
     },
-    filteredItems(newEl) {
-      this.newCategory = newEl
+    filterBy(item) {
+      this.filtering = true
       this.$axios(this.$config.gbURL + '/search', {
         params: {
           client_id: this.$config.gbClientId,
-          categories: newEl,
+          categories: item,
         },
       })
         .then((response) => {
-          console.log(response)
+          const gamesAtlas = response.data.games
+          const gamesForSale = this.$store.state.boardgames.gamesForSale
+          const gamesForSaleFiltered = gamesForSale.filter(
+            (game) => game.bg_atlas_id === gamesAtlas.id
+          )
+          this.filteredForSale = gamesForSaleFiltered
+          console.log(gamesForSaleFiltered)
         })
         .catch((e) => {
           console.error(e)
