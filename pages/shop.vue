@@ -36,51 +36,59 @@
         :key="game.id"
         class="filter-buttons__categories-dropdown"
       >
-        <button @click="filterBy(game.bg_atlas_id)">{{ game.name }}</button>
+        <div @click="filterBy(game.name, game.bg_atlas_id)">
+          <ul>
+            <li>{{ game.name }}</li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="shop-wrapper">
       <div v-if="filtering" class="shop-wrapper__row">
-        <div class="shop-wrapper__row--grid">
-          filter:
-          <ShopItem
-            v-for="game in filteredForSale"
-            :key="game.id"
-            :title="game.boardgames_id.bg_name"
-            :user="game.users_id.first_name"
-            :gb-id="game.boardgames_id.bg_atlas_id"
-            :thumburl="game.boardgames_id.bg_image"
-            :buyOrSwap="'buy'"
-            :forSaleOrSwap="'For Sale'"
-          />
+        <div :class="{ loading: loader }">
+          <h3>{{ newCategory }}</h3>
+          <div v-if="!loader" class="shop-wrapper__row--grid">
+            <ShopItem
+              v-for="game in filteredForSale"
+              :key="game.id"
+              :title="game.boardgames_id.bg_name"
+              :user="game.users_id.first_name"
+              :gb-id="game.boardgames_id.bg_atlas_id"
+              :thumburl="game.boardgames_id.bg_image"
+              :buyOrSwap="'buy'"
+              :forSaleOrSwap="'For Sale'"
+            />
+          </div>
         </div>
       </div>
-      <div v-if="isActive || isActiveBuy" class="shop-wrapper__row">
-        <div class="shop-wrapper__row--grid">
-          <ShopItem
-            v-for="game in getGamesForSale"
-            :key="game.id"
-            :title="game.boardgames_id.bg_name"
-            :user="game.users_id.first_name"
-            :gb-id="game.boardgames_id.bg_atlas_id"
-            :thumburl="game.boardgames_id.bg_image"
-            :buyOrSwap="'buy'"
-            :forSaleOrSwap="'For Sale'"
-          />
+      <div v-if="!filtering">
+        <div v-if="isActive || isActiveBuy" class="shop-wrapper__row">
+          <div class="shop-wrapper__row--grid">
+            <ShopItem
+              v-for="game in getGamesForSale"
+              :key="game.id"
+              :title="game.boardgames_id.bg_name"
+              :user="game.users_id.first_name"
+              :gb-id="game.boardgames_id.bg_atlas_id"
+              :thumburl="game.boardgames_id.bg_image"
+              :buyOrSwap="'buy'"
+              :forSaleOrSwap="'For Sale'"
+            />
+          </div>
         </div>
-      </div>
-      <div v-if="isActive || isActiveSwap" class="shop-wrapper__row">
-        <div class="shop-wrapper__row--grid">
-          <ShopItem
-            v-for="game in getGamesForSwap"
-            :key="game.id"
-            :title="game.boardgames_id.bg_name"
-            :user="game.users_id.first_name"
-            :gb-id="game.boardgames_id.bg_atlas_id"
-            :thumburl="game.boardgames_id.bg_image"
-            :buyOrSwap="'swap'"
-            :forSaleOrSwap="'For swap'"
-          />
+        <div v-if="isActive || isActiveSwap" class="shop-wrapper__row">
+          <div class="shop-wrapper__row--grid">
+            <ShopItem
+              v-for="game in getGamesForSwap"
+              :key="game.id"
+              :title="game.boardgames_id.bg_name"
+              :user="game.users_id.first_name"
+              :gb-id="game.boardgames_id.bg_atlas_id"
+              :thumburl="game.boardgames_id.bg_image"
+              :buyOrSwap="'swap'"
+              :forSaleOrSwap="'For swap'"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -100,6 +108,7 @@ export default {
       categories: [],
       filteredForSale: [],
       filtering: false,
+      loader: false,
     }
   },
   fetch() {
@@ -160,22 +169,25 @@ export default {
       this.isActiveBuy = false
       this.isActive = false
     },
-    filterBy(item) {
+    filterBy(name, categoryId) {
+      this.loader = true
       this.filtering = true
+      this.newCategory = name
       this.$axios(this.$config.gbURL + '/search', {
         params: {
           client_id: this.$config.gbClientId,
-          categories: item,
+          categories: categoryId,
         },
       })
         .then((response) => {
+          this.loader = false
           const gamesAtlas = response.data.games
           const gamesForSale = this.$store.state.boardgames.gamesForSale
           const gamesForSaleFiltered = gamesForSale.filter(
             (game) => game.bg_atlas_id === gamesAtlas.id
           )
           this.filteredForSale = gamesForSaleFiltered
-          console.log(gamesForSaleFiltered)
+          console.log(this.newCategory)
         })
         .catch((e) => {
           console.error(e)
