@@ -15,7 +15,7 @@
             <FormulateErrors />
           </FormulateForm>
         </div>
-        <p>date: {{ game.date }}</p>
+        <p>date: {{ game.date | transformdate }}</p>
         <p>boardgame: {{ game.boardgame.bg_name }}</p>
 
         <p>Location: {{ game.location }}</p>
@@ -32,6 +32,19 @@
 <script>
 export default {
   name: 'Gameden',
+  filters: {
+    transformdate(value) {
+      const myDate = new Date(value)
+
+      return (
+        myDate.getDate().toString().padStart(2, 0) +
+        '-' +
+        (myDate.getMonth() + 1).toString().padStart(2, 0) +
+        '-' +
+        myDate.getFullYear()
+      )
+    },
+  },
   middleware: 'auth',
   data() {
     return {
