@@ -8,6 +8,13 @@
         @submit="submit"
       >
         <FormulateInput
+          type="datetime-local"
+          name="date"
+          label="date"
+          placeholder="Sample datetime-local placeholder"
+          validation="required"
+        />
+        <FormulateInput
           class="round-input-decorator"
           type="text"
           name="location"
@@ -54,6 +61,7 @@ export default {
         location: '',
         boardgame: '',
         attendees: '',
+        date: '',
       },
     }
   },
@@ -84,11 +92,6 @@ export default {
     this.$store.dispatch('users/getUsers')
   },
   methods: {
-    addElement() {
-      this.attendees.push({
-        value: '',
-      })
-    },
     submit(data) {
       data.user = this.currentUser.id
       return this.$axios('/items/boardgame_dens', {
@@ -97,6 +100,7 @@ export default {
       })
         .then(() => {
           //  TODO: do something
+          this.$router.push('/Gameden')
         })
         .catch((error) => {
           console.log(error.response)
@@ -107,9 +111,6 @@ export default {
           }
           this.formErrors = ['Could not save user, try again']
         })
-    },
-    resetForm(event) {
-      event.target.reset()
     },
   },
 }

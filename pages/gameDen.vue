@@ -15,6 +15,7 @@
             <FormulateErrors />
           </FormulateForm>
         </div>
+        <p>date: {{ game.date }}</p>
         <p>boardgame: {{ game.boardgame.bg_name }}</p>
 
         <p>Location: {{ game.location }}</p>
@@ -62,7 +63,7 @@ export default {
     this.$store.dispatch('users/getUsers')
     this.$axios
       .get(
-        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id.last_name,boargame_dens.id`,
+        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id.last_name,boargame_dens.id,date`,
         {
           headers: { Authorization: '' },
         }
@@ -82,6 +83,7 @@ export default {
       })
         .then(() => {
           //  TODO: do something
+          this.$router.push('/Gameden')
         })
         .catch((error) => {
           console.log(error.response)
