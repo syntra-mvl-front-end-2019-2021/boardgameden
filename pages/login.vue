@@ -1,27 +1,5 @@
 <template>
   <div class="loginPage">
-    <svg
-      class="bigBlueBackground"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 377 435"
-      stroke-linejoin="round"
-    >
-      <path
-        class="blue"
-        d="M188.1 0l188.1 108.6 0 217.2 -188.1 108.6 -188.1-108.6 0-217.2 188.1-108.6Z"
-      />
-    </svg>
-    <svg
-      class="bigOrangeBackground"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 377 435"
-      stroke-linejoin="round"
-    >
-      <path
-        class="orange"
-        d="M188.1 0l188.1 108.6 0 217.2 -188.1 108.6 -188.1-108.6 0-217.2 188.1-108.6Z"
-      />
-    </svg>
     <div class="loginpage_form">
       <h1>Login</h1>
       <form @submit.prevent="login">

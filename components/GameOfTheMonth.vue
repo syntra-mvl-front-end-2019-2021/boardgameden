@@ -8,7 +8,11 @@
         <div class="round-input-border-right"></div>
       </div>
       <div class="month-game__img">
-        <img src="~/assets/images/BrassBIDlx_Boxfront_Orig.jpg" alt="" />
+        <img
+          class="game-img"
+          src="~/assets/images/BrassBIDlx_Boxfront_Orig.jpg"
+          alt="game picture"
+        />
       </div>
       <div class="month-game__details">
         <p>
@@ -17,6 +21,7 @@
           scelerisque semper. Proin sit amet enim eget leo venenatis mattis id
           non dolor.
         </p>
+        <button class="button-link__orange">Get it!</button>
       </div>
     </div>
   </div>
@@ -40,14 +45,8 @@ export default {
   padding-top: 5rem;
   min-height: 700px;
   justify-content: space-around;
-
-  .month-game__img {
-    height: 300px;
-    width: 300px;
-    img {
-      width: 100%;
-      height: 100%;
-    }
+  h2 {
+    margin-bottom: 2em;
   }
   .month-game {
     width: 60%;
@@ -56,6 +55,7 @@ export default {
     @include flexCenter();
     justify-content: space-between;
     position: relative;
+    flex-wrap: wrap;
     .round-input-decorator {
       position: absolute;
       top: -1rem;
@@ -94,10 +94,54 @@ export default {
       border-bottom: none;
     }
     &__details {
-      width: 50%;
+      width: 60%;
+      margin: auto;
 
       max-width: 75ch;
     }
+  }
+}
+.month-game__img {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  padding: 2em;
+  margin: 1em;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px 0 rgba(171, 171, 171, 0.2);
+  -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.2);
+  -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.2);
+  overflow: hidden;
+  &:hover {
+    img {
+      opacity: 0.6;
+    }
+    .button-link__game {
+      font-size: 2.3em;
+    }
+  }
+  img {
+    display: inline-block;
+    position: absolute;
+    z-index: -5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: all 0.2s;
+    object-fit: contain;
+  }
+  .button-link__orange {
+    display: block;
+    margin: 2em 0 0 0;
+  }
+  .button-link__game {
+    color: white;
+    font-size: 2em;
+    font-weight: $bold;
+    margin: 0.7em 0;
+    display: block;
+    text-shadow: 3px 3px 3px $black;
+    transition: $transition-normal;
   }
 }
 </style>
