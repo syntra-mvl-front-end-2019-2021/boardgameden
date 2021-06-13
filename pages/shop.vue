@@ -39,9 +39,9 @@
             :title="game.boardgames_id.bg_name"
             :user="game.users_id.first_name"
             :gb-id="game.boardgames_id.bg_atlas_id"
-            :thumburl="game.boardgames_id.bg_image"
-            :buyOrSwap="'buy'"
-            :forSaleOrSwap="'For Sale'"
+            :thumburl="game.boardgames_id.bg_thumb_url"
+            :buy-or-swap="'buy'"
+            :for-sale-or-swap="'For Sale'"
           />
         </div>
       </div>
@@ -53,9 +53,9 @@
             :title="game.boardgames_id.bg_name"
             :user="game.users_id.first_name"
             :gb-id="game.boardgames_id.bg_atlas_id"
-            :thumburl="game.boardgames_id.bg_image"
-            :buyOrSwap="'swap'"
-            :forSaleOrSwap="'For swap'"
+            :thumburl="game.boardgames_id.bg_thumb_url"
+            :buy-or-swap="'swap'"
+            :for-sale-or-swap="'For swap'"
           />
         </div>
       </div>

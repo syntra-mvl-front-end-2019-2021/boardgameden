@@ -1,115 +1,151 @@
 <template>
   <section class="game-page">
     <h2>Game Page</h2>
-    <div :key="game.id" class="game">
-      <div class="game-image">
-        <img :src="game.image_url" alt="" />
-        <p>Players &#128101; {{ game.min_players }} - {{ game.max_players }}</p>
-        <p>
-          Playtime &#128337; {{ game.min_playtime }} -
-          {{ game.max_playtime }} min
-        </p>
-        <p>Rating &#127942;</p>
-        <p>Username 💻</p>
-        <p>Location &#127969;</p>
-      </div>
-      <div class="game-details">
-        <h3>{{ game.name }}</h3>
-        <p>{{ game.description_preview }}</p>
-        <div class="game-btns">
-          <button type="button" class="play-btn button-link__orange">
-            PLAY
-          </button>
-          <div class="collection-btns">
-            <button type="button" class="swap-btn button-link__orange">
-              SWAP!
+    <div v-if="atlasGame">
+      <div class="game">
+        <div class="game-image">
+          <img :src="atlasGame.image_url" alt="" />
+          <p>
+            Players &#128101; {{ atlasGame.min_players }} -
+            {{ atlasGame.max_players }}
+          </p>
+          <p>
+            Playtime &#128337; {{ atlasGame.min_playtime }} -
+            {{ atlasGame.max_playtime }} min
+          </p>
+          <p>Rating:</p>
+          <p>Username 💻</p>
+          <p>Location &#127969;</p>
+        </div>
+        <div class="game-details">
+          <h3>{{ atlasGame.name }}</h3>
+          <p>{{ atlasGame.description_preview }}</p>
+          <div class="game-btns">
+            <button type="button" class="play-btn button-link__orange">
+              PLAY
             </button>
-            <button type="button" class="buy-btn button-link__orange">
-              BUY!
-            </button>
+            <div class="collection-btns">
+              <button
+                v-if="showAddToCollection"
+                type="button"
+                class="buy-btn button-link__orange"
+                @click="addgame"
+              >
+                {{ addingGame ? '....' : 'Add Game to collection' }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="shop-wrapper">
-      <div class="shop-wrapper__row">
-        <h3>For swap:</h3>
-        <div class="shop-wrapper__row--grid">
-          <ShopItem
-            v-for="games in getGamesForSwap"
-            :key="games.id"
-            :title="games.boardgames_id.bg_name"
-            :user="games.users_id.first_name"
-            :gb-id="games.boardgames_id.bg_atlas_id"
-            :thumburl="games.boardgames_id.bg_image"
-          />
-        </div>
-      </div>
-      <div class="shop-wrapper__row">
-        <h3>For sale:</h3>
-        <div class="shop-wrapper__row--grid">
-          <ShopItem
-            v-for="games in getGamesForSale"
-            :key="games.id"
-            :title="games.boardgames_id.bg_name"
-            :user="games.users_id.first_name"
-            :gb-id="games.boardgames_id.bg_atlas_id"
-            :thumburl="games.boardgames_id.bg_image"
-          />
-        </div>
+      <UserBuys v-if="$auth.loggedIn" />
+      <div v-else class="game-login__form">
+        <NuxtLink to="/login" class="game-login__form--message"
+          >log in to see who's selling</NuxtLink
+        >
       </div>
     </div>
+    <div v-else>Fetching game....</div>
   </section>
 </template>
 
 <script>
-import ShopItem from '@/components/ShopItem.vue'
+import UserBuys from '@/components/User_buy.vue'
 export default {
   name: 'GamePage',
-  components: { ShopItem },
-
+  components: { UserBuys },
   data() {
     return {
-      // baseURL: 'GB_URL',
-      game: {},
+      addingGame: false,
+      loading: false,
+      game: null,
+      atlasGame: null,
+      isActive: true,
+      isActiveBuy: false,
+      isActiveSwap: false,
     }
   },
-  fetch() {
-    this.$store.dispatch('boardgames/getGamesForSale')
-    this.$store.dispatch('boardgames/getGamesForSwap')
-  },
   computed: {
-    getGamesForSale() {
-      return this.$store.state.boardgames.gamesForSale.filter((games) => {
-        return games.boardgames_id.bg_atlas_id.match(this.$route.params.id)
-      })
+    isLoggedIn() {
+      return this.$auth.loggedIn
     },
-    getGamesForSwap() {
-      return this.$store.state.boardgames.gamesForSwap.filter((games) => {
-        return games.boardgames_id.bg_atlas_id.match(this.$route.params.id)
-      })
+    showAddToCollection() {
+      if (!this.isLoggedIn) {
+        return false
+      }
+
+      const filteredGames = this.$auth.user.boardgames.filter(
+        (bg) => bg.boardgames_id.id === parseInt(this.$route.params.id)
+      )
+      return filteredGames.length === 0
+    },
+    user() {
+      return this.$auth.user
     },
   },
   created() {
-    this.$axios(this.$config.gbURL + '/search', {
-      params: {
-        client_id: this.$config.gbClientId,
-        ids: this.$route.params.id,
-      },
-    })
-      .then((response) => {
+    this.fetchGame()
+  },
+  methods: {
+    addgame() {
+      this.addingGame = true
+      this.$axios('/items/boardgames_directus_users', {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json',
+        },
+        data: {
+          boardgames_id: this.game.id,
+          users_id: this.$auth.user.id,
+          is_swappable: false,
+          is_for_sale: false,
+        },
+      })
+        .then(() => {
+          return this.resetUser()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        .finally(() => {
+          this.addingGame = false
+        })
+    },
+    resetUser() {
+      return this.$axios('/users/me?fields=*.*.*')
+        .then((response) => {
+          this.$auth.setUser(response.data.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
+    fetchGame() {
+      this.loading = true
+      this.$axios('/items/boardgames/' + this.$route.params.id)
+        .then((response) => {
+          this.game = response.data.data
+          return this.fetchAtlasGame(response.data.data.bg_atlas_id)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
+    fetchAtlasGame(id) {
+      return this.$axios(this.$config.gbURL + '/search', {
+        params: {
+          client_id: this.$config.gbClientId,
+          ids: id,
+        },
+      }).then((response) => {
         if (!response.data.games) {
           throw new Error('could not find game')
         }
-        this.game = response.data.games[0]
-        console.log('data=' + response.data.games[0])
+        this.atlasGame = response.data.games[0]
       })
-      .catch((e) => {
-        console.error(e)
-      })
-      .finally(() => {
-        this.loading = false
-      })
+    },
   },
 }
 </script>
@@ -117,7 +153,6 @@ export default {
 <style lang="scss">
 .game-page {
   text-align: center;
-
   h2 {
     margin-bottom: 3rem;
     animation: moveIn 5s;
@@ -132,6 +167,7 @@ export default {
   padding: 2rem;
   border: solid 3px $bluegreen;
   border-radius: 20px;
+  position: relative;
 
   .game-image {
     width: 35%;
@@ -203,19 +239,5 @@ export default {
 .button-link__orange:hover {
   background-color: $orange;
   color: white;
-}
-.shop-wrapper {
-  display: flex;
-  flex-direction: column;
-  margin: 3em 0;
-  &__row {
-    width: 100%;
-    &--grid {
-      display: flex;
-      width: 100%;
-      margin: 2em 0;
-      flex-wrap: wrap;
-    }
-  }
 }
 </style>

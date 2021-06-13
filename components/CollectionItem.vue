@@ -1,22 +1,21 @@
 <template>
-  <!-- <div>
-    <strong>{{ game.bg_atlas_id }}</strong>
-  </div> -->
-  <div v-if="game">
-    <img class="game-img" :src="game.thumb_url" alt="game.name" />
-    <p class="game-title">{{ game.gbId }}</p>
-    <h3 class="game-title">{{ game.name }}</h3>
-    <div class="shop-item">
-      <div>
+  <div>
+    <!-- <h3 class="game-title">{{ game.bg_name }}</h3> -->
+    <div class="collection-item">
+      <button type="button" class="remove_btn" @click="removeFromCollection">
+        X
+      </button>
+      <div class="collection-item_card">
+        <h4 class="game-title">{{ game.bg_name }}</h4>
         <img
           class="game-img"
-          :src="game.image_url"
+          :src="game.bg_thumb_url"
           alt="game picture"
-          width="300px"
-          height="300px"
+          width="auto"
+          height="150px"
         />
         <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
-          {{ game.name }}
+          More Info
         </NuxtLink>
       </div>
     </div>
@@ -26,35 +25,71 @@
 <script>
 export default {
   name: 'CollectionItem',
-  middleware: 'auth',
   props: {
     game: {
       type: Object,
       required: true,
     },
-    title: { type: String, required: true },
-    user: { type: String, required: true },
-    gbId: { type: String, required: true },
-    thumburl: { type: String, required: true },
+    userGameId: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
-    return {
-      games: [],
-    }
+    return {}
   },
-  created() {
-    this.$axios
-      .get(
-        `https://www.boardgameatlas.com/api/game/${this.game.bg_atlas_id}/basegame?client_id=KrUdcULOvp`,
-        {
-          headers: { Authorization: '' },
-        }
-      )
-      .then((response) => {
-        console.log(response)
+  methods: {
+    removeFromCollection() {
+      this.$axios('items/boardgames_directus_users/' + this.userGameId, {
+        method: 'DELETE',
       })
+        .then(() => {
+          return this.resetUser()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        .finally(() => {
+          // this.addingGame = false
+        })
+    },
+    resetUser() {
+      return this.$axios('/users/me?fields=*.*.*')
+        .then((response) => {
+          this.$auth.setUser(response.data.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    },
   },
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.remove_btn {
+  margin: -50px 130px;
+  padding: 0;
+  width: 10px;
+  height: 20px;
+  text-align: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: $orange;
+  font-size: 2em;
+}
+.collection-item {
+  width: 200px;
+  border: solid $orange 1px;
+  border-radius: 10px;
+  padding: 2em;
+  margin: 1em;
+
+  &_card {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+  }
+}
+</style>
