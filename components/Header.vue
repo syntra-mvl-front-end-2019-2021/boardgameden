@@ -22,6 +22,9 @@
           }"
           @click="openDropDown"
         >
+          <NuxtLink to="/">
+            <img src="~/assets/images/logoStripped.png" />
+          </NuxtLink>
           <NuxtLink to="/">Home</NuxtLink>
           <NuxtLink to="/shop">Shop</NuxtLink>
           <NuxtLink to="/gameDen">PLAY!</NuxtLink>
@@ -32,6 +35,9 @@
     </div>
     <div class="inner_header container">
       <nav class="inner_header--nav-items">
+        <NuxtLink to="/">
+          <img src="~/assets/images/logoStripped.png" />
+        </NuxtLink>
         <NuxtLink to="/">Home</NuxtLink>
         <NuxtLink to="/shop">Shop</NuxtLink>
         <NuxtLink to="/gameDen">PLAY!</NuxtLink>
@@ -87,6 +93,9 @@ export default {
         document.body.style.overflow = 'auto'
       }
     },
+  },
+  created() {
+    console.log('route = ' + this.$route.name)
   },
 }
 </script>
