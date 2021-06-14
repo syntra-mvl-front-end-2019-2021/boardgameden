@@ -144,6 +144,11 @@ export default {
   border-bottom-left-radius: 100px;
   border-bottom-right-radius: 100px;
 
+  .game-img {
+    width: 100px;
+    padding: 1rem;
+  }
+
   &__search {
     width: 100%;
   }

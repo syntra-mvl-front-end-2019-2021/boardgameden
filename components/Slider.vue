@@ -40,15 +40,18 @@ export default {
     }
   },
   computed: {
-    activeSlide() {
-      return this.slides[this.currentSlide]
-    },
-    slidesPerPage() {
-      return Math.round(this.sliderWidth / this.slideWidth)
-    },
-    numberOfPages() {
-      return this.slides.length + 1 - this.slidesPerPage
-    },
+    // activeSlide() {
+    //   return this.slides[this.currentSlide]
+    // },
+    // slidesPerPage() {
+    //   return Math.round(this.sliderWidth / this.slideWidth)
+    // },
+    // numberOfPages() {
+    //   return this.slides.length + 1 - this.slidesPerPage
+    // },
+    // sortedGames() {
+    //   return this.slides.sort()
+    // },
   },
   watch: {
     games(newVal) {
@@ -61,6 +64,7 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.calcWidths)
+    this.sortGames()
   },
   unmounted() {
     window.removeEventListener('resize', this.calcWidths)
@@ -91,6 +95,10 @@ export default {
       if (scrollPos % this.slideWidth === 0) {
         this.currentSlide = scrollPos / this.slideWidth
       }
+    },
+    sortGames() {
+      console.log('hallo')
+      console.log(typeof this.games)
     },
   },
 }

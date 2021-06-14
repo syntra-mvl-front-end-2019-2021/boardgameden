@@ -40,6 +40,16 @@ export default {
       return this.$auth.loggedIn
     },
   },
+  // watch: {
+  //   sortedGames() {
+  //     return this.games.sort(function (a, b) {
+  //       const aSort = a.date_created
+  //       const bSort = b.date_created
+  //       console.log(a)
+  //       return aSort - bSort
+  //     })
+  //   },
+  // },
   created() {
     this.$axios('/items/boardgames')
       .then((response) => {
