@@ -15,7 +15,6 @@
       <button class="button-link__orange" @click="openModal">
         Get it from
       </button>
-
       <h1>{{ user }}</h1>
     </div>
 
@@ -27,7 +26,6 @@
       }"
     >
       <div
-        v-if="$auth.loggedIn"
         :class="{
           'shop-modal__form': true,
           hidden: submit,
@@ -238,7 +236,7 @@ export default {
 
 .user-item {
   width: 200px;
-  height: 200px;
+  // height: 200px;
   position: relative;
   padding: 2em;
   margin: 1em;
@@ -272,6 +270,8 @@ export default {
   }
   &__get {
     h1 {
+      // margin-top: 4.5rem;
+      width: 100%;
       font-size: 1.5em;
       color: $orange;
     }
