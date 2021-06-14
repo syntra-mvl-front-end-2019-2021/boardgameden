@@ -31,15 +31,18 @@
       </button>
     </div>
     <div class="filter-buttons__categories">
-      <div
-        v-for="game in categories"
-        :key="game.id"
-        class="filter-buttons__categories-dropdown"
-      >
-        <div @click="filterBy(game.name, game.bg_atlas_id)">
-          <ul>
-            <li>{{ game.name }}</li>
-          </ul>
+      <div class="filter-buttons__categories-label">
+        <div>
+          <p>{{ newCategory }}</p>
+        </div>
+      </div>
+      <div class="filter-buttons__categories-dropdown">
+        <div v-for="game in categories" :key="game.id">
+          <div @click="filterBy(game.name, game.bg_atlas_id)">
+            <ul>
+              <li>{{ game.name }}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -130,20 +133,6 @@ export default {
   },
   watch: {},
   created() {
-    /*
-    this.$axios(this.$config.gbURL + '/search', {
-      params: {
-        client_id: this.$config.gbClientId,
-      },
-    })
-      .then((response) => {
-        this.atlasGames = response.data.games
-        console.log(this.atlasGames)
-      })
-      .catch((e) => {
-        console.error(e)
-      })
-    */
     this.$axios('/items/category')
       .then((response) => {
         this.categories = response.data.data
@@ -207,19 +196,33 @@ export default {
   }
 }
 .filter-buttons__categories {
-  width: 200px;
-  margin: auto;
-  background-color: $bluegreen;
-  height: 300px;
-  overflow-y: scroll;
+  width: 100%;
+  &-label {
+    display: block;
+    margin: auto;
+    left: 0;
+    right: 0;
+    div {
+      border: $black solid 1px;
+      display: inline-block;
+      margin: auto;
+    }
+  }
   &-dropdown {
-    button {
-      background-color: white;
-      border: 1px solid $black;
-      margin: 0;
-      display: block;
-      width: 100%;
-      padding: 1em 0;
+    width: 200px;
+    margin: auto;
+    background-color: $bluegreen;
+    height: 300px;
+    overflow-y: scroll;
+    &-dropdown {
+      button {
+        background-color: white;
+        border: 1px solid $black;
+        margin: 0;
+        display: block;
+        width: 100%;
+        padding: 1em 0;
+      }
     }
   }
 }
