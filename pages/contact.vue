@@ -1,6 +1,6 @@
 <template>
   <section class="c-contactPage">
-    <Logo />
+    <!-- <Logo /> -->
     <div class="c-contactPage__form">
       <h1>Contact</h1>
       <form @submit.prevent="createQuestion" @submit="resetForm">
@@ -55,10 +55,10 @@
   </section>
 </template>
 <script>
-import Logo from '~/components/Logo'
+// import Logo from '~/components/Logo'
 export default {
-  name: 'Faqquestion',
-  components: { Logo },
+  name: 'Contact',
+  // components: { Logo },
 
   data() {
     return {
@@ -108,7 +108,7 @@ export default {
 <style lang="scss">
 .c-contactPage {
   @include flexCenter();
-  max-width: 100%;
+  width: 100%;
   height: 100vh;
   margin: auto;
   background: linear-gradient(rgba(129, 203, 235, 0.767), #ffffff 100%);
@@ -163,7 +163,7 @@ export default {
 
         .round-input-label-text {
           font-size: 0.8em;
-          color: rgb(98, 196, 238);
+          color: black;
           padding: 0 4px;
           transform: translate(0, -8px);
           white-space: nowrap;
@@ -224,7 +224,7 @@ export default {
 
         .round-input-label-text {
           font-size: 0.8em;
-          color: rgb(98, 196, 238);
+          color: black;
           padding: 0 4px;
           transform: translate(0, -8px);
           white-space: nowrap;
@@ -271,30 +271,6 @@ export default {
       &:focus {
         box-shadow: 1px 1px 3px 0 rgba(129, 203, 235);
       }
-    }
-  }
-  .bigBlueBackground {
-    position: absolute;
-    width: 700px;
-    height: 700px;
-    left: -5rem;
-    top: -25rem;
-    transform: rotate(135deg);
-    .blue {
-      fill: rgba(129, 203, 235);
-      width: 500px;
-      height: 500px;
-    }
-  }
-  .bigOrangeBackground {
-    position: absolute;
-    top: -20rem;
-    right: 15rem;
-    width: 500px;
-    height: 500px;
-    transform: rotate(-135deg);
-    .orange {
-      fill: #ea5b30be;
     }
   }
 }
