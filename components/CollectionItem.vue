@@ -62,9 +62,6 @@ export default {
     userId() {
       return this.$auth.user.id
     },
-    user() {
-      return this.$auth.user
-    },
   },
 
   methods: {
@@ -97,6 +94,7 @@ export default {
         },
       })
         .then(() => {
+          this.notifyUserSwap()
           return this.resetUser()
         })
         .catch((error) => {
@@ -114,6 +112,7 @@ export default {
         },
       })
         .then(() => {
+          this.notifyUserSell()
           return this.resetUser()
         })
         .catch((error) => {
@@ -176,8 +175,5 @@ export default {
     flex-direction: column;
     padding: 0.5em;
   }
-  // &_btn {
-  //   // display: flex;
-  // }
 }
 </style>

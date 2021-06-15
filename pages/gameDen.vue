@@ -4,40 +4,18 @@
       <h2>EVENT</h2>
       <div v-for="game in results" :key="game.id" class="avent">
         <div>
-          <!--
           <span
             v-for="attendee in game.attendees"
             :key="'at_' + attendee.users_id"
           >
-            {{ attendee.users_id }},
+            {{ attendee.users_id.last_name }},
           </span>
-          -->
-
           <button type="button" @click="attend(game)">Attend</button>
-
-          <FormulateForm :form-errors="formErrors" @submit="submit">
-            <FormulateInput
-              type="group"
-              name="attendees"
-              :repeatable="true"
-              label=""
-              add-label="+ Add Attendee"
-              :value="game.attendees"
-            >
-              <FormulateInput
-                :options="usersOptions"
-                type="select"
-                placeholder="Select an attendees"
-                name="users_id"
-                label="attendee"
-                value="users_id"
-              />
-            </FormulateInput>
-            <FormulateInput :value="game.id" type="hidden" name="gameId" />
+          <FormulateForm>
             <FormulateErrors />
-            <FormulateInput name="submit" type="submit" />
           </FormulateForm>
         </div>
+        <p>date: {{ game.date | transformdate }}</p>
         <p>boardgame: {{ game.boardgame.bg_name }}</p>
 
         <p>Location: {{ game.location }}</p>
@@ -54,6 +32,19 @@
 <script>
 export default {
   name: 'Gameden',
+  filters: {
+    transformdate(value) {
+      const myDate = new Date(value)
+
+      return (
+        myDate.getDate().toString().padStart(2, 0) +
+        '-' +
+        (myDate.getMonth() + 1).toString().padStart(2, 0) +
+        '-' +
+        myDate.getFullYear()
+      )
+    },
+  },
   middleware: 'auth',
   data() {
     return {
@@ -63,7 +54,6 @@ export default {
       formData: [
         {
           attendees: '',
-          gameId: '',
         },
       ],
     }
@@ -86,7 +76,7 @@ export default {
     this.$store.dispatch('users/getUsers')
     this.$axios
       .get(
-        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id,boargame_dens.id`,
+        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id.last_name,boargame_dens.id,date`,
         {
           headers: { Authorization: '' },
         }
@@ -100,10 +90,13 @@ export default {
     attend(game) {
       return this.$axios('/items/boardgame_dens/' + game.id, {
         method: 'PATCH',
-        data: { attendees: { create: [{ users_id: this.$auth.user.id }] } },
+        data: {
+          attendees: { create: [{ users_id: this.$auth.user.id }] },
+        },
       })
         .then(() => {
           //  TODO: do something
+          this.$router.push('/Gameden')
         })
         .catch((error) => {
           console.log(error.response)
@@ -117,7 +110,7 @@ export default {
     },
     submit(data) {
       data.user = this.currentUser.id
-      return this.$axios('/items/boardgame_dens/' + data.gameId, {
+      return this.$axios('/items/boardgame_dens/' + game.id, {
         method: 'PATCH',
         data,
       })

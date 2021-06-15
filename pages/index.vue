@@ -8,7 +8,9 @@
           There are <span>#</span> players in <span>{{ location }}</span>
         </h1>
       </div>
-      <button class="players_join" @click="notify">Join them!</button>
+      <NuxtLink to="/gameDen" class="players_join" @click="notify"
+        >Join them!</NuxtLink
+      >
     </div>
     <GameOfTheMonth />
     <section class="c-collection">
@@ -75,6 +77,8 @@ export default {
     font-size: 1.2rem;
     font-weight: bold;
     color: #ea5c30;
+    display: block;
+    padding: 0.5rem 1rem;
   }
 }
 .c-collection {
