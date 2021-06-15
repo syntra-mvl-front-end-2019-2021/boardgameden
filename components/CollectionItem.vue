@@ -6,14 +6,14 @@
         <button
           type="button"
           class="remove_btn"
-          @click="addGameForSwap(game.id, userId, isSwappable)"
+          @click="addGameForSwap(game.id, userId, isActiveSwap)"
         >
           S
         </button>
         <button
           type="button"
           class="remove_btn"
-          @click="addGameForSale(game.id, userId, isSellable)"
+          @click="addGameForSale(game.id, userId, isActiveBuy)"
         >
           S
         </button>
@@ -53,8 +53,8 @@ export default {
   },
   data() {
     return {
-      isSwappable: false,
-      isSellable: false,
+      isActiveBuy: false,
+      isActiveSwap: false,
     }
   },
   computed: {
@@ -82,7 +82,7 @@ export default {
         this.game.bg_name + 'was successfully added to the For Sale list.'
       )
     },
-    addGameForSwap(gameId, userGameId, swappable) {
+    addGameForSwap(gameId, userGameId, isActiveSwap) {
       console.log(gameId, userGameId, this.game.is_swappable)
       this.$axios('items/boardgames_directus_users/' + this.game.is_swappable, {
         method: 'PATCH',
@@ -98,13 +98,13 @@ export default {
           // this.addingGame = false
         })
     },
-    addGameForSale(gameId, userGameId, sellable) {
-      console.log(gameId, userGameId, this.game.is_forSale)
-      this.$axios('items/boardgames_directus_users/' + this.game.is_forSale, {
+    addGameForSale(gameId, userGameId, isActiveBuy) {
+      console.log(gameId, userGameId, this.game.is_for_sale)
+      this.$axios('items/boardgames_directus_users/' + this.game.is_for_sale, {
         method: 'PATCH',
       })
         .then(() => {
-          this.user.game.is_sellable = true
+          this.user.game.is_for_sale = true
           return this.resetUser()
         })
         .catch((error) => {
