@@ -1,7 +1,7 @@
 <template>
-  <div v-if="$auth.loggedIn" class="shop-wrapper">
+  <div class="shop-wrapper">
     <div class="shop-wrapper__row">
-      <h3>Buy:</h3>
+      <h3>Buy</h3>
       <div class="shop-wrapper__row--grid">
         <User
           v-for="games in getGamesForSale"
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="shop-wrapper__row">
-      <h3>Swap:</h3>
+      <h3>Swap</h3>
       <div class="shop-wrapper__row--grid">
         <User
           v-for="games in getGamesForSwap"
@@ -49,12 +49,12 @@ export default {
   computed: {
     getGamesForSale() {
       return this.$store.state.boardgames.gamesForSale.filter((games) => {
-        return games.boardgames_id.bg_atlas_id.match(this.$route.params.id)
+        return games.id === parseInt(this.$route.params.id)
       })
     },
     getGamesForSwap() {
       return this.$store.state.boardgames.gamesForSwap.filter((games) => {
-        return games.boardgames_id.bg_atlas_id.match(this.$route.params.id)
+        return games.id === parseInt(this.$route.params.id)
       })
     },
   },

@@ -7,7 +7,7 @@
           id="search"
           v-model="searchQuery"
           type="text"
-          placeholder="Search for adventure"
+          placeholder="Search your game"
           name="search"
           autocomplete="off"
           @input="submit"
@@ -24,15 +24,28 @@
             'c-autocomplete__dropdown--loading': searching,
           }"
         >
-          <NuxtLink
+          <div
             v-for="game in games"
             :key="game.id"
             class="c-autocomplete__dropdown-item"
-            :to="'/game/' + game.id"
+            @click="addgame(game)"
           >
-            <img class="game-img" :src="game.bg_thumb_url" alt="game picture" />
-            {{ game.bg_name }}
-          </NuxtLink>
+            <img
+              class="game-img"
+              :src="game.thumb_url"
+              alt="game picture"
+              width="50px"
+              height="50px"
+            />
+            {{ game.name }}
+            <button
+              :key="game.id"
+              type="button"
+              class="add-btn button-link__orange"
+            >
+              {{ addingGame ? '....' : 'Add' }}
+            </button>
+          </div>
         </div>
       </div>
     </form>
@@ -41,11 +54,12 @@
 
 <script>
 export default {
-  name: 'HomepageSearch',
+  name: 'AtlasSearch',
 
   data() {
     return {
       games: [],
+      addingGame: false,
       searchQuery: '',
       timeOut: null,
       searching: false,
@@ -54,6 +68,53 @@ export default {
   },
   created() {},
   methods: {
+    addgame(game) {
+      return this.$axios('/items/boardgames', {
+        method: 'GET',
+        params: {
+          filter: {
+            bg_atlas_id: {
+              _eq: game.id,
+            },
+          },
+        },
+      })
+        .then((response) => {
+          if (response.data.data.length > 0) {
+            return response.data.data[0].id
+          }
+
+          return this.$axios('/items/boardgames', {
+            method: 'POST',
+            data: {
+              bg_atlas_id: game.id,
+              bg_name: game.name,
+              bg_description: game.description_preview,
+              bg_min_players: game.min_players,
+              bg_max_players: game.max_players,
+              bg_min_playtime: game.min_playtime,
+              bg_max_playtime: game.max_playtime,
+              bg_atlas_rank: game.rank,
+              bg_thumb_url: game.thumb_url,
+            },
+            header: {
+              'Content-Type': 'application/json',
+            },
+          }).then((response) => {
+            // console.log(result)
+            return response.data.data.id
+          })
+        })
+        .then((directusId) => {
+          this.addingGame = false
+          console.log(directusId)
+          this.$router.push('/game/' + directusId)
+        })
+        .catch((error) => {
+          this.addingGame = false
+          console.error(error)
+        })
+    },
     submit() {
       if (this.timeOut) {
         clearTimeout(this.timeOut)
@@ -72,20 +133,21 @@ export default {
 
     searchGames() {
       this.searching = true
-      this.$axios('/items/boardgames', {
-        method: 'GET',
-        params: {
-          filter: {
-            bg_name: {
-              _contains:
-                this.searchQuery.charAt(0).toUpperCase() +
-                this.searchQuery.slice(1),
-            },
+      this.$axios(
+        'http://phpstack-266425-1848208.cloudwaysapps.com/api/search',
+        {
+          method: 'GET',
+          params: {
+            name: this.searchQuery,
+            client_id: 'KrUdcULOvp',
+            limit: 15,
+            fuzzy_match: true,
           },
-        },
-      })
+        }
+      )
         .then((result) => {
-          this.games = result.data.data
+          // console.log(result.data.games)
+          this.games = result.data.games
           this.noResult = this.games.length === 0
         })
         .catch((error) => {
@@ -102,6 +164,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.add-btn {
+  margin-left: auto;
+}
 .s-search {
   @include flexCenter();
   position: relative;
@@ -147,12 +212,18 @@ export default {
   &__search {
     width: 100%;
   }
+  &__city,
+  &__radius {
+    width: 20%;
+  }
   &__dropdown {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     background-color: white;
+    max-height: 400px;
+    overflow-y: auto;
 
     &--loading {
       min-height: 2rem;
@@ -192,8 +263,7 @@ export default {
       display: flex;
       justify-content: first baseline;
       align-items: center;
-      width: 100px;
-      height: 100px;
+      width: 100%;
       // padding: 0.5rem 1rem;
       text-align: left;
       border: none;
@@ -203,8 +273,8 @@ export default {
       border-bottom-right-radius: 15px;
       img {
         margin-right: 10rem;
-        width: 100%;
-
+        // width: 100px;
+        // height: 100px;
         border-bottom-left-radius: 15px;
       }
     }
@@ -216,7 +286,7 @@ export default {
     font-size: 1rem;
     cursor: pointer;
     border: none;
-    color: white;
+    color: black;
     outline: none;
     background: none;
   }

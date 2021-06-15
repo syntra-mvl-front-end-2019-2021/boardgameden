@@ -4,22 +4,13 @@
       class="c-slider__slides__btn c-slider__slides__btn--left"
       @click="clickLeft"
     ></button>
-    <div
-      v-if="atlasGames"
-      ref="slider"
-      class="c-slider__slides-container"
-      @scroll="sliderScroll"
-    >
+    <div ref="slider" class="c-slider__slides-container" @scroll="sliderScroll">
       <div
-        v-for="atlasGame in atlasGames"
-        :key="atlasGame.id"
+        v-for="game in games.slice(0, 10)"
+        :key="1 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
-        <GameComp
-          :atlas-id="atlasGame.id"
-          :atlas-name="atlasGame.name"
-          :atlas-source="atlasGame.image_url"
-        />
+        <GameComp :game="game" />
       </div>
     </div>
     <button
@@ -30,21 +21,24 @@
 </template>
 
 <script>
-import GameComp from '../components/GameComp.vue'
+import GameComp from '~/components/GameComp.vue'
 
 export default {
   name: 'Slider',
   components: { GameComp },
+  props: {
+    games: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       sliderWidth: 0,
       slideWidth: 0,
       currentSlide: 0,
-      atlasGames: [],
-      loading: true,
     }
   },
-
   computed: {
     activeSlide() {
       return this.slides[this.currentSlide]
@@ -56,7 +50,6 @@ export default {
       return this.slides.length + 1 - this.slidesPerPage
     },
   },
-
   watch: {
     games(newVal) {
       this.$nextTick(() => {
@@ -71,33 +64,6 @@ export default {
   },
   unmounted() {
     window.removeEventListener('resize', this.calcWidths)
-  },
-  created() {
-    this.$axios(
-      'http://phpstack-266425-1848208.cloudwaysapps.com/api/search/',
-      {
-        params: {
-          client_id: this.$config.gbClientId,
-          ids: this.$route.params.id,
-        },
-      }
-    )
-      .then((response) => {
-        // console.log(response.data)
-        if (!response.data.games) {
-          throw new Error('could not find game')
-        }
-        this.atlasGames = response.data.games
-        console.log(this.atlasGames)
-        console.log(this.loading)
-      })
-      .catch((e) => {
-        // console.error(e)
-      })
-      .finally(() => {
-        this.loading = false
-        console.log(this.loading)
-      })
   },
   methods: {
     calcWidths() {
