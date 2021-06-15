@@ -2,9 +2,25 @@
   <div>
     <!-- <h3 class="game-title">{{ game.bg_name }}</h3> -->
     <div class="collection-item">
-      <button type="button" class="remove_btn" @click="removeFromCollection">
-        X
-      </button>
+      <div class="collection-item_btn">
+        <button
+          type="button"
+          class="remove_btn"
+          @click="addGameForSwap(game.id, userId, isSwappable)"
+        >
+          S
+        </button>
+        <button
+          type="button"
+          class="remove_btn"
+          @click="addGameForSale(game.id, userId, isSellable)"
+        >
+          S
+        </button>
+        <button type="button" class="remove_btn" @click="removeFromCollection">
+          X
+        </button>
+      </div>
       <div class="collection-item_card">
         <h4 class="game-title">{{ game.bg_name }}</h4>
         <img
@@ -36,14 +52,74 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      isSwappable: false,
+      isSellable: false,
+    }
   },
+  computed: {
+    userId() {
+      return this.$auth.user.id
+    },
+  },
+
   methods: {
+    notifyUserRemove() {
+      this.$root.$emit(
+        'notify',
+        this.game.bg_name + 'was successfully removed from your collection.'
+      )
+    },
+    notifyUserSwap() {
+      this.$root.$emit(
+        'notify',
+        this.game.bg_name + 'was successfully added to the SWAP list.'
+      )
+    },
+    notifyUserSell() {
+      this.$root.$emit(
+        'notify',
+        this.game.bg_name + 'was successfully added to the For Sale list.'
+      )
+    },
+    addGameForSwap(gameId, userGameId, swappable) {
+      console.log(gameId, userGameId, this.game.is_swappable)
+      this.$axios('items/boardgames_directus_users/' + this.game.is_swappable, {
+        method: 'PATCH',
+      })
+        .then(() => {
+          this.user.game.is_swappable = true
+          return this.resetUser()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        .finally(() => {
+          // this.addingGame = false
+        })
+    },
+    addGameForSale(gameId, userGameId, sellable) {
+      console.log(gameId, userGameId, this.game.is_forSale)
+      this.$axios('items/boardgames_directus_users/' + this.game.is_forSale, {
+        method: 'PATCH',
+      })
+        .then(() => {
+          this.user.game.is_sellable = true
+          return this.resetUser()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        .finally(() => {
+          // this.addingGame = false
+        })
+    },
     removeFromCollection() {
       this.$axios('items/boardgames_directus_users/' + this.userGameId, {
         method: 'DELETE',
       })
         .then(() => {
+          this.notifyUserRemove()
           return this.resetUser()
         })
         .catch((error) => {
@@ -90,6 +166,9 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 0.5em;
+  }
+  &_btn {
+    // display: flex;
   }
 }
 </style>

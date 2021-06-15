@@ -9,6 +9,13 @@
         :user-game-id="game.id"
       />
     </div>
+    <h1>Your Dens</h1>
+
+    <p>
+      <NuxtLink class="button-link__orange" to="/event"
+        >register event</NuxtLink
+      >
+    </p>
   </div>
 </template>
 
@@ -20,6 +27,22 @@ export default {
     games() {
       return this.$auth.user.boardgames
     },
+    dens() {
+      return this.$auth.user.items.boardgame_dens
+    },
+  },
+  created() {
+    this.$axios
+      .get(
+        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id,boargame_dens.id`,
+        {
+          headers: { Authorization: '' },
+        }
+      )
+      .then((response) => {
+        console.log(this.results)
+        this.results = response.data.data
+      })
   },
 }
 </script>
