@@ -6,6 +6,14 @@
     </div>
     <h1>Your Dens</h1>
 
+    <div class="collection_container">
+      <DenCollectionItem
+        v-for="den in dens"
+        :key="'dens_' + den.id"
+        :den="den"
+      />
+    </div>
+
     <p>
       <NuxtLink class="button-link__orange" to="/event"
         >register event</NuxtLink
@@ -16,28 +24,19 @@
 
 <script>
 import CollectionItem from '~/components/CollectionItem'
+import DenCollectionItem from '~/components/DenCollectionItem'
 export default {
-  components: { CollectionItem },
+  components: { CollectionItem, DenCollectionItem },
   computed: {
     games() {
       return this.$auth.user.boardgames
     },
     dens() {
-      return this.$auth.user.items.boardgame_dens
+      return this.$auth.user.boardgame_den
     },
-  },
-  created() {
-    this.$axios
-      .get(
-        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id,boargame_dens.id`,
-        {
-          headers: { Authorization: '' },
-        }
-      )
-      .then((response) => {
-        console.log(this.results)
-        this.results = response.data.data
-      })
+    user() {
+      return this.$auth.user
+    },
   },
 }
 </script>
