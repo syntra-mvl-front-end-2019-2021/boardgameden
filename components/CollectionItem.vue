@@ -73,17 +73,17 @@ export default {
     notifyUserSwap() {
       this.$root.$emit(
         'notify',
-        this.game.bg_name + 'was successfully added to the SWAP list.'
+        this.game.bg_name + 'was successfully added to your SWAP list.'
       )
     },
     notifyUserSell() {
       this.$root.$emit(
         'notify',
-        this.game.bg_name + 'was successfully added to the For Sale list.'
+        this.game.bg_name + 'was successfully added to the your SELL list.'
       )
     },
     addGameForSwap(gameId, userGameId, isSwappable) {
-      console.log(gameId, userGameId, this.data.game.is_swappable)
+      console.log(gameId, userGameId, this.game.is_swappable)
       this.$axios('items/boardgames_directus_users/' + this.game.is_swappable, {
         method: 'PATCH',
       })
@@ -167,8 +167,8 @@ export default {
     flex-direction: column;
     padding: 0.5em;
   }
-  &_btn {
-    // display: flex;
-  }
+  // &_btn {
+  //   // display: flex;
+  // }
 }
 </style>
