@@ -4,16 +4,18 @@
     <div class="collection-item">
       <div class="collection-item_btn">
         <button
+          v-if="!game.is_swappable"
           type="button"
           class="remove_btn"
-          @click="addGameForSwap(game.id, userId, game.is_swappable)"
+          @click="addGameForSwap()"
         >
           Swap
         </button>
         <button
+          v-if="!game.is_for_sale"
           type="button"
           class="remove_btn"
-          @click="addGameForSale(game.id, userId, game.is_for_sale)"
+          @click="addGameForSale()"
         >
           Sell
         </button>
@@ -22,15 +24,18 @@
         </button>
       </div>
       <div class="collection-item_card">
-        <h4 class="game-title">{{ game.bg_name }}</h4>
+        <h4 class="game-title">{{ game.boardgames_id.bg_name }}</h4>
         <img
           class="game-img"
-          :src="game.bg_thumb_url"
+          :src="game.boardgames_id.bg_thumb_url"
           alt="game picture"
           width="auto"
           height="150px"
         />
-        <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
+        <NuxtLink
+          :to="'/game/' + game.boardgames_id.id"
+          class="button-link__orange"
+        >
           More Info
         </NuxtLink>
       </div>
@@ -46,10 +51,6 @@ export default {
       type: Object,
       required: true,
     },
-    userGameId: {
-      type: Number,
-      required: true,
-    },
   },
   data() {
     return {
@@ -61,34 +62,41 @@ export default {
     userId() {
       return this.$auth.user.id
     },
+    user() {
+      return this.$auth.user
+    },
   },
 
   methods: {
     notifyUserRemove() {
       this.$root.$emit(
         'notify',
-        this.game.bg_name + 'was successfully removed from your collection.'
+        this.game.boardgames_id.bg_name +
+          'was successfully removed from your collection.'
       )
     },
     notifyUserSwap() {
       this.$root.$emit(
         'notify',
-        this.game.bg_name + 'was successfully added to your SWAP list.'
+        this.game.boardgames_id.bg_name +
+          'was successfully added to your SWAP list.'
       )
     },
     notifyUserSell() {
       this.$root.$emit(
         'notify',
-        this.game.bg_name + 'was successfully added to the your SELL list.'
+        this.game.boardgames_id.bg_name +
+          'was successfully added to the your SELL list.'
       )
     },
-    addGameForSwap(gameId, userGameId, isSwappable) {
-      console.log(gameId, userGameId, this.game.is_swappable)
-      this.$axios('items/boardgames_directus_users/' + this.game.is_swappable, {
+    addGameForSwap() {
+      this.$axios('items/boardgames_directus_users/' + this.game.id, {
         method: 'PATCH',
+        data: {
+          is_swappable: true,
+        },
       })
         .then(() => {
-          this.user.game.is_swappable = true
           return this.resetUser()
         })
         .catch((error) => {
@@ -98,13 +106,14 @@ export default {
           // this.addingGame = false
         })
     },
-    addGameForSale(gameId, userGameId, isForSale) {
-      console.log(gameId, userGameId, this.game.is_for_sale)
-      this.$axios('items/boardgames_directus_users/' + this.game.is_for_sale, {
+    addGameForSale() {
+      this.$axios('items/boardgames_directus_users/' + this.game.id, {
         method: 'PATCH',
+        data: {
+          is_for_sale: true,
+        },
       })
         .then(() => {
-          this.user.game.is_for_sale = true
           return this.resetUser()
         })
         .catch((error) => {
@@ -115,7 +124,7 @@ export default {
         })
     },
     removeFromCollection() {
-      this.$axios('items/boardgames_directus_users/' + this.userGameId, {
+      this.$axios('items/boardgames_directus_users/' + this.game.id, {
         method: 'DELETE',
       })
         .then(() => {

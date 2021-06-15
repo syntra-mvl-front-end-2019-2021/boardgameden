@@ -2,12 +2,7 @@
   <div class="collection">
     <h1>Your collection</h1>
     <div class="collection_container">
-      <CollectionItem
-        v-for="game in games"
-        :key="game.id"
-        :game="game.boardgames_id"
-        :user-game-id="game.id"
-      />
+      <CollectionItem v-for="game in games" :key="game.id" :game="game" />
     </div>
     <h1>Your Dens</h1>
 
