@@ -2,6 +2,13 @@
   <div>
     <!-- <h3 class="game-title">{{ game.bg_name }}</h3> -->
     <div class="collection-item">
+      <button
+        type="button"
+        class="remove_btn"
+        @click="addGameForSwap(game.id, userId)"
+      >
+        S
+      </button>
       <button type="button" class="remove_btn" @click="removeFromCollection">
         X
       </button>
@@ -34,16 +41,47 @@ export default {
       type: Number,
       required: true,
     },
+    isSwappable: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {}
   },
+  computed: {
+    userId() {
+      return this.$auth.user.id
+    },
+  },
   methods: {
+    notifyUserRemove() {
+      this.$root.$emit(
+        'notify',
+        this.game.bg_name + 'was successfully removed from your collection.'
+      )
+    },
+    notifyUserSwap() {
+      this.$root.$emit(
+        'notify',
+        this.game.bg_name + 'was successfully added to the SWAP list.'
+      )
+    },
+    notifyUserSell() {
+      this.$root.$emit(
+        'notify',
+        this.game.bg_name + 'was successfully added to the For Sale list.'
+      )
+    },
+    addGameForSwap(gameId, userGameId) {
+      console.log(gameId, userGameId)
+    },
     removeFromCollection() {
       this.$axios('items/boardgames_directus_users/' + this.userGameId, {
         method: 'DELETE',
       })
         .then(() => {
+          this.notifyUserRemove()
           return this.resetUser()
         })
         .catch((error) => {
