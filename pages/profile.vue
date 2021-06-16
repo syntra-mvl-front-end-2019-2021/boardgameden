@@ -1,21 +1,24 @@
 <template>
   <section class="container">
+    <h2>Welcome, {{ user.user_name }}</h2>
     <div class="profile">
-      <h2>Welcome, {{ user.user_name }}</h2>
-      <div class="profile_avatar">
-        <img v-if="avatar" :src="avatar" alt="avatar" />
-      </div>
       <div class="profile_content">
-        <div v-if="user" class="profile_content_user">
-          <span>First name: {{ user.first_name }}</span>
-          <span>Last name: {{ user.last_name }}</span>
-          <span>Email: {{ user.email }}</span>
-          <span>Location: {{ user.location }}</span>
-          <NuxtLink to="/edit_profile" class="button-link__orange"
-            >Edit Profile</NuxtLink
-          >
+        <div class="profile_content-avatar">
+          <img v-if="avatar" :src="avatar" alt="avatar" />
+          <div class="profile_edit-button">
+            <NuxtLink to="/edit_profile" class="button-link__orange"
+              >Edit Profile</NuxtLink
+            >
+          </div>
         </div>
+        <ul v-if="user" class="profile_content_user">
+          <li>First name: {{ user.first_name }}</li>
+          <li>Last name: {{ user.last_name }}</li>
+          <li>Email: {{ user.email }}</li>
+          <li>Location: {{ user.location }}</li>
+        </ul>
       </div>
+
       <div class="atlas-search">
         <AtlasSearch />
       </div>
