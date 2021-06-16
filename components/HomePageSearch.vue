@@ -107,7 +107,7 @@ export default {
   position: relative;
   max-width: 700px;
   height: 50px;
-  margin: auto;
+  margin: 5rem auto;
   background: #ea5c30;
   border-radius: 15px;
   padding: 1rem 1rem;
@@ -143,6 +143,11 @@ export default {
   width: 100%;
   border-bottom-left-radius: 100px;
   border-bottom-right-radius: 100px;
+
+  .game-img {
+    width: 100px;
+    padding: 1rem;
+  }
 
   &__search {
     width: 100%;

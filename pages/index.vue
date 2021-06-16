@@ -4,10 +4,15 @@
     <HomePageSearch />
     <div v-if="isLoggedIn" class="players">
       <div class="players_text">
-        <h1>We <span>connect</span> players</h1>
+
+        <h2>
+          Go meet other boardgame enthusiasts and play elsewhere than
+          <span>{{ location }}.</span>
+        </h2>
+
       </div>
       <NuxtLink to="/gameDen" class="players_join" @click="notify"
-        >Join them!</NuxtLink
+        >Join them here!</NuxtLink
       >
     </div>
     <GameOfTheMonth />
@@ -40,6 +45,16 @@ export default {
       return this.$auth.loggedIn
     },
   },
+  // watch: {
+  //   sortedGames() {
+  //     return this.games.sort(function (a, b) {
+  //       const aSort = a.date_created
+  //       const bSort = b.date_created
+  //       console.log(a)
+  //       return aSort - bSort
+  //     })
+  //   },
+  // },
   created() {
     this.$axios('/items/boardgames')
       .then((response) => {
@@ -62,30 +77,50 @@ export default {
 .players {
   @include flexCenter();
   flex-direction: column;
-  height: 250px;
   width: 100%;
+  // height: 450px;
+  background-color: rgba($bluegreen, 0.8);
+  margin: 5rem 0;
+  padding: 3rem 0;
+
   &_text {
     margin: auto;
+    width: 50%;
+    text-align: center;
+    margin-bottom: 2rem;
+
+    h2 {
+      color: white;
+
+      span {
+        color: $orange;
+      }
+    }
   }
   &_join {
-    width: 150px;
-    height: 50px;
-    background: transparent;
-    border: 2px solid #ea5c30;
+    text-align: center;
+    background-color: $orange;
+    border-radius: 5px;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #ea5c30;
+    color: white;
     display: block;
-    padding: 0.5rem 1rem;
+    padding: 1rem 4rem;
+    transition: all 0.8s ease-in-out;
+
+    &:hover {
+      background-color: white;
+      color: $orange;
+    }
   }
 }
 .c-collection {
-  // width: 90%;
   @include flexCenter();
   flex-direction: column;
   justify-content: space-around;
-  padding: 2rem 0 4rem;
-  // height: 750px;
+
+  padding: 6rem 0 10rem;
+
   margin: 10rem auto;
   background-color: rgba($orange, 0.8);
   transform: skewY(-7deg);
@@ -93,6 +128,14 @@ export default {
   h2 {
     transform: skewY(7deg);
     color: $bluegreen;
+  }
+}
+
+@media screen and (max-width: $medium) {
+  .players_text {
+    h2 {
+      font-size: 36px;
+    }
   }
 }
 </style>
