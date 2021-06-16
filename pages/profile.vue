@@ -1,6 +1,7 @@
 <template>
   <section class="container">
     <h2><span>Welcome, </span> {{ user.user_name }}</h2>
+
     <div class="profile">
       <div class="profile_content">
         <div class="profile_content-avatar">
@@ -76,6 +77,7 @@ h2 {
   span {
     color: $blue;
   }
+
 }
 .profile {
   margin: auto;

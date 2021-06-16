@@ -82,6 +82,7 @@ export default {
   computed: {
     getGamesForSale() {
       return this.$store.state.boardgames.gamesForSale.filter((game) => {
+        console.log(game.boardgames_id.bg_name.match(this.$route.query.search))
         return game.boardgames_id.bg_name.match(this.$route.query.search)
       })
     },

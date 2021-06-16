@@ -63,6 +63,7 @@ export default {
   text-align: center;
   h1 {
     color: $blue;
+    margin: 2em 0 1em;
   }
   &_container_den {
     @include flexCenter();
@@ -72,6 +73,7 @@ export default {
     flex-wrap: wrap;
     width: 90%;
     padding-top: 4rem;
+
   }
 }
 </style>

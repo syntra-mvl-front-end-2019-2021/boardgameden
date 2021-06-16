@@ -37,22 +37,14 @@
           </div>
         </div>
       </div>
-      <UserBuys v-if="$auth.loggedIn" />
-      <div v-else class="game-login__form">
-        <NuxtLink to="/login" class="game-login__form--message"
-          ><span>Log in</span> to see who's selling</NuxtLink
-        >
-      </div>
     </div>
     <div v-else>Fetching game....</div>
   </section>
 </template>
 
 <script>
-import UserBuys from '@/components/User_buy.vue'
 export default {
   name: 'GamePage',
-  components: { UserBuys },
   data() {
     return {
       addingGame: false,

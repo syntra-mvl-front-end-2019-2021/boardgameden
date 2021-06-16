@@ -2,6 +2,7 @@
   <div class="shop-item">
     <div>
       <span class="shop-item__label">{{ forSaleOrSwap }}</span>
+      <span class="shop-item__label-from">from {{ user }}</span>
       <NuxtLink :to="'/game/' + gbId" class="button-link__game">
         {{ title }}
       </NuxtLink>
@@ -256,12 +257,23 @@ export default {
     font-weight: $normal;
     line-height: 1em;
   }
+  &__label-from {
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5em;
+    background-color: $blue;
+    font-size: 1em;
+    font-weight: $bold;
+    line-height: 1em;
+  }
   &:hover {
     img {
       opacity: 0.6;
     }
     .button-link__game {
-      font-size: 2.3em;
+      font-size: 1.8em;
     }
   }
   img {
@@ -278,7 +290,7 @@ export default {
   }
   .button-link__game {
     color: white;
-    font-size: 2em;
+    font-size: 1.6em;
     font-weight: $bold;
     margin: 0.7em 0;
     display: block;

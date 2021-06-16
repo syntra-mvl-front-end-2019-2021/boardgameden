@@ -21,22 +21,7 @@
         </button>
       </div>
       <h4 class="game-title">{{ game.boardgames_id.bg_name }}</h4>
-      <div class="collection-item_card">
-        <div class="game-image">
-          <img
-            class="game-img_item"
-            :src="game.boardgames_id.bg_thumb_url"
-            alt="game picture"
-          />
-        </div>
 
-        <NuxtLink
-          :to="'/game/' + game.boardgames_id.id"
-          class="button-link__orange"
-        >
-          More Info
-        </NuxtLink>
-      </div>
       <div class="remove_btns">
         <button type="button" class="remove_btn" @click="removeFromCollection">
           Remove
@@ -58,6 +43,7 @@
           Remove Sale
         </button>
       </div>
+
     </div>
   </div>
 </template>
@@ -248,6 +234,7 @@ export default {
       background-color: white;
       color: $orange;
     }
+
   }
 }
 
@@ -268,14 +255,9 @@ export default {
     @include flexCenter();
     height: 30px;
 
-    width: 100%;
-    background-color: $orange;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    .sell_btn,
-    .swap_btn {
-      width: 100%;
+
       cursor: pointer;
+
 
       height: 100%;
       border-radius: unset;
