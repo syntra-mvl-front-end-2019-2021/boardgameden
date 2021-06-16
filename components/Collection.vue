@@ -73,7 +73,6 @@ export default {
     flex-wrap: wrap;
     width: 90%;
     padding-top: 4rem;
-
   }
 }
 </style>

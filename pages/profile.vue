@@ -77,7 +77,6 @@ h2 {
   span {
     color: $blue;
   }
-
 }
 .profile {
   margin: auto;
