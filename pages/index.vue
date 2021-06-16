@@ -4,9 +4,7 @@
     <HomePageSearch />
     <div v-if="isLoggedIn" class="players">
       <div class="players_text">
-        <h1>
-          There are <span>#</span> players in <span>{{ location }}</span>
-        </h1>
+        <h1>We <span>connect</span> players</h1>
       </div>
       <NuxtLink to="/gameDen" class="players_join" @click="notify"
         >Join them!</NuxtLink
