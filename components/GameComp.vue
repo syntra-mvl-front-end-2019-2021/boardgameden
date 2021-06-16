@@ -4,7 +4,7 @@
     <div v-if="!loading && atlasGame" class="game-comp__content">
       <div class="game-comp__content">
         <img class="game-img" :src="atlasGame.thumb_url" alt="game.name" />
-        <h4 class="game-title">{{ game.bg_name }}</h4>
+        <h5 class="game-title">{{ game.bg_name }}</h5>
         <NuxtLink :to="'/game/' + game.id" class="button-link__orange">
           More Info
         </NuxtLink>
@@ -65,30 +65,32 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 1rem;
+    text-align: center;
 
-    h4 {
+    h5 {
       margin-bottom: 1.5rem;
+    }
+
+    .button-link__orange {
+      background-color: rgba($orange, 0.8);
+      color: white;
+      border: none;
+      padding: 0.5rem 2rem;
     }
   }
 
   &:hover {
     transform: translateY(-10px);
-    outline: 0.5rem solid $orange;
-    border: none;
+    // outline: 0.5rem solid $orange;
+    // border: none;
   }
   .game-img {
     height: 100%;
     width: 100%;
     max-width: 250px;
-    max-height: 250px;
+    max-height: 220px;
     margin-bottom: 1rem;
-  }
-
-  @media screen and (max-width: $medium) {
-    .game-img {
-      max-width: 300px;
-      max-height: 300px;
-    }
   }
 
   .game-title {
