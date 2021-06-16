@@ -84,7 +84,7 @@ export default {
   @include flexCenter();
   flex-direction: column;
   justify-content: space-around;
-  padding: 6rem 0 10rem;
+  padding: 2rem 0 4rem;
   // height: 750px;
   margin: 10rem auto;
   background-color: rgba($orange, 0.8);
