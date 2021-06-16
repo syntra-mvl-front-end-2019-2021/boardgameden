@@ -38,7 +38,7 @@
             :key="game.id"
             :title="game.boardgames_id.bg_name"
             :user="game.users_id.first_name"
-            :gb-id="game.boardgames_id.bg_atlas_id"
+            :gb-id="game.boardgames_id.id"
             :thumburl="game.boardgames_id.bg_thumb_url"
             :buy-or-swap="'buy'"
             :for-sale-or-swap="'For Sale'"
@@ -52,7 +52,7 @@
             :key="game.id"
             :title="game.boardgames_id.bg_name"
             :user="game.users_id.first_name"
-            :gb-id="game.boardgames_id.bg_atlas_id"
+            :gb-id="game.boardgames_id.id"
             :thumburl="game.boardgames_id.bg_thumb_url"
             :buy-or-swap="'swap'"
             :for-sale-or-swap="'For swap'"
@@ -82,6 +82,7 @@ export default {
   computed: {
     getGamesForSale() {
       return this.$store.state.boardgames.gamesForSale.filter((game) => {
+        console.log(game.boardgames_id.bg_name.match(this.$route.query.search))
         return game.boardgames_id.bg_name.match(this.$route.query.search)
       })
     },
