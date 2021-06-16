@@ -24,12 +24,10 @@
       </NuxtLink>
     </div>
   </section>
-
 </template>
 <script>
 // import Logo from '~/components/Logo'
 export default {
-
   name: 'Contact',
 
   // components: { Logo },
@@ -94,7 +92,6 @@ export default {
   margin-bottom: 18rem;
 }
 .c-contactPage {
-
   .not-logged-in {
     position: absolute;
     left: 0;
@@ -141,7 +138,6 @@ export default {
         width: 380px;
         @media screen and (max-width: $large) {
           width: 100%;
-
         }
       }
       input,
@@ -164,13 +160,12 @@ export default {
       }
       ::placeholder {
         color: $black;
-
-      } 
-
-      &:hover {
-        background-color: $orange;
-        color: white;
       }
+
+      // &:hover {
+      //   background-color: $orange;
+      //   color: white;
+      // }
     }
   }
 }
