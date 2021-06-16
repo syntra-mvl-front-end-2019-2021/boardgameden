@@ -1,6 +1,7 @@
 <template>
   <section class="container">
-    <h2>Welcome, {{ user.user_name }}</h2>
+    <h2><span>Welcome, </span> {{ user.user_name }}</h2>
+
     <div class="profile">
       <div class="profile_content">
         <div class="profile_content-avatar">
@@ -72,7 +73,11 @@ export default {
 .form__search__collection {
   @include flexCenter();
 }
-
+h2 {
+  span {
+    color: $blue;
+  }
+}
 .profile {
   margin: auto;
   @include flexCenter();

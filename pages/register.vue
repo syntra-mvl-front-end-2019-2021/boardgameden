@@ -1,27 +1,5 @@
 <template>
   <main>
-    <svg
-      class="bigBlueBackground"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 377 435"
-      stroke-linejoin="round"
-    >
-      <path
-        class="blue"
-        d="M188.1 0l188.1 108.6 0 217.2 -188.1 108.6 -188.1-108.6 0-217.2 188.1-108.6Z"
-      />
-    </svg>
-    <svg
-      class="bigOrangeBackground"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 377 435"
-      stroke-linejoin="round"
-    >
-      <path
-        class="orange"
-        d="M188.1 0l188.1 108.6 0 217.2 -188.1 108.6 -188.1-108.6 0-217.2 188.1-108.6Z"
-      />
-    </svg>
     <div class="registerPage_form">
       <h1>Register</h1>
       <FormulateForm
@@ -51,7 +29,6 @@
               validation-name="Confirm Password"
               validation="required|confirm:password"
             />
-            <div class="addIMG"></div>
           </div>
           <div class="formulate-form__inputs__names">
             <FormulateInput
@@ -148,7 +125,6 @@ main {
   @include flexCenter();
 
   width: 100%;
-  // height: 100vh;
   padding-top: 7rem;
   position: relative;
   .registerPage_form {
@@ -173,11 +149,6 @@ main {
         height: 100%;
         @include flexCenter();
         justify-content: space-between;
-        .addIMG {
-          width: 100%;
-          height: 400px;
-          background: #ea5d30;
-        }
         .formulate-input {
           // height: 30px;
           font-size: 1em;
@@ -207,7 +178,8 @@ main {
           // margin-top: auto;
           @include flexCenter();
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: space-evenly;
+          margin-bottom: auto;
         }
         &__names {
           margin-bottom: auto;

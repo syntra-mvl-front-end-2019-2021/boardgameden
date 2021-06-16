@@ -26,10 +26,10 @@
   </section>
 </template>
 <script>
-import Logo from '~/components/Logo'
+// import Logo from '~/components/Logo'
 export default {
-  name: 'Faqquestion',
-  components: { Logo },
+  name: 'Contact',
+  // components: { Logo },
 
   data() {
     return {
@@ -179,3 +179,4 @@ export default {
   }
 }
 </style>
+
