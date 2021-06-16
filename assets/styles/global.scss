@@ -28,11 +28,11 @@ body {
       padding: 0.5em 1em;
       border-radius: 5px;
       color: $black;
-      background-color: #fff;
+      background-color: none;
       transition: $transition-normal;
     }
 
-    .button-link__black:hover{
+    .button-link__black:hover {
       background-color: $orange;
     }
 
@@ -47,6 +47,7 @@ body {
       border-radius: 5px;
       color: $orange;
       transition: $transition-normal;
+      cursor: pointer;
     }
 
     .button-link__orange:hover {

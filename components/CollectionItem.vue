@@ -6,7 +6,7 @@
         <button
           v-if="!game.is_swappable"
           type="button"
-          class="remove_btn"
+          class="swap_btn"
           @click="addGameForSwap()"
         >
           Swap
@@ -14,30 +14,49 @@
         <button
           v-if="!game.is_for_sale"
           type="button"
-          class="remove_btn"
+          class="sell_btn"
           @click="addGameForSale()"
         >
           Sell
         </button>
-        <button type="button" class="remove_btn" @click="removeFromCollection">
-          X
-        </button>
       </div>
+      <h4 class="game-title">{{ game.boardgames_id.bg_name }}</h4>
       <div class="collection-item_card">
-        <h4 class="game-title">{{ game.boardgames_id.bg_name }}</h4>
-        <img
-          class="game-img"
-          :src="game.boardgames_id.bg_thumb_url"
-          alt="game picture"
-          width="auto"
-          height="150px"
-        />
+        <div class="game-image">
+          <img
+            class="game-img_item"
+            :src="game.boardgames_id.bg_thumb_url"
+            alt="game picture"
+          />
+        </div>
+
         <NuxtLink
           :to="'/game/' + game.boardgames_id.id"
           class="button-link__orange"
         >
           More Info
         </NuxtLink>
+      </div>
+      <div class="remove_btns">
+        <button type="button" class="remove_btn" @click="removeFromCollection">
+          Remove
+        </button>
+        <button
+          v-if="game.is_swappable"
+          type="button"
+          class="remove_btn"
+          @click="removeGameForSwap()"
+        >
+          Remove Swap
+        </button>
+        <button
+          v-if="game.is_for_sale"
+          type="button"
+          class="remove_btn"
+          @click="removeGameForSale()"
+        >
+          Remove Sale
+        </button>
       </div>
     </div>
   </div>
@@ -69,21 +88,35 @@ export default {
       this.$root.$emit(
         'notify',
         this.game.boardgames_id.bg_name +
-          'was successfully removed from your collection.'
+          ' was successfully removed from your collection.'
       )
     },
     notifyUserSwap() {
       this.$root.$emit(
         'notify',
         this.game.boardgames_id.bg_name +
-          'was successfully added to your SWAP list.'
+          ' was successfully added to your SWAP collection.'
+      )
+    },
+    notifyUserRemoveSwap() {
+      this.$root.$emit(
+        'notify',
+        this.game.boardgames_id.bg_name +
+          ' was successfully removed off your SWAP collection.'
       )
     },
     notifyUserSell() {
       this.$root.$emit(
         'notify',
         this.game.boardgames_id.bg_name +
-          'was successfully added to the your SELL list.'
+          ' was successfully added to the your SELL collection.'
+      )
+    },
+    notifyUserRemoveSell() {
+      this.$root.$emit(
+        'notify',
+        this.game.boardgames_id.bg_name +
+          ' was successfully removed off your SELL collection.'
       )
     },
     addGameForSwap() {
@@ -104,6 +137,24 @@ export default {
           // this.addingGame = false
         })
     },
+    removeGameForSwap() {
+      this.$axios('items/boardgames_directus_users/' + this.game.id, {
+        method: 'PATCH',
+        data: {
+          is_swappable: false,
+        },
+      })
+        .then(() => {
+          this.notifyUserRemoveSwap()
+          return this.resetUser()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        .finally(() => {
+          // this.addingGame = false
+        })
+    },
     addGameForSale() {
       this.$axios('items/boardgames_directus_users/' + this.game.id, {
         method: 'PATCH',
@@ -113,6 +164,24 @@ export default {
       })
         .then(() => {
           this.notifyUserSell()
+          return this.resetUser()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+        .finally(() => {
+          // this.addingGame = false
+        })
+    },
+    removeGameForSale() {
+      this.$axios('items/boardgames_directus_users/' + this.game.id, {
+        method: 'PATCH',
+        data: {
+          is_for_sale: false,
+        },
+      })
+        .then(() => {
+          this.notifyUserRemoveSell()
           return this.resetUser()
         })
         .catch((error) => {
@@ -151,29 +220,98 @@ export default {
 </script>
 
 <style lang="scss">
-.remove_btn {
-  margin: -50px 130px;
-  padding: 0;
-  width: 10px;
-  height: 20px;
-  text-align: center;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: $orange;
-  font-size: 2em;
+.remove_btns {
+  width: 100%;
+  @include flexCenter();
+  border-top: 1px solid $orange;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: $orange;
+
+  .remove_btn {
+    cursor: pointer;
+
+    width: 100%;
+    height: 100%;
+    border-radius: unset;
+    color: white;
+    background-color: $orange;
+    border: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 1em 1.5em;
+    transition: $transition-normal;
+    font-size: 0.7em;
+    // font-weight: bold;
+    // font-style: italic;
+    &:hover {
+      background-color: white;
+      color: $orange;
+    }
+  }
 }
+
 .collection-item {
-  width: 200px;
+  flex: 1 1 600px;
+  width: 300px;
   border: solid $orange 1px;
   border-radius: 10px;
-  padding: 2em;
   margin: 1em;
+  height: 600px;
+  @include flexCenter();
+  justify-content: space-between;
+  flex-direction: column;
+  h4 {
+    font-size: 1.2em;
+  }
+  &_btn {
+    @include flexCenter();
+    height: 30px;
 
+    width: 100%;
+    background-color: $orange;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    .sell_btn,
+    .swap_btn {
+      width: 100%;
+      cursor: pointer;
+
+      height: 100%;
+      border-radius: unset;
+      color: white;
+      background-color: $orange;
+      border: none;
+      // border-bottom: 1px solid $orange;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      transition: $transition-normal;
+      font-size: 1.2em;
+      &:hover {
+        background-color: white;
+        color: $orange;
+      }
+    }
+  }
   &_card {
-    display: flex;
+    @include flexCenter();
+    justify-content: space-evenly;
     flex-direction: column;
-    padding: 0.5em;
+    height: 75%;
+
+    .game-image {
+      @include flexCenter();
+
+      width: 200px;
+      max-height: 300px;
+      height: 300px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        object-fit: fill;
+        object-position: right bottom;
+      }
+    }
   }
 }
 </style>

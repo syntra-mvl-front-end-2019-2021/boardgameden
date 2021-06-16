@@ -4,10 +4,12 @@
     <HomePageSearch />
     <div v-if="isLoggedIn" class="players">
       <div class="players_text">
+
         <h2>
           Go meet other boardgame enthusiasts and play elsewhere than
           <span>{{ location }}.</span>
         </h2>
+
       </div>
       <NuxtLink to="/gameDen" class="players_join" @click="notify"
         >Join them here!</NuxtLink
@@ -116,7 +118,9 @@ export default {
   @include flexCenter();
   flex-direction: column;
   justify-content: space-around;
+
   padding: 6rem 0 10rem;
+
   margin: 10rem auto;
   background-color: rgba($orange, 0.8);
   transform: skewY(-7deg);
