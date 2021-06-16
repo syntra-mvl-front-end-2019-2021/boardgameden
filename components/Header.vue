@@ -133,6 +133,7 @@ header.navigation-background__colored {
   -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
 }
 header {
+  background-color: white;
   transition: all 0.3s ease-in-out;
   position: fixed;
   z-index: 10000;

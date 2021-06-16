@@ -24,11 +24,14 @@
       </NuxtLink>
     </div>
   </section>
+
 </template>
 <script>
 // import Logo from '~/components/Logo'
 export default {
+
   name: 'Contact',
+
   // components: { Logo },
 
   data() {
@@ -84,7 +87,14 @@ export default {
 </script>
 
 <style lang="scss">
+.bg-col {
+  // background: linear-gradient(rgba(129, 203, 235, 0.767), #ffffff 100%);
+  background-color: rgba($bluegreen, 0.8);
+  transform: skewY(-20deg);
+  margin-bottom: 18rem;
+}
 .c-contactPage {
+
   .not-logged-in {
     position: absolute;
     left: 0;
@@ -104,6 +114,7 @@ export default {
     position: absolute;
     opacity: 0.3;
   }
+
   &__form {
     position: absolute;
     top: 200px;
@@ -111,6 +122,7 @@ export default {
     text-align: center;
     width: 700px;
     flex: 1;
+
     @media screen and (max-width: $large) {
       top: 100px;
     }
@@ -129,6 +141,7 @@ export default {
         width: 380px;
         @media screen and (max-width: $large) {
           width: 100%;
+
         }
       }
       input,
@@ -142,6 +155,7 @@ export default {
         border-radius: 5px;
         border-bottom: 1px solid $orange;
         width: 100%;
+
         margin: 2em 0;
         padding: 1em;
         font-weight: $normal;
@@ -150,31 +164,40 @@ export default {
       }
       ::placeholder {
         color: $black;
+
+      } 
+
+      &:hover {
+        background-color: $orange;
+        color: white;
       }
     }
   }
-  .bigBlueBackground {
-    position: absolute;
-    width: 700px;
-    height: 700px;
-    left: -5rem;
-    top: -25rem;
-    transform: rotate(135deg);
-    .blue {
-      fill: rgba(129, 203, 235);
-      width: 500px;
-      height: 500px;
+}
+
+@media screen and (max-width: $large) {
+  .round-input-names {
+    display: flex;
+    flex-direction: column;
+    .round-input {
+      width: 100% !important;
+      min-width: 200px;
     }
   }
-  .bigOrangeBackground {
-    position: absolute;
-    top: -20rem;
-    right: 15rem;
-    width: 500px;
-    height: 500px;
-    transform: rotate(-135deg);
-    .orange {
-      fill: #ea5b30be;
+
+  .round-input-decorator {
+    min-width: 200px;
+  }
+
+  .round-input-container {
+    min-width: 200px;
+  }
+
+  .c-contactPage__form {
+    form {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
   }
 }
