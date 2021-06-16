@@ -4,59 +4,60 @@
     <div class="collection-item">
       <div class="collection-item_btn">
         <button
-          v-if="!game.is_for_sale"
-          type="button"
-          class="button-link__orange"
-          @click="addGameForSale()"
-        >
-          Sell
-        </button>
-        <button
           v-if="!game.is_swappable"
           type="button"
-          class="button-link__orange"
+          class="swap_btn"
           @click="addGameForSwap()"
         >
           Swap
         </button>
+        <button
+          v-if="!game.is_for_sale"
+          type="button"
+          class="sell_btn"
+          @click="addGameForSale()"
+        >
+          Sell
+        </button>
       </div>
+      <h4 class="game-title">{{ game.boardgames_id.bg_name }}</h4>
       <div class="collection-item_card">
-        <h4 class="game-title">{{ game.boardgames_id.bg_name }}</h4>
-        <img
-          class="game-img"
-          :src="game.boardgames_id.bg_thumb_url"
-          alt="game picture"
-          width="auto"
-          height="150px"
-        />
+        <div class="game-image">
+          <img
+            class="game-img_item"
+            :src="game.boardgames_id.bg_thumb_url"
+            alt="game picture"
+          />
+        </div>
+
         <NuxtLink
           :to="'/game/' + game.boardgames_id.id"
-          class="button-link__orange collectionItemBtn"
+          class="button-link__orange"
         >
           More Info
         </NuxtLink>
       </div>
-      <p v-if="game.is_swappable" class="label">
-        Swappable<button
+      <div class="remove_btns">
+        <button type="button" class="remove_btn" @click="removeFromCollection">
+          Remove
+        </button>
+        <button
           v-if="game.is_swappable"
           type="button"
-          class="removeSale_btn"
+          class="remove_btn"
           @click="removeGameForSwap()"
         >
-          X
+          Remove Swappable
         </button>
-      </p>
-      <p v-if="game.is_for_sale" class="label">
-        For Sale
         <button
           v-if="game.is_for_sale"
           type="button"
-          class="removeSale_btn"
+          class="remove_btn"
           @click="removeGameForSale()"
         >
-          X
+          Remove Sale
         </button>
-      </p>
+      </div>
     </div>
   </div>
 </template>
@@ -219,125 +220,98 @@ export default {
 </script>
 
 <style lang="scss">
-// .removeSale_btn {
-//   color: white;
-//   border: none;
-//   background-color: $orange;
-//   cursor: pointer;
-// }
-// .label {
-//   border-color: $orange;
-//   border: 1px solid;
-//   border-radius: 5px;
-//   background: $orange;
-//   color: white;
-//   font-size: 1.5em;
-//   width: 100px;
-// }
-// .collectionItemBtn {
-//   margin: 20px;
-// }
-// .game-img {
-//   height: 150px;
-//   width: 150px;
-// }
-// .game-title {
-//   text-align: center;
-//   height: 4em;
-// }
-// .remove_btn {
-//   margin: -90px 150px;
-//   padding-bottom: 40px;
-//   // width: 20px;
-//   // height: 30px;
-//   text-align: center;
-//   border: none;
-//   background: none;
-//   cursor: pointer;
-//   color: $orange;
-//   font-size: 3em;
-// }
-// .collection-item {
-//   height: 450px;
-//   width: 200px;
-//   border: solid $orange 1px;
-//   border-radius: 10px;
-//   padding: 1em;
-//   margin: 1em;
-
-//   &_card {
-//     display: flex;
-//     flex-direction: column;
-//     align-content: center;
-//     // padding: 1em;
-//   }
-
-//   &_btn {
-//     // margin-bottom: 10px;
-//     padding: 5px;
-//     font-size: 0.5em;
-//     text-align: center;
-//   }
-// }
-
-.removeSale_btn {
-  color: white;
-  border: none;
+.remove_btns {
+  width: 100%;
+  @include flexCenter();
+  border-top: 1px solid $orange;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   background-color: $orange;
-  cursor: pointer;
+
+  .remove_btn {
+    cursor: pointer;
+
+    width: 100%;
+    height: 100%;
+    border-radius: unset;
+    color: white;
+    background-color: $orange;
+    border: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 1em 1.5em;
+    transition: $transition-normal;
+    font-size: 0.7em;
+    // font-weight: bold;
+    // font-style: italic;
+    &:hover {
+      background-color: white;
+      color: $orange;
+    }
+  }
 }
-.label {
-  border-color: $orange;
-  border: 1px solid;
-  border-radius: 5px;
-  background: $orange;
-  color: white;
-  font-size: 1.5em;
-  width: 100px;
-}
-.collectionItemBtn {
-  margin: 20px;
-}
-.game-img {
-  height: 150px;
-  width: 150px;
-}
-.game-title {
-  text-align: center;
-  height: 4em;
-}
-.remove_btn {
-  margin: -90px 150px;
-  padding-bottom: 40px;
-  // width: 20px;
-  // height: 30px;
-  text-align: center;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: $orange;
-  font-size: 3em;
-}
+
 .collection-item {
-  height: 450px;
-  width: 200px;
+  flex: 1 1 600px;
+  width: 300px;
   border: solid $orange 1px;
   border-radius: 10px;
-  padding: 1em;
   margin: 1em;
-
-  &_card {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    // padding: 1em;
+  height: 600px;
+  @include flexCenter();
+  justify-content: space-between;
+  flex-direction: column;
+  h4 {
+    font-size: 1.2em;
   }
-
   &_btn {
-    // margin-bottom: 10px;
-    padding: 5px;
-    font-size: 0.5em;
-    text-align: center;
+    @include flexCenter();
+    height: 30px;
+
+    width: 100%;
+    background-color: $orange;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    .sell_btn,
+    .swap_btn {
+      width: 100%;
+      cursor: pointer;
+
+      height: 100%;
+      border-radius: unset;
+      color: white;
+      background-color: $orange;
+      border: none;
+      // border-bottom: 1px solid $orange;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      transition: $transition-normal;
+      font-size: 1.2em;
+      &:hover {
+        background-color: white;
+        color: $orange;
+      }
+    }
+  }
+  &_card {
+    @include flexCenter();
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 75%;
+
+    .game-image {
+      @include flexCenter();
+
+      width: 200px;
+      max-height: 300px;
+      height: 300px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        object-fit: fill;
+        object-position: right bottom;
+      }
+    }
   }
 }
 </style>
