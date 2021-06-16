@@ -3,30 +3,21 @@
     <!-- <h3 class="game-title">{{ game.bg_name }}</h3> -->
     <div class="collection-item">
       <div class="collection-item_btn">
-        <p v-if="game.is_swappable" class="label">
-          Swappable<button
-            v-if="game.is_swappable"
-            type="button"
-            class="removeSale_btn"
-            @click="removeGameForSwap()"
-          >
-            X
-          </button>
-        </p>
-        <p v-if="game.is_for_sale" class="label">
-          For Sale
-          <button
-            v-if="game.is_for_sale"
-            type="button"
-            class="removeSale_btn"
-            @click="removeGameForSale()"
-          >
-            X
-          </button>
-        </p>
-
-        <button type="button" class="remove_btn" @click="removeFromCollection">
-          X
+        <button
+          v-if="!game.is_for_sale"
+          type="button"
+          class="button-link__orange"
+          @click="addGameForSale()"
+        >
+          Sell
+        </button>
+        <button
+          v-if="!game.is_swappable"
+          type="button"
+          class="button-link__orange"
+          @click="addGameForSwap()"
+        >
+          Swap
         </button>
       </div>
       <div class="collection-item_card">
@@ -45,22 +36,27 @@
           More Info
         </NuxtLink>
       </div>
-      <button
-        v-if="!game.is_for_sale"
-        type="button"
-        class="button-link__orange"
-        @click="addGameForSale()"
-      >
-        Sell
-      </button>
-      <button
-        v-if="!game.is_swappable"
-        type="button"
-        class="button-link__orange"
-        @click="addGameForSwap()"
-      >
-        Swap
-      </button>
+      <p v-if="game.is_swappable" class="label">
+        Swappable<button
+          v-if="game.is_swappable"
+          type="button"
+          class="removeSale_btn"
+          @click="removeGameForSwap()"
+        >
+          X
+        </button>
+      </p>
+      <p v-if="game.is_for_sale" class="label">
+        For Sale
+        <button
+          v-if="game.is_for_sale"
+          type="button"
+          class="removeSale_btn"
+          @click="removeGameForSale()"
+        >
+          X
+        </button>
+      </p>
     </div>
   </div>
 </template>

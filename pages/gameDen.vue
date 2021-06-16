@@ -110,7 +110,7 @@ export default {
     },
     submit(data) {
       data.user = this.currentUser.id
-      return this.$axios('/items/boardgame_dens/' + game.id, {
+      return this.$axios('/items/boardgame_dens/' + this.game.id, {
         method: 'PATCH',
         data,
       })
