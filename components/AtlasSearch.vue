@@ -38,13 +38,6 @@
               height="50px"
             />
             {{ game.name }}
-            <button
-              :key="game.id"
-              type="button"
-              class="add-btn button-link__orange"
-            >
-              {{ addingGame ? '....' : 'Add' }}
-            </button>
           </div>
         </div>
       </div>
@@ -217,6 +210,7 @@ export default {
     width: 20%;
   }
   &__dropdown {
+    cursor: pointer;
     position: absolute;
     top: 100%;
     left: 0;
