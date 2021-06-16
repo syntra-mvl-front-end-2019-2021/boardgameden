@@ -16,12 +16,11 @@
       </div>
       <div class="month-game__details">
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac eros
-          luctus, faucibus ante eget, tristique tortor. Quisque gravida
-          scelerisque semper. Proin sit amet enim eget leo venenatis mattis id
-          non dolor.
+          Brass: Birmingham is an economic strategy game sequel to Martin
+          Wallace's 2007 masterpiece, Brass. Birmingham tells the story of
+          competing entrepreneurs in Birmingham during the industrial
+          revolution, between the years of 1770-1870.
         </p>
-        <button class="button-link__orange">Get it!</button>
       </div>
     </div>
   </div>
@@ -53,6 +52,14 @@ export default {
     justify-content: space-between;
     position: relative;
     flex-wrap: wrap;
+
+    @media screen and (max-width: 1100px) {
+      flex-direction: column;
+    }
+
+    @media screen and (max-width: 800px) {
+      width: 50%;
+    }
 
     .round-input-decorator {
       position: absolute;
@@ -96,6 +103,17 @@ export default {
       margin: auto;
 
       max-width: 75ch;
+
+      @media screen and (max-width: 1100px) {
+        width: 100%;
+      }
+    }
+
+    &__img {
+      @media screen and (max-width: 1100px) {
+        width: 200px;
+        object-fit: cover;
+      }
     }
   }
 }

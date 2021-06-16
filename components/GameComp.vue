@@ -93,13 +93,6 @@ export default {
     margin-bottom: 1rem;
   }
 
-  @media screen and (max-width: $medium) {
-    .game-img {
-      max-width: 300px;
-      max-height: 300px;
-    }
-  }
-
   .game-title {
     color: #549797;
   }
