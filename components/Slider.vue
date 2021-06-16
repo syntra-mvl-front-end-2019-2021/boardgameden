@@ -6,7 +6,7 @@
     ></button>
     <div ref="slider" class="c-slider__slides-container" @scroll="sliderScroll">
       <div
-        v-for="game in games"
+        v-for="game in games.slice(0, 10)"
         :key="1 + game.bg_atlas_id"
         class="c-slider__slide-item"
       >
