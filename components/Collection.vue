@@ -6,19 +6,17 @@
     </div>
     <h1>My Dens</h1>
     <div class="collection_container">
+      <div class="event-btn center-btn">
+        <NuxtLink class="button-link__orange" to="/event"
+          >register event</NuxtLink
+        >
+      </div>
       <DenCollectionItem
         v-for="den in dens"
         :key="'dens_' + den.id"
         :den="den"
         class="denCollection"
       />
-    </div>
-    <div class="event-btn center-btn">
-      <p>
-        <NuxtLink class="button-link__orange" to="/event"
-          >register event</NuxtLink
-        >
-      </p>
     </div>
   </div>
 </template>
@@ -46,19 +44,28 @@ export default {
 .center-btn {
   width: 80%;
   text-align: center;
+  margin: auto;
 }
 .collection {
   h1 {
     color: $blue;
+    margin: 2em 0 1em;
   }
   &_container {
-    display: flex;
-    justify-content: space-evenly;
+    @include flexCenter();
+    margin: auto;
     flex-shrink: 1;
-    flex-direction: row;
-    align-content: center;
     flex-wrap: wrap;
     width: 90%;
+  }
+}
+.collection {
+  text-align: center;
+  h1 {
+    color: $blue;
+  }
+  &_container {
+    flex-wrap: wrap;
   }
 }
 </style>

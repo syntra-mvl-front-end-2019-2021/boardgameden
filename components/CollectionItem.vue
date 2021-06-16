@@ -47,7 +47,7 @@
           class="remove_btn"
           @click="removeGameForSwap()"
         >
-          Remove Swappable
+          Remove Swap
         </button>
         <button
           v-if="game.is_for_sale"
