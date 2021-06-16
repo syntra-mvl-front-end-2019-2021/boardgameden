@@ -107,7 +107,7 @@ export default {
   position: relative;
   max-width: 700px;
   height: 50px;
-  margin: auto;
+  margin: 5rem auto;
   background: #ea5c30;
   border-radius: 15px;
   padding: 1rem 1rem;

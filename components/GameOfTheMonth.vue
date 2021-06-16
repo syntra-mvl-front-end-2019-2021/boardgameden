@@ -40,22 +40,20 @@ export default {
 @import '~/assets/styles/imports/mixins';
 
 .s-month-game {
-  @include flexCenter();
-  flex-direction: column;
-  padding-top: 5rem;
-  min-height: 700px;
   justify-content: space-around;
+  margin: 10rem 0 15rem 0;
   h2 {
-    margin-bottom: 2em;
+    margin-bottom: 4rem;
   }
   .month-game {
     width: 60%;
-    margin: auto;
-    padding: 4rem;
+    margin: 0 auto;
+    padding: 2rem;
     @include flexCenter();
     justify-content: space-between;
     position: relative;
     flex-wrap: wrap;
+
     .round-input-decorator {
       position: absolute;
       top: -1rem;
