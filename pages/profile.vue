@@ -67,35 +67,51 @@ export default {
   margin: 100px 0 30px 100px;
 }
 .form__search__collection {
-  display: flex;
-  align-items: center;
+  @include flexCenter();
 }
 
 .profile {
   margin: auto;
-  &_avatar {
-    position: absolute;
-    display: block;
-    img {
-      border-radius: 10px;
-    }
+  @include flexCenter();
+  justify-content: space-evenly;
+  align-items: unset;
+  flex-direction: column;
+  &_edit-button {
+    width: 100%;
+    height: 60px;
+    @include flexCenter();
+    margin: auto;
   }
   &_content {
+    @include flexCenter();
+    justify-content: space-evenly;
     width: 80%;
-    position: relative;
-    left: 400px;
-    h2 {
-      margin: 0;
-    }
+    margin: auto;
+    padding-top: 5em;
 
+    &-avatar {
+      img {
+        border-radius: 10px;
+      }
+    }
     &_user {
-      display: flex;
-      flex-direction: column;
+      padding: unset;
+      margin-bottom: auto;
+      flex: 1 1 300px;
+      max-width: 300px;
+      height: 200px;
+      li {
+        list-style: none;
+        margin-bottom: 2rem;
+        font-size: 1.5em;
+      }
     }
   }
-  .button-link__orange {
-    margin-top: 20px;
-    width: 20%;
-  }
+}
+.button-link__orange {
+  text-align: center;
+  margin-top: 20px;
+  width: 250px;
+  margin-right: auto;
 }
 </style>
