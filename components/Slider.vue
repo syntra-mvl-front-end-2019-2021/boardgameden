@@ -39,20 +39,6 @@ export default {
       currentSlide: 0,
     }
   },
-  computed: {
-    // activeSlide() {
-    //   return this.slides[this.currentSlide]
-    // },
-    // slidesPerPage() {
-    //   return Math.round(this.sliderWidth / this.slideWidth)
-    // },
-    // numberOfPages() {
-    //   return this.slides.length + 1 - this.slidesPerPage
-    // },
-    // sortedGames() {
-    //   return this.slides.sort()
-    // },
-  },
   watch: {
     games(newVal) {
       this.$nextTick(() => {

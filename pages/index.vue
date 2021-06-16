@@ -6,7 +6,7 @@
       <div class="players_text">
         <h2>
           Go meet other boardgame enthusiasts and play elsewhere than
-          <span>{{ location }}</span>
+          <span>{{ location }}.</span>
         </h2>
       </div>
       <NuxtLink to="/gameDen" class="players_join" @click="notify"
@@ -76,7 +76,7 @@ export default {
   @include flexCenter();
   flex-direction: column;
   width: 100%;
-  height: 450px;
+  // height: 450px;
   background-color: rgba($bluegreen, 0.8);
   margin: 5rem 0;
   padding: 3rem 0;
@@ -124,6 +124,14 @@ export default {
   h2 {
     transform: skewY(7deg);
     color: $bluegreen;
+  }
+}
+
+@media screen and (max-width: $medium) {
+  .players_text {
+    h2 {
+      font-size: 36px;
+    }
   }
 }
 </style>

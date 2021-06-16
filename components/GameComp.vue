@@ -82,8 +82,8 @@ export default {
 
   &:hover {
     transform: translateY(-10px);
-    outline: 0.5rem solid $orange;
-    border: none;
+    // outline: 0.5rem solid $orange;
+    // border: none;
   }
   .game-img {
     height: 100%;
