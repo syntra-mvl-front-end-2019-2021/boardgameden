@@ -1,9 +1,12 @@
 <template>
   <section class="container_gameden">
+    <h2>EVENT</h2>
+
     <div class="event_page__form">
-      <h2>EVENT</h2>
-      <div v-for="game in results" :key="game.id" class="avent">
-        <div>
+      <div v-for="game in results" :key="game.id" class="event">
+        <p>Organizer: {{ game.user.first_name }}</p>
+
+        <div class="event__form">
           <!--
           <span
             v-for="attendee in game.attendees"
@@ -12,6 +15,7 @@
             {{ attendee.users_id }},
           </span>
           -->
+          <h3>{{ game.boardgame.bg_name }}</h3>
 
           <button type="button" @click="attend(game)">Attend</button>
 
@@ -38,16 +42,15 @@
             <FormulateInput name="submit" type="submit" />
           </FormulateForm>
         </div>
-        <p>boardgame: {{ game.boardgame.bg_name }}</p>
 
         <p>Location: {{ game.location }}</p>
 
-        <p>organizer: {{ game.user.first_name }}</p>
+        <!-- <p>organizer: {{ game.user.first_name }}</p> -->
       </div>
 
-      <NuxtLink class="button-link__orange" to="/event"
+      <!-- <NuxtLink class="button-link__orange" to="/event"
         >register event</NuxtLink
-      >
+      > -->
     </div>
   </section>
 </template>
@@ -139,39 +142,39 @@ export default {
 </script>
 <style lang="scss">
 .container_gameden {
-  max-width: 100%;
-  height: 100%;
-  margin: auto;
-  background: linear-gradient(rgba(129, 203, 235, 0.767), #ffffff 100%);
-  .button-link__orange {
-    float: right;
-  }
-  &__form {
+  // max-width: 100%;
+  // height: 100%;
+  // margin: auto;
+  // background: linear-gradient(rgba(129, 203, 235, 0.767), #ffffff 100%);
+  .event_page__form {
     @include flexCenter();
-    flex-direction: column;
-    height: 100%;
-    text-align: center;
-    flex: 1;
+    justify-content: space-around;
+    text-align: left;
+    flex-wrap: wrap;
     width: 100%;
     max-width: 1200px;
-    h2 {
-      display: inline;
-    }
-    p {
-      box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-      -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-      -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+    margin: auto;
+    height: 100%;
+    h3 {
+      font-size: 1.5rem;
     }
   }
-  .avent {
-    padding: 2em;
-    margin: 2em 0;
-    justify-content: center;
-    align-content: center;
-    border-radius: 10px;
-    box-shadow: 1px 2px 2px 0 rgba(171, 171, 171, 0.87);
-    // -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-    // -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+  .event {
+    width: 25%;
+    margin: 2em;
+    p {
+      font-size: 0.9em;
+      font-weight: bold;
+      font-style: italic;
+    }
+    :nth-chilf(5) {
+      text-align: center;
+    }
+    &__form {
+      border: 1px solid $orange;
+      padding: 2em;
+      text-align: center;
+    }
   }
 }
 </style>
