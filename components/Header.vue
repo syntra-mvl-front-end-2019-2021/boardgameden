@@ -39,7 +39,7 @@
         <NuxtLink to="/contact">Contact</NuxtLink>
       </nav>
       <div class="inner_header--login-items">
-        <img v-if="avatar" :src="avatar" alt="avatar" class="avatar" />
+        <!-- <img v-if="avatar" :src="avatar" alt="avatar" class="avatar" /> -->
         <a v-if="isLoggedIn" @click="profile">{{ $auth.user.user_name }}</a>
         <a v-if="isLoggedIn" @click="logout">Logout</a>
         <a v-else @click="redirect">Login</a>

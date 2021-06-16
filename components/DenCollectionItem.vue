@@ -3,7 +3,7 @@
     <span class="item_title">Boardgame: {{ den.boardgame.bg_name }}</span>
     <span>Location: {{ den.location }}</span>
     <span>Date: {{ den.date }}</span>
-    <span>Attendees: {{ den.attendees }}</span>
+    <span>Attendees: {{ den.attendees.users_id }}</span>
     <NuxtLink
       :to="'/items/boardgame_dens/' + den.id"
       class="button-link__orange c-den-btn"
