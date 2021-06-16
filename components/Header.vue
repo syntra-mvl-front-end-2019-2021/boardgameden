@@ -46,10 +46,11 @@
         </ul>
       </nav>
       <div class="inner_header--login-items">
+        <!-- <img v-if="avatar" :src="avatar" alt="avatar" class="avatar" /> -->
         <a v-if="isLoggedIn" @click="profile">{{ $auth.user.user_name }}</a>
         <a v-if="isLoggedIn" @click="logout">Logout</a>
         <a v-else @click="redirect">Login</a>
-        <NuxtLink to="/register">Register</NuxtLink>
+        <NuxtLink v-if="!isLoggedIn" to="/register">Register</NuxtLink>
       </div>
     </div>
   </header>
@@ -73,6 +74,21 @@ export default {
     }
   },
   computed: {
+    user() {
+      return this.$auth.user
+    },
+    avatar() {
+      if (!this.user.avatar) {
+        return false
+      }
+
+      return (
+        this.$config.baseURL +
+        '/assets/' +
+        this.user.avatar.id +
+        '?width=40&height=40&fit=cover'
+      )
+    },
     isLoggedIn() {
       return this.$auth.loggedIn
     },
@@ -106,6 +122,9 @@ export default {
 </script>
 
 <style lang="scss">
+.avatar {
+  border-radius: 50%;
+}
 header.navigation-background__colored {
   background-color: rgba(255, 255, 255, 1);
   transition: all 0.3s ease-in-out;
@@ -273,7 +292,7 @@ header {
         &:hover {
           color: $orange;
         }
-        &:first-child {
+        &:nth-child(2) {
           border-right: 1px solid $black;
         }
       }

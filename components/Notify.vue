@@ -5,12 +5,12 @@
       :key="index"
       class="notification"
     >
-      <button
+      <!-- <button
         class="notification__close-btn"
         @click="removeNotification(index)"
       >
         close
-      </button>
+      </button> -->
       <p class="notification__text">{{ notification }}</p>
     </div>
   </div>
@@ -62,48 +62,50 @@ export default {
     flex-direction: column-reverse;
   }
 
-  background-color: lightgray;
+  background-color: $orange;
   padding: 1rem;
   position: relative;
   margin-bottom: 1rem;
+  border-radius: 5px;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
     0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 100px 80px rgba(0, 0, 0, 0.12);
-
-  &__close-btn {
-    display: block;
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: darkslategray;
-    color: transparent;
-    border-radius: 50%;
-    border: none;
-    outline: none;
-
-    &:before,
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 2px;
-      height: 12px;
-      background-color: #fff;
-      margin-top: -6px;
-      margin-left: -1px;
-    }
-
-    &:before {
-      transform: rotate(45deg);
-    }
-    &:after {
-      transform: rotate(-45deg);
-    }
+  &__text {
+    color: white;
   }
+  // &__close-btn {
+  //   display: block;
+  //   position: absolute;
+  //   right: 1rem;
+  //   top: 1rem;
+  //   width: 1.5rem;
+  //   height: 1.5rem;
+  //   background-color: darkslategray;
+  //   color: transparent;
+  //   border-radius: 50%;
+  //   border: none;
+  //   outline: none;
+
+  // &:before,
+  // &:after {
+  //   content: '';
+  //   display: block;
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   width: 2px;
+  //   height: 12px;
+  //   background-color: #fff;
+  //   margin-top: -6px;
+  //   margin-left: -1px;
+  // }
+
+  // &:before {
+  //   transform: rotate(45deg);
+  // }
+  // &:after {
+  //   transform: rotate(-45deg);
+  // }
 }
 </style>
