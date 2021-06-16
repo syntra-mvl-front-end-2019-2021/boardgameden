@@ -44,13 +44,14 @@ export default {
 
 <style lang="scss">
 .collection {
+  text-align: center;
   h1 {
     color: $blue;
+    margin: 2em 0 1em;
   }
   &_container {
-    display: flex;
-    flex-direction: row;
-    flex-shrink: 1;
+    @include flexCenter();
+    flex-wrap: wrap;
   }
 }
 </style>

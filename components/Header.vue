@@ -32,11 +32,18 @@
     </div>
     <div class="inner_header container">
       <nav class="inner_header--nav-items">
-        <NuxtLink to="/">Home</NuxtLink>
-        <NuxtLink to="/shop">Shop</NuxtLink>
-        <NuxtLink to="/gameDen">PLAY!</NuxtLink>
-        <NuxtLink to="/faq">FAQ</NuxtLink>
-        <NuxtLink to="/contact">Contact</NuxtLink>
+        <NuxtLink to="/" class="inner_header--nav-items-logo">
+          <img src="~/assets/images/logoStripped.png" />
+        </NuxtLink>
+        <ul>
+          <li v-for="navLink in navLinks" :key="navLink.path">
+            <NuxtLink
+              :class="{ active: $route.path === navLink.path }"
+              :to="navLink.path"
+              >{{ navLink.label }}
+            </NuxtLink>
+          </li>
+        </ul>
       </nav>
       <div class="inner_header--login-items">
         <a v-if="isLoggedIn" @click="profile">{{ $auth.user.user_name }}</a>
@@ -56,6 +63,13 @@ export default {
     return {
       scrollIndex: null,
       dropDownOpen: false,
+      navLinks: [
+        { label: 'Home', path: '/' },
+        { label: 'Shop', path: '/shop' },
+        { label: 'PLAY!', path: '/gameDen' },
+        { label: 'FAQ', path: '/faq' },
+        { label: 'Contact', path: '/contact' },
+      ],
     }
   },
   computed: {
@@ -203,33 +217,52 @@ header {
       justify-content: space-evenly;
       width: 450px;
       height: 70px;
-
-      a {
-        color: $orange;
-        text-decoration: none;
-        position: relative;
-        line-height: 50px;
+      &-logo {
+        height: 50px;
+        img {
+          height: 100%;
+        }
       }
-
-      a::after {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 2px;
-        background-color: $orange;
-        content: '';
-        opacity: 0;
-        -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
-        -moz-transition: opacity 0.3s, -moz-transform 0.3s;
-        transition: opacity 0.3s, transform 0.3s;
-        -webkit-transform: translateY(10px);
-        -moz-transform: translateY(10px);
-        transform: translateY(10px);
-      }
-
-      a:hover::after {
-        opacity: 1;
+      ul {
+        display: flex;
+        height: 100%;
+        li {
+          list-style-type: none;
+          line-height: 70px;
+          flex: 1;
+          padding: 0 1em;
+          position: relative;
+          a {
+            color: $orange;
+            text-decoration: none;
+            position: relative;
+            line-height: 70px;
+            display: block;
+          }
+          a::after,
+          a.active::after {
+            position: absolute;
+            left: 0;
+            bottom: 10px;
+            height: 2px;
+            width: 100%;
+            background-color: $orange;
+            content: '';
+            opacity: 0;
+            -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+            -moz-transition: opacity 0.3s, -moz-transform 0.3s;
+            transition: opacity 0.3s, transform 0.3s;
+            -webkit-transform: translateY(10px);
+            -moz-transform: translateY(10px);
+            transform: translateY(10px);
+          }
+          a.active::after {
+            opacity: 1;
+          }
+          a:hover::after {
+            opacity: 1;
+          }
+        }
       }
     }
     &--login-items {
