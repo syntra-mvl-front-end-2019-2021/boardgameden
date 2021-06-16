@@ -1,59 +1,55 @@
 <template>
   <section class="container_gameden">
+    <h2>EVENT</h2>
+
     <div class="event_page__form">
-      <h2>EVENT</h2>
-      <div v-for="game in results" :key="game.id" class="avent">
-        <div>
+      <div v-for="game in results" :key="game.id" class="event">
+        <p>Organizer: {{ game.user.first_name }}</p>
+
+        <div class="event__form">
           <!--
           <span
             v-for="attendee in game.attendees"
             :key="'at_' + attendee.users_id"
           >
-            {{ attendee.users_id }},
+            {{ attendee.users_id.last_name }},
           </span>
           -->
-
+          <h3>{{ game.boardgame.bg_name }}</h3>
           <button type="button" @click="attend(game)">Attend</button>
-
-          <FormulateForm :form-errors="formErrors" @submit="submit">
-            <FormulateInput
-              type="group"
-              name="attendees"
-              :repeatable="true"
-              label=""
-              add-label="+ Add Attendee"
-              :value="game.attendees"
-            >
-              <FormulateInput
-                :options="usersOptions"
-                type="select"
-                placeholder="Select an attendees"
-                name="users_id"
-                label="attendee"
-                value="users_id"
-              />
-            </FormulateInput>
-            <FormulateInput :value="game.id" type="hidden" name="gameId" />
+          <FormulateForm>
             <FormulateErrors />
-            <FormulateInput name="submit" type="submit" />
           </FormulateForm>
         </div>
-        <p>boardgame: {{ game.boardgame.bg_name }}</p>
 
+        <p>date: {{ game.date | transformdate }}</p>
         <p>Location: {{ game.location }}</p>
 
-        <p>organizer: {{ game.user.first_name }}</p>
+        <!-- <p>organizer: {{ game.user.first_name }}</p> -->
       </div>
 
-      <NuxtLink class="button-link__orange" to="/event"
+      <!-- <NuxtLink class="button-link__orange" to="/event"
         >register event</NuxtLink
-      >
+      > -->
     </div>
   </section>
 </template>
 <script>
 export default {
   name: 'Gameden',
+  filters: {
+    transformdate(value) {
+      const myDate = new Date(value)
+
+      return (
+        myDate.getDate().toString().padStart(2, 0) +
+        '-' +
+        (myDate.getMonth() + 1).toString().padStart(2, 0) +
+        '-' +
+        myDate.getFullYear()
+      )
+    },
+  },
   middleware: 'auth',
   data() {
     return {
@@ -63,7 +59,6 @@ export default {
       formData: [
         {
           attendees: '',
-          gameId: '',
         },
       ],
     }
@@ -86,7 +81,7 @@ export default {
     this.$store.dispatch('users/getUsers')
     this.$axios
       .get(
-        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id,boargame_dens.id`,
+        `/items/boardgame_dens?fields[]=id,user.first_name,location,boardgame.bg_name,attendees.users_id.last_name,boargame_dens.id,date`,
         {
           headers: { Authorization: '' },
         }
@@ -100,10 +95,13 @@ export default {
     attend(game) {
       return this.$axios('/items/boardgame_dens/' + game.id, {
         method: 'PATCH',
-        data: { attendees: { create: [{ users_id: this.$auth.user.id }] } },
+        data: {
+          attendees: { create: [{ users_id: this.$auth.user.id }] },
+        },
       })
         .then(() => {
           //  TODO: do something
+          this.$router.push('/Gameden')
         })
         .catch((error) => {
           console.log(error.response)
@@ -117,7 +115,7 @@ export default {
     },
     submit(data) {
       data.user = this.currentUser.id
-      return this.$axios('/items/boardgame_dens/' + data.gameId, {
+      return this.$axios('/items/boardgame_dens/' + game.id, {
         method: 'PATCH',
         data,
       })
@@ -139,39 +137,39 @@ export default {
 </script>
 <style lang="scss">
 .container_gameden {
-  max-width: 100%;
-  height: 100%;
-  margin: auto;
-  background: linear-gradient(rgba(129, 203, 235, 0.767), #ffffff 100%);
-  .button-link__orange {
-    float: right;
-  }
-  &__form {
+  // max-width: 100%;
+  // height: 100%;
+  // margin: auto;
+  // background: linear-gradient(rgba(129, 203, 235, 0.767), #ffffff 100%);
+  .event_page__form {
     @include flexCenter();
-    flex-direction: column;
-    height: 100%;
-    text-align: center;
-    flex: 1;
+    justify-content: space-around;
+    text-align: left;
+    flex-wrap: wrap;
     width: 100%;
     max-width: 1200px;
-    h2 {
-      display: inline;
-    }
-    p {
-      box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-      -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-      -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+    margin: auto;
+    height: 100%;
+    h3 {
+      font-size: 1.5rem;
     }
   }
-  .avent {
-    padding: 2em;
-    margin: 2em 0;
-    justify-content: center;
-    align-content: center;
-    border-radius: 10px;
-    box-shadow: 1px 2px 2px 0 rgba(171, 171, 171, 0.87);
-    // -webkit-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
-    // -moz-box-shadow: 1px -7px 22px 0px rgba(171, 171, 171, 0.87);
+  .event {
+    width: 25%;
+    margin: 2em;
+    p {
+      font-size: 0.9em;
+      font-weight: bold;
+      font-style: italic;
+    }
+    :nth-chilf(5) {
+      text-align: center;
+    }
+    &__form {
+      border: 1px solid $orange;
+      padding: 2em;
+      text-align: center;
+    }
   }
 }
 </style>

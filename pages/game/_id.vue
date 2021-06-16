@@ -40,7 +40,7 @@
       <UserBuys v-if="$auth.loggedIn" />
       <div v-else class="game-login__form">
         <NuxtLink to="/login" class="game-login__form--message"
-          >log in to see who's selling</NuxtLink
+          ><span>Log in</span> to see who's selling</NuxtLink
         >
       </div>
     </div>
@@ -153,6 +153,7 @@ export default {
 <style lang="scss">
 .game-page {
   text-align: center;
+  padding-bottom: unset;
   h2 {
     margin-bottom: 3rem;
     animation: moveIn 5s;
@@ -188,9 +189,11 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    text-align: left;
 
     p {
       line-height: 2.5rem;
+      text-align: left;
     }
   }
 }
@@ -239,5 +242,16 @@ export default {
 .button-link__orange:hover {
   background-color: $orange;
   color: white;
+}
+.game-login__form {
+  @include flexCenter;
+  height: 200px;
+  &--message {
+    font-size: 38px;
+    color: $bluegreen;
+    span {
+      color: $orange;
+    }
+  }
 }
 </style>

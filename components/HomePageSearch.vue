@@ -152,10 +152,6 @@ export default {
   &__search {
     width: 100%;
   }
-  &__city,
-  &__radius {
-    width: 20%;
-  }
   &__dropdown {
     position: absolute;
     top: 100%;
@@ -201,18 +197,19 @@ export default {
       display: flex;
       justify-content: first baseline;
       align-items: center;
-      width: 100%;
+      width: 100px;
+      height: 100px;
       // padding: 0.5rem 1rem;
       text-align: left;
       border: none;
-      border-bottom: 1px solid $orange;
+      // border-bottom: 1px solid $orange;
       font-size: 1rem;
       border-bottom-left-radius: 15px;
       border-bottom-right-radius: 15px;
       img {
         margin-right: 10rem;
-        // width: 100px;
-        // height: 100px;
+        width: 100%;
+
         border-bottom-left-radius: 15px;
       }
     }
