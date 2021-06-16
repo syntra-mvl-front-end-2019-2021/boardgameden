@@ -90,7 +90,7 @@ export default {
   props: {
     title: { type: String, required: true },
     user: { type: String, required: true },
-    gbId: { type: String, required: true },
+    gbId: { type: Number, required: true },
     thumburl: { type: String, required: true },
     buyOrSwap: { type: String, required: true },
     forSaleOrSwap: { type: String, required: true },
