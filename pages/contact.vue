@@ -108,10 +108,12 @@ export default {
     position: absolute;
     top: 200px;
     flex-direction: column;
-    height: 100%;
     text-align: center;
     width: 700px;
     flex: 1;
+    @media screen and (max-width: $large) {
+      top: 100px;
+    }
     &-inputs {
       width: 800px;
       margin: auto;
