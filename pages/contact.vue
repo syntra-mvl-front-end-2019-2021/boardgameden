@@ -1,56 +1,27 @@
 <template>
   <section class="c-contactPage">
-    <!-- <Logo /> -->
-    <div class="c-contactPage__form">
-      <h1>Contact</h1>
+    <Logo class="c-contactPage__logo" />
+    <div v-if="$auth.loggedIn" class="c-contactPage__form container">
+      <h2>Hey {{ $auth.user.user_name }}, let us know!</h2>
       <form @submit.prevent="createQuestion" @submit="resetForm">
-        <div class="round-input-names">
-          <div class="round-input">
-            <div class="round-input-container">
-              <div class="round-input-decorator">
-                <div class="round-input-border-left"></div>
-                <label class="round-input-label-text"> First Name </label>
-                <div class="round-input-border-right"></div>
-              </div>
-              <input v-model="firstname" type="text" />
-            </div>
+        <div class="c-contactPage__form-inputs">
+          <div class="column-1">
+            <input v-model="firstname" type="text" placeholder="First Name" />
+            <input v-model="lastname" type="text" placeholder="Last name" />
           </div>
-          <div class="round-input">
-            <div class="round-input-container">
-              <div class="round-input-decorator">
-                <div class="round-input-border-left"></div>
-                <label class="round-input-label-text"> Last Name </label>
-                <div class="round-input-border-right"></div>
-              </div>
-              <input v-model="lastname" type="text" />
-            </div>
+          <div class="column-2">
+            <input v-model="email" type="text" placeholder="E-mail" />
+            <textarea v-model="question" placeholder="Your question"></textarea>
+            <button type="submit" class="button-link__orange">Ask</button>
           </div>
-        </div>
-        <div class="round-input">
-          <div class="round-input-container">
-            <div class="round-input-decorator">
-              <div class="round-input-border-left"></div>
-              <label class="round-input-label-text"> email </label>
-              <div class="round-input-border-right"></div>
-            </div>
-            <input v-model="email" type="text" />
-          </div>
-        </div>
-        <div class="round-textarea">
-          <div class="round-input-container">
-            <div class="round-input-decorator">
-              <div class="round-input-border-left"></div>
-              <label class="round-input-label-text"> Your question </label>
-              <div class="round-input-border-right"></div>
-            </div>
-            <textarea v-model="question" placeholder=""></textarea>
-          </div>
-        </div>
-
-        <div>
-          <button type="submit">Submit</button>
         </div>
       </form>
+    </div>
+    <div v-if="!$auth.loggedIn" class="not-logged-in container">
+      <h2>Let us know!</h2>
+      <NuxtLink to="/login" class="button-link__black">
+        Please log in first
+      </NuxtLink>
     </div>
   </section>
 </template>
@@ -63,7 +34,7 @@ export default {
   data() {
     return {
       firstname: '',
-      lastename: '',
+      lastname: '',
       email: '',
       question: '',
     }
@@ -80,6 +51,13 @@ export default {
     isLoggedIn() {
       return this.$store.getters['faq/isLoggedIn']
     },
+  },
+  created() {
+    if (this.$auth.loggedIn) {
+      this.firstname = this.$auth.user.first_name
+      this.lastname = this.$auth.user.last_name
+      this.email = this.$auth.user.email
+    }
   },
   methods: {
     createQuestion() {
@@ -107,171 +85,98 @@ export default {
 
 <style lang="scss">
 .c-contactPage {
+  .not-logged-in {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    .button-link__black {
+      margin: auto;
+    }
+  }
   @include flexCenter();
-  width: 100%;
+  max-width: 100%;
   height: 100vh;
   margin: auto;
   background: linear-gradient(rgba(129, 203, 235, 0.767), #ffffff 100%);
-
+  &__logo {
+    position: absolute;
+    opacity: 0.3;
+  }
   &__form {
-    @include flexCenter();
+    position: absolute;
+    top: 200px;
     flex-direction: column;
-    height: 100%;
     text-align: center;
+    width: 700px;
     flex: 1;
-    width: 100%;
-    max-width: 1200px;
-
-    h1 {
-      color: #ea5d30;
+    @media screen and (max-width: $large) {
+      top: 100px;
     }
-    form {
-      height: 75%;
-      margin-left: auto;
-      width: 75%;
-      @include flexCenter();
-      flex-direction: column;
-      justify-content: space-evenly;
-      .round-input-names {
-        @include flexCenter();
-        justify-content: space-between;
-        width: 100%;
-        .round-input {
-          width: 49%;
-        }
-      }
-      .round-input {
-        width: 100%;
-      }
-      .round-input-container {
-        @include flexCenter();
-        display: inline-block;
-        position: relative;
-        margin: 10px 0;
+    &-inputs {
+      width: 800px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      @media screen and (max-width: $large) {
         flex-direction: column;
         width: 100%;
-        color: rgba(129, 203, 235);
-        .round-input-decorator {
-          position: absolute;
-          top: 0;
-          left: 0;
+        margin: auto;
+      }
+      .column-1,
+      .column-2 {
+        width: 380px;
+        @media screen and (max-width: $large) {
           width: 100%;
-          height: 100%;
-          display: flex;
-          flex-flow: row nowrap;
-        }
-
-        .round-input-label-text {
-          font-size: 0.8em;
-          color: black;
-          padding: 0 4px;
-          transform: translate(0, -8px);
-          white-space: nowrap;
-        }
-
-        .round-input-border-left {
-          flex: 0 0 10px;
-          box-sizing: border-box;
-          height: 100%;
-          border-radius: 10px 0 0 10px;
-          border: 1px solid #ea5d30;
-          border-right: none;
-        }
-        .round-input-border-right {
-          flex: 1 0 50px;
-          border-radius: 0 10px 10px 0;
-          border: 1px solid #ea5d30;
-          border-left: none;
-        }
-
-        input {
-          width: 100%;
-          height: 50px;
-          position: relative;
-          font-size: 1em;
-          padding: 13px 20px 13px 15px;
-          min-width: 250px;
-          border: none;
-          background: none;
-          border-radius: 10px;
-          border-bottom: 1px solid #ea5d30;
-          outline: none;
-          &:focus {
-            box-shadow: 1px 1px 3px 0 #ea5f3094;
-          }
         }
       }
-    }
-    .round-textarea {
-      width: 100%;
-      .round-input-container {
-        @include flexCenter();
-        display: inline-block;
+      input,
+      textarea {
+        background-color: rgba($color: #000000, $alpha: 0);
+        color: $orange;
+        border: none;
+        outline: none;
         position: relative;
-        margin: 10px 0;
-        flex-direction: column;
+        display: block;
+        border-radius: 5px;
+        border-bottom: 1px solid $orange;
         width: 100%;
-        color: rgba(129, 203, 235);
-        .round-input-decorator {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          flex-flow: row nowrap;
-        }
-
-        .round-input-label-text {
-          font-size: 0.8em;
-          color: black;
-          padding: 0 4px;
-          transform: translate(0, -8px);
-          white-space: nowrap;
-        }
-
-        .round-input-border-left {
-          flex: 0 0 10px;
-          box-sizing: border-box;
-          height: 100%;
-          border-radius: 10px 0 0 10px;
-          border: 1px solid #ea5d30;
-          border-right: none;
-        }
-        .round-input-border-right {
-          flex: 1 0 50px;
-          border-radius: 0 10px 10px 0;
-          border: 1px solid #ea5d30;
-          border-left: none;
-        }
-        textarea {
-          width: 100%;
-          height: 100px;
-          position: relative;
-          font-size: 1em;
-          padding: 13px 20px 13px 15px;
-          min-width: 250px;
-          border: none;
-          background: none;
-          border-radius: 10px;
-          border-bottom: 1px solid #ea5d30;
-          outline: none;
-          display: flex;
-        }
+        margin: 2em 0;
+        padding: 1em;
+        font-weight: $normal;
+        font-size: 1.3rem;
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+      ::placeholder {
+        color: $black;
       }
     }
-
-    button {
-      background: rgba(129, 203, 235);
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 8px;
-      outline: none;
-      cursor: pointer;
-      &:focus {
-        box-shadow: 1px 1px 3px 0 rgba(129, 203, 235);
-      }
+  }
+  .bigBlueBackground {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    left: -5rem;
+    top: -25rem;
+    transform: rotate(135deg);
+    .blue {
+      fill: rgba(129, 203, 235);
+      width: 500px;
+      height: 500px;
+    }
+  }
+  .bigOrangeBackground {
+    position: absolute;
+    top: -20rem;
+    right: 15rem;
+    width: 500px;
+    height: 500px;
+    transform: rotate(-135deg);
+    .orange {
+      fill: #ea5b30be;
     }
   }
 }
 </style>
+
