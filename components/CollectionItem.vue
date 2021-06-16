@@ -219,6 +219,67 @@ export default {
 </script>
 
 <style lang="scss">
+// .removeSale_btn {
+//   color: white;
+//   border: none;
+//   background-color: $orange;
+//   cursor: pointer;
+// }
+// .label {
+//   border-color: $orange;
+//   border: 1px solid;
+//   border-radius: 5px;
+//   background: $orange;
+//   color: white;
+//   font-size: 1.5em;
+//   width: 100px;
+// }
+// .collectionItemBtn {
+//   margin: 20px;
+// }
+// .game-img {
+//   height: 150px;
+//   width: 150px;
+// }
+// .game-title {
+//   text-align: center;
+//   height: 4em;
+// }
+// .remove_btn {
+//   margin: -90px 150px;
+//   padding-bottom: 40px;
+//   // width: 20px;
+//   // height: 30px;
+//   text-align: center;
+//   border: none;
+//   background: none;
+//   cursor: pointer;
+//   color: $orange;
+//   font-size: 3em;
+// }
+// .collection-item {
+//   height: 450px;
+//   width: 200px;
+//   border: solid $orange 1px;
+//   border-radius: 10px;
+//   padding: 1em;
+//   margin: 1em;
+
+//   &_card {
+//     display: flex;
+//     flex-direction: column;
+//     align-content: center;
+//     // padding: 1em;
+//   }
+
+//   &_btn {
+//     // margin-bottom: 10px;
+//     padding: 5px;
+//     font-size: 0.5em;
+//     text-align: center;
+//   }
+// }
+
 .removeSale_btn {
   color: white;
   border: none;
