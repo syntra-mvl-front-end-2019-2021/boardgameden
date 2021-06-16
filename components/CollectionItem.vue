@@ -2,25 +2,30 @@
   <div>
     <!-- <h3 class="game-title">{{ game.bg_name }}</h3> -->
     <div class="collection-item">
-      <div class="collection-item_btn">
-        <button
-          v-if="!game.is_swappable"
-          type="button"
-          class="swap_btn"
-          @click="addGameForSwap()"
-        >
-          Swap
-        </button>
-        <button
-          v-if="!game.is_for_sale"
-          type="button"
-          class="sell_btn"
-          @click="addGameForSale()"
-        >
-          Sell
+      <div class="remove_btns">
+        <button type="button" class="remove_btn" @click="removeFromCollection">
+          X
         </button>
       </div>
       <h4 class="game-title">{{ game.boardgames_id.bg_name }}</h4>
+      <div class="sale_swap_btns">
+        <button
+          v-if="game.is_swappable"
+          type="button"
+          class="sale_swap_btn"
+          @click="removeGameForSwap()"
+        >
+          Swappable X
+        </button>
+        <button
+          v-if="game.is_for_sale"
+          type="button"
+          class="sale_swap_btn"
+          @click="removeGameForSale()"
+        >
+          For Sale X
+        </button>
+      </div>
       <div class="collection-item_card">
         <div class="game-image">
           <img
@@ -37,25 +42,22 @@
           More Info
         </NuxtLink>
       </div>
-      <div class="remove_btns">
-        <button type="button" class="remove_btn" @click="removeFromCollection">
-          Remove
+      <div class="collection-item_btn">
+        <button
+          v-if="!game.is_swappable"
+          type="button"
+          class="swap_btn"
+          @click="addGameForSwap()"
+        >
+          Swap
         </button>
         <button
-          v-if="game.is_swappable"
+          v-if="!game.is_for_sale"
           type="button"
-          class="remove_btn"
-          @click="removeGameForSwap()"
+          class="sell_btn"
+          @click="addGameForSale()"
         >
-          Remove Swap
-        </button>
-        <button
-          v-if="game.is_for_sale"
-          type="button"
-          class="remove_btn"
-          @click="removeGameForSale()"
-        >
-          Remove Sale
+          Sell
         </button>
       </div>
     </div>
@@ -221,37 +223,22 @@ export default {
 
 <style lang="scss">
 .remove_btns {
-  width: 100%;
   @include flexCenter();
-  border-top: 1px solid $orange;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  background-color: $orange;
-
+  // background-color: $orange;
   .remove_btn {
     cursor: pointer;
-
-    width: 100%;
-    height: 100%;
-    border-radius: unset;
-    color: white;
-    background-color: $orange;
     border: none;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding: 1em 1.5em;
-    transition: $transition-normal;
-    font-size: 0.7em;
-    // font-weight: bold;
-    // font-style: italic;
-    &:hover {
-      background-color: white;
-      color: $orange;
-    }
+    color: $orange;
+    background: white;
+    font-weight: bold;
+    font-size: 2em;
+    position: absolute;
+    right: -1rem;
   }
 }
 
 .collection-item {
+  position: relative;
   flex: 1 1 600px;
   width: 300px;
   border: solid $orange 1px;
@@ -261,8 +248,20 @@ export default {
   @include flexCenter();
   justify-content: space-between;
   flex-direction: column;
+  .sale_swap_btns {
+    .sale_swap_btn {
+      font-size: 1.2em;
+      background: $bluegreen;
+      border: none;
+      color: white;
+      padding: 0.4em 0.5em;
+      border-radius: 10px;
+    }
+  }
+
   h4 {
     font-size: 1.2em;
+    margin: 2em 0;
   }
   &_btn {
     @include flexCenter();
@@ -270,8 +269,8 @@ export default {
 
     width: 100%;
     background-color: $orange;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     .sell_btn,
     .swap_btn {
       width: 100%;
@@ -283,8 +282,8 @@ export default {
       background-color: $orange;
       border: none;
       // border-bottom: 1px solid $orange;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
       transition: $transition-normal;
       font-size: 1.2em;
       &:hover {
@@ -298,10 +297,12 @@ export default {
     justify-content: space-evenly;
     flex-direction: column;
     height: 75%;
-
+    .button-link__orange {
+      position: absolute;
+      bottom: 7%;
+    }
     .game-image {
       @include flexCenter();
-
       width: 200px;
       max-height: 300px;
       height: 300px;
@@ -310,6 +311,7 @@ export default {
         width: 100%;
         object-fit: fill;
         object-position: right bottom;
+        // position: absolute;
       }
     }
   }
