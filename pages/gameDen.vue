@@ -178,6 +178,7 @@ export default {
     }
   }
   .event {
+    flex: 1 1 200px;
     width: 25%;
     margin: 2em;
     align-self: flex-start;
