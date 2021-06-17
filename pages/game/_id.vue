@@ -13,9 +13,6 @@
             Playtime &#128337; {{ atlasGame.min_playtime }} -
             {{ atlasGame.max_playtime }} min
           </p>
-          <p>Rating:</p>
-          <p>Username 💻</p>
-          <p>Location &#127969;</p>
         </div>
         <div class="game-details">
           <h3>{{ atlasGame.name }}</h3>
@@ -161,10 +158,16 @@ export default {
   border: solid 3px $bluegreen;
   border-radius: 20px;
   position: relative;
+  @media screen and (max-width: $large) {
+    flex-direction: column;
+  }
 
   .game-image {
     width: 35%;
     text-align: left;
+    @media screen and (max-width: $large) {
+      width: 100%;
+    }
 
     p {
       line-height: 2.5rem;
@@ -182,6 +185,9 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     text-align: left;
+    @media screen and (max-width: $large) {
+      width: 100%;
+    }
 
     p {
       line-height: 2.5rem;
