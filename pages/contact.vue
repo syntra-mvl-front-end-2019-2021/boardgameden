@@ -179,7 +179,6 @@ export default {
       min-width: 200px;
     }
   }
-
   .round-input-decorator {
     min-width: 200px;
   }
