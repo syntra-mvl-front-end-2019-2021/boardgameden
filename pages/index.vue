@@ -4,12 +4,10 @@
     <HomePageSearch />
     <div v-if="isLoggedIn" class="players">
       <div class="players_text">
-
         <h2>
           Go meet other boardgame enthusiasts and play elsewhere than
           <span>{{ location }}.</span>
         </h2>
-
       </div>
       <NuxtLink to="/gameDen" class="players_join" @click="notify"
         >Join them here!</NuxtLink
